@@ -37,6 +37,19 @@ int main() {
       "4/CS202/Project/assets/textures/background/railway-1.png");
   sf::Sprite spriteRailway(textureRailway);
 
+  sf::Texture textureRoadPathAbove;
+  textureRoadPathAbove.loadFromFile(
+      "D:/The University of Science/Semester "
+      "4/CS202/Project/assets/textures/background/road-path-above.png");
+  sf::Sprite spriteRoadPathAbove(textureRoadPathAbove);
+
+  sf::Texture textureRoadPathBelow;
+  textureRoadPathBelow.loadFromFile(
+      "D:/The University of Science/Semester "
+      "4/CS202/Project/assets/textures/background/road-path-below.png");
+  sf::Sprite spriteRoadPathBelow(textureRoadPathBelow);
+
+
 
   while (window.isOpen()) {
     sf::Event event;
@@ -70,6 +83,13 @@ int main() {
 
       spriteRiver.setPosition(width, height);
       window.draw(spriteRiver);
+      height += 64;
+
+      spriteRoadPathAbove.setPosition(width, height);
+      window.draw(spriteRoadPathAbove);
+      height += 64;
+      spriteRoadPathBelow.setPosition(width, height);
+      window.draw(spriteRoadPathBelow);
       height += 64;
 
       countBlock++;
