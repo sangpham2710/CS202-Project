@@ -4,50 +4,61 @@
 #include "Application.h"
 
 int main() {
-  sf::RenderWindow window(sf::VideoMode({800, 600}), "SFML Project");
+  unsigned widthMax = 1024;
+  unsigned heightMax = 768;
+  sf::RenderWindow window(sf::VideoMode({widthMax, heightMax}), "SFML Project");
   sf::Event event;
 
    sf::Texture textureGrassPath1;
   textureGrassPath1.loadFromFile(
-      "D:/The University of Science/Semester "
-      "4/CS202/Project/assets/textures/background/grass-path-1.png");
+      "./assets/textures/background/grass-path-1.png");
   sf::Sprite spriteGrassPath1(textureGrassPath1);
 
   sf::Texture textureGrassPath2;
   textureGrassPath2.loadFromFile(
-      "D:/The University of Science/Semester "
-      "4/CS202/Project/assets/textures/background/grass-path-3.png");
+      "./assets/textures/background/grass-path-3.png");
   sf::Sprite spriteGrassPath2(textureGrassPath2);
 
   sf::Texture textureBush;
   textureBush.loadFromFile(
-      "D:/The University of Science/Semester "
-      "4/CS202/Project/assets/textures/background/bush-1.png");
+      "./assets/textures/background/bush-1.png");
   sf::Sprite spriteBush(textureBush);
 
   sf::Texture textureRiver;
   textureRiver.loadFromFile(
-      "D:/The University of Science/Semester "
-      "4/CS202/Project/assets/textures/background/river-1.png");
+      "./assets/textures/background/river-1.png");
   sf::Sprite spriteRiver(textureRiver);
 
   sf::Texture textureRailway;
   textureRailway.loadFromFile(
-      "D:/The University of Science/Semester "
-      "4/CS202/Project/assets/textures/background/railway-1.png");
+      "./assets/textures/background/railway-1.png");
   sf::Sprite spriteRailway(textureRailway);
 
   sf::Texture textureRoadPathAbove;
   textureRoadPathAbove.loadFromFile(
-      "D:/The University of Science/Semester "
-      "4/CS202/Project/assets/textures/background/road-path-above.png");
+      "./assets/textures/background/road-path-above.png");
   sf::Sprite spriteRoadPathAbove(textureRoadPathAbove);
 
   sf::Texture textureRoadPathBelow;
   textureRoadPathBelow.loadFromFile(
-      "D:/The University of Science/Semester "
-      "4/CS202/Project/assets/textures/background/road-path-below.png");
+      "./assets/textures/background/road-path-below.png");
   sf::Sprite spriteRoadPathBelow(textureRoadPathBelow);
+
+  sf::Texture texturePavement;
+  texturePavement.loadFromFile(
+      "./assets/textures/background/pavement-1.png");
+  sf::Sprite spritePavement(texturePavement);
+
+  sf::Texture textureFireHydrant;
+  textureFireHydrant.loadFromFile(
+      "./assets/textures/background/fire-hydrant-1.png");
+  sf::Sprite spriteFireHydrant(textureFireHydrant);
+
+  sf::Texture textureLilyPad;
+  textureLilyPad.loadFromFile(
+      "./assets/textures/background/lily-pad-1.png");
+  sf::Sprite spriteLilyPad(textureLilyPad);
+
 
 
 
@@ -58,8 +69,7 @@ int main() {
     }
 
     window.clear();
-    int widthMax = 800;
-    int heightMax = 600;
+    
     int width = 0;
     int height = 0;
     int countBlock = 0;
@@ -84,6 +94,9 @@ int main() {
       spriteRiver.setPosition(width, height);
       window.draw(spriteRiver);
       height += 64;
+      spriteLilyPad.setPosition(width, height);
+      window.draw(spriteLilyPad);
+      height += 64;
 
       spriteRoadPathAbove.setPosition(width, height);
       window.draw(spriteRoadPathAbove);
@@ -91,6 +104,16 @@ int main() {
       spriteRoadPathBelow.setPosition(width, height);
       window.draw(spriteRoadPathBelow);
       height += 64;
+
+      spritePavement.setPosition(width, height);
+      window.draw(spritePavement);
+      if (countBlock == 7) {
+        spriteFireHydrant.setPosition(width, height);
+        window.draw(spriteFireHydrant);
+        height += 64;
+      }
+      height += 64;
+      
 
       countBlock++;
       width += 64;
