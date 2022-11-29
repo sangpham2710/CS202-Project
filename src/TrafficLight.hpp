@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TRAFFICLIGHT_HPP
+#define TRAFFICLIGHT_HPP
 
 #include "SceneNode.h"
 
@@ -16,3 +17,5 @@ class TrafficLight : public SceneNode {
 		int state; // 0: red, 1: yellow, 2: green
 		sf::Time timeSwitching;
 };
+
+#endif // TRAFFICLIGHT_HPP

@@ -1,23 +1,22 @@
-#pragma once
+#ifndef VEHICLE_HPP
+#define VEHICLE_HPP
 
 #include "Obstacle.h"
 #include <SFML/Graphics/Sprite.hpp>
 
-class Animal : public Obstacle {
-	enum Type{
-		bird,
-		dinasour
+class Vehicle : public Obstacle {
+	enum Type {
+		truck,
+		train,
+		car
 	};
 
 	public:
-		Animal(Type type, const ResourceHolder& resouce, sf::Time time);
+		Vehicle(Type type, const ResourceHolder& resource);
 
 		unsigned int getType() const;
 		virtual sf::FloatRect getBoundingRect();
 		virtual bool isMarkedForRemoval() const;
-
-		void randomTimeChangingDirection();
-		void changingDirection();
 
 	private:
 		virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states);
@@ -26,5 +25,6 @@ class Animal : public Obstacle {
 	private:
 		Type mType;
 		sf::Sprite mSprite;
-		sf::Time timeBeforeChangingDirection; 
-};
+};	
+
+#endif // VEHICLE_HPP

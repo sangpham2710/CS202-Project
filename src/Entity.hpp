@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ENTITY_HPP
+#define ENTITY_HPP
 
 #include "SceneNode.h"
 
@@ -19,3 +20,5 @@ class Entity : public SceneNode {
 	private:
 		sf::Vector2f mVelocity;
 };
+
+#endif // ENTITY_HPP

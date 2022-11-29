@@ -1,4 +1,5 @@
-#pragma once
+#ifndef WATER_HPP
+#define WATER_HPP
 
 #include "Obstacle.h"
 #include <SFML/Graphics/Sprite.hpp>
@@ -16,3 +17,5 @@ class Water {
 	private:
 		sf::Sprite mSprite;
 };
+
+#endif // WATER_HPP

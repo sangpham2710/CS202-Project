@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LANE_HPP
+#define LANE_HPP
 
 #include "SceneNode.h"
 #include "TrafficLight.h"
@@ -15,3 +16,5 @@ class Lane : public SceneNode {
 		std::vector<Obstacle> obstacleList;	
 		TrafficLight trafficLight;
 };
+
+#endif // LANE_HPP

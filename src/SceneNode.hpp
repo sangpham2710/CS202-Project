@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SCENENODE_HPP
+#define SCENENODE_HPP
 
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Transformable.hpp>
@@ -45,3 +46,5 @@ class SceneNode : public sf::Transformable, public sf::Drawable, public sf::NonC
 
 bool collision(const SceneNode& lhs, const SceneNode& rhs);
 float distance(const SceneNode& lhs, const SceneNode& rhs);
+
+#endif // SCENENODE_HPP
