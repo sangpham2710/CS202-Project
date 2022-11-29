@@ -1,6 +1,6 @@
 #include <iostream>
 #include <stdexcept>
-
+#include <SFML/Graphics.hpp>
 #include "Application.h"
 
 int main() {
