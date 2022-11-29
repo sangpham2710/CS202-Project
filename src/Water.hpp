@@ -1,7 +1,7 @@
 #ifndef WATER_HPP
 #define WATER_HPP
 
-#include "Obstacle.h"
+#include "Obstacle.hpp"
 #include <SFML/Graphics/Sprite.hpp>
 
 class Water {

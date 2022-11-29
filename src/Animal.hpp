@@ -1,7 +1,7 @@
 #ifndef ANIMAL_HPP
 #define ANIMAL_HPP
 
-#include "Obstacle.h"
+#include "Obstacle.hpp"
 #include <SFML/Graphics/Sprite.hpp>
 
 class Animal : public Obstacle {
@@ -30,4 +30,4 @@ class Animal : public Obstacle {
 		sf::Time timeBeforeChangingDirection; 
 };
 
-#endif
+#endif // ANIMAL_HPP

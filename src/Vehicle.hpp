@@ -1,7 +1,7 @@
 #ifndef VEHICLE_HPP
 #define VEHICLE_HPP
 
-#include "Obstacle.h"
+#include "Obstacle.hpp"
 #include <SFML/Graphics/Sprite.hpp>
 
 class Vehicle : public Obstacle {

@@ -1,7 +1,7 @@
 #ifndef OBSTACLE_HPP
 #define OBSTACLE_HPP
 
-#include "Entity.h"
+#include "Entity.hpp"
 
 class Obstacle : public Entity {
 	public:

@@ -1,7 +1,7 @@
 #ifndef TRAFFICLIGHT_HPP
 #define TRAFFICLIGHT_HPP
 
-#include "SceneNode.h"
+#include "SceneNode.hpp"
 
 class TrafficLight : public SceneNode {
 	public:

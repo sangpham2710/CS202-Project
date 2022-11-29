@@ -1,9 +1,9 @@
 #ifndef LANE_HPP
 #define LANE_HPP
 
-#include "SceneNode.h"
-#include "TrafficLight.h"
-#include "Obstacle.h"
+#include "SceneNode.hpp"
+#include "TrafficLight.hpp"
+#include "Obstacle.hpp"
 
 class Lane : public SceneNode {
 	public:
