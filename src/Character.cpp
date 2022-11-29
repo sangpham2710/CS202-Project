@@ -1,11 +1,9 @@
 #include "Character.hpp"
 
-#include "Character.h"
-
 Character::Character(float x, float y)
 {
 	hitBox.setSize(sf::Vector2f(x, y));
-	texture.loadFromFile("Movement\\A1.png");
+	texture.loadFromFile("./assets/textures/Character Movement/A1.png");
 	hitBox.setTexture(&texture);
 	up = 0;
 	right = 0;
@@ -70,35 +68,35 @@ void Character::changeTexture(int type)
 	switch (type)
 	{
 	case 0://W
-		if (t == 0) { texture.loadFromFile("Movement\\W1.png"); return; }
-		if (t == 1) { texture.loadFromFile("Movement\\W2.png"); return; }
-		if (t == 2) { texture.loadFromFile("Movement\\W3.png"); return; }
-		if (t == 3) { texture.loadFromFile("Movement\\W4.png"); return; }
-		if (t == 4) { texture.loadFromFile("Movement\\W5.png"); return; }
+		if (t == 0) { texture.loadFromFile("./assets/textures/Character Movement/W1.png"); return; }
+		if (t == 1) { texture.loadFromFile("./assets/textures/Character Movement/W2.png"); return; }
+		if (t == 2) { texture.loadFromFile("./assets/textures/Character Movement/W3.png"); return; }
+		if (t == 3) { texture.loadFromFile("./assets/textures/Character Movement/W4.png"); return; }
+		if (t == 4) { texture.loadFromFile("./assets/textures/Character Movement/W5.png"); return; }
 		break;
 	case 1://S
-		if (t == 0) { texture.loadFromFile("Movement\\S1.png"); return; }
-		if (t == 1) { texture.loadFromFile("Movement\\S2.png"); return; }
-		if (t == 2) { texture.loadFromFile("Movement\\S3.png"); return; }
-		if (t == 3) { texture.loadFromFile("Movement\\S4.png"); return; }
-		if (t == 4) { texture.loadFromFile("Movement\\S5.png"); return; }
+		if (t == 0) { texture.loadFromFile("./assets/textures/Character Movement/S1.png"); return; }
+		if (t == 1) { texture.loadFromFile("./assets/textures/Character Movement/S2.png"); return; }
+		if (t == 2) { texture.loadFromFile("./assets/textures/Character Movement/S3.png"); return; }
+		if (t == 3) { texture.loadFromFile("./assets/textures/Character Movement/S4.png"); return; }
+		if (t == 4) { texture.loadFromFile("./assets/textures/Character Movement/S5.png"); return; }
 		break;
 	case 2://A
-		if (t == 0) { texture.loadFromFile("Movement\\A1.png"); return; }
-		if (t == 1) { texture.loadFromFile("Movement\\A2.png"); return; }
-		if (t == 2) { texture.loadFromFile("Movement\\A3.png"); return; }
-		if (t == 3) { texture.loadFromFile("Movement\\A4.png"); return; }
-		if (t == 4) { texture.loadFromFile("Movement\\A5.png"); return; }
+		if (t == 0) { texture.loadFromFile("./assets/textures/Character Movement/A1.png"); return; }
+		if (t == 1) { texture.loadFromFile("./assets/textures/Character Movement/A2.png"); return; }
+		if (t == 2) { texture.loadFromFile("./assets/textures/Character Movement/A3.png"); return; }
+		if (t == 3) { texture.loadFromFile("./assets/textures/Character Movement/A4.png"); return; }
+		if (t == 4) { texture.loadFromFile("./assets/textures/Character Movement/A5.png"); return; }
 		break;
 	case 3://D
-		if (t == 0) { texture.loadFromFile("Movement\\D1.png"); return; }
-		if (t == 1) { texture.loadFromFile("Movement\\D2.png"); return; }
-		if (t == 2) { texture.loadFromFile("Movement\\D3.png"); return; }
-		if (t == 3) { texture.loadFromFile("Movement\\D4.png"); return; }
-		if (t == 4) { texture.loadFromFile("Movement\\D5.png"); return; }
+		if (t == 0) { texture.loadFromFile("./assets/textures/Character Movement/D1.png"); return; }
+		if (t == 1) { texture.loadFromFile("./assets/textures/Character Movement/D2.png"); return; }
+		if (t == 2) { texture.loadFromFile("./assets/textures/Character Movement/D3.png"); return; }
+		if (t == 3) { texture.loadFromFile("./assets/textures/Character Movement/D4.png"); return; }
+		if (t == 4) { texture.loadFromFile("./assets/textures/Character Movement/D5.png"); return; }
 		break;
 	default:
-		texture.loadFromFile("Movement\\S1.png");
+		texture.loadFromFile("./assets/textures/Character Movement/S1.png");
 		break;
 	}
 }

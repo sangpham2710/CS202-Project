@@ -1,22 +1,25 @@
-#include <SFML/Graphics.hpp>
-#include <iostream>
 #include "Character.hpp"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode({200, 200}), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    sf::RenderWindow window(sf::VideoMode(1800, 900), "My Fucking Game");
+    sf::Event event;
+
+    Character character(50, 100);
 
     while (window.isOpen()) {
-        sf::Event event;
         while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) window.close();
-        }
+            if (event.type == sf::Event::Closed)
+                window.close();
 
-        window.clear();
-        window.draw(shape);
+            if (event.type == sf::Event::KeyPressed)
+                character.processEvents(event.key.code, 1);
+
+            if (event.type == sf::Event::KeyReleased)
+                character.processEvents(event.key.code, 0);
+        }
+        window.clear(sf::Color::Yellow);
+        character.update();
+        character.drawTo(window);
         window.display();
     }
-
-    return 0;
 }
