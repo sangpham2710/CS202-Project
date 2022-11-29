@@ -31,6 +31,12 @@ int main() {
       "4/CS202/Project/assets/textures/background/river-1.png");
   sf::Sprite spriteRiver(textureRiver);
 
+  sf::Texture textureRailway;
+  textureRailway.loadFromFile(
+      "D:/The University of Science/Semester "
+      "4/CS202/Project/assets/textures/background/railway-1.png");
+  sf::Sprite spriteRailway(textureRailway);
+
 
   while (window.isOpen()) {
     sf::Event event;
@@ -56,6 +62,10 @@ int main() {
         spriteGrassPath1.setPosition(width, height);
         window.draw(spriteGrassPath1);
       }
+      height += 64;
+
+      spriteRailway.setPosition(width, height);
+      window.draw(spriteRailway);
       height += 64;
 
       spriteRiver.setPosition(width, height);
