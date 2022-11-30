@@ -87,9 +87,9 @@ void Application::updateStatistics(sf::Time dt) {
 
 void Application::registerStates() {
     mStateStack.registerState<TitleState>(States::Title);
-    // mStateStack.registerState<MenuState>(States::Menu);
+    mStateStack.registerState<MenuState>(States::Menu);
     // mStateStack.registerState<GameState>(States::Game);
     // mStateStack.registerState<PauseState>(States::Pause);
-    // mStateStack.registerState<SettingsState>(States::Settings);
+    mStateStack.registerState<SettingsState>(States::Settings);
     // mStateStack.registerState<GameOverState>(States::GameOver);
 }

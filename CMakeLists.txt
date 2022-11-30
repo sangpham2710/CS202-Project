@@ -3,6 +3,8 @@ project(CS202-Project LANGUAGES CXX)
 
 set(BUILD_SHARED_LIBS OFF)
 set(TGUI_BACKEND SFML_GRAPHICS)
+set(TGUI_BUILD_GUI_BUILDER ON)
+set(TGUI_SHARED_LIBS OFF)
 set(SFML_DIR ${CMAKE_BINARY_DIR}/_deps/sfml-build/SFMLConfig.cmake)
 
 include(FetchContent)
