@@ -14,9 +14,5 @@ class TitleState : public State {
     virtual bool handleEvent(const sf::Event& event);
 
    private:
-    sf::Sprite mBackgroundSprite;
-    sf::Text mText;
-
-    bool mShowText;
-    sf::Time mTextEffectTime;
+    tgui::Button::Ptr mPlayButton;
 };

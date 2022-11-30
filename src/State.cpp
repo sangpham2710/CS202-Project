@@ -7,8 +7,11 @@ State::Context::Context(sf::RenderWindow& window, TextureHolder& textures,
     : window(&window), textures(&textures), fonts(&fonts), player(&player) {
 }
 
+
 State::State(StateStack& stack, Context context)
-    : mStack(&stack), mContext(context) {
+    : mStack(&stack),
+      mContext(context),
+      gui(std::make_unique<tgui::Gui>(*context.window)) {
 }
 
 State::~State() {

@@ -4,18 +4,15 @@
 #include <SFML/Window/Event.hpp>
 #include <TGUI/Backend/SFML-Graphics.hpp>
 #include <TGUI/Core.hpp>
-#include <TGUI/Widgets/Button.hpp>
-#include <TGUI/Widgets/Label.hpp>
+#include <TGUI/TGUI.hpp>
 #include <memory>
 
 #include "ResourceIdentifiers.hpp"
 #include "StateIdentifiers.hpp"
 
-
 namespace sf {
 class RenderWindow;
 }
-
 class StateStack;
 class Player;
 
@@ -50,6 +47,7 @@ class State {
 
     Context getContext() const;
 
+    std::unique_ptr<tgui::Gui> gui;
 
    private:
     StateStack* mStack;
