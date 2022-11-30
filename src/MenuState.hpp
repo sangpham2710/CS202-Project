@@ -14,5 +14,7 @@ class MenuState : public State {
     virtual bool handleEvent(const sf::Event& event);
 
    private:
-    sf::Sprite mBackgroundSprite;
+    tgui::Button::Ptr mGameButton;
+    tgui::Button::Ptr mSettingsButton;
+    tgui::Button::Ptr mExitButton;
 };
