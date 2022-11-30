@@ -1,18 +1,95 @@
-#include "Application.h"
+#include "Application.hpp"
+
+#include "GameOverState.hpp"
+#include "GameState.hpp"
+#include "MenuState.hpp"
+#include "PauseState.hpp"
+#include "SettingsState.hpp"
+#include "State.hpp"
+#include "StateIdentifiers.hpp"
+#include "TitleState.hpp"
+#include "Utility.hpp"
+
+const sf::Time Application::TimePerFrame = sf::seconds(1.f / 60.f);  // 60 fps
+
+Application::Application()
+    : mWindow(sf::VideoMode(1024, 768), "Crossing Road", sf::Style::Close),
+      mTextures(),
+      mFonts(),
+      mPlayer(),
+      mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer)),
+      mStatisticsText(),
+      mStatisticsUpdateTime(),
+      mStatisticsNumFrames(0) {
+    mWindow.setKeyRepeatEnabled(false);
+
+    registerStates();
+    mStateStack.pushState(States::Title);
+}
 
 void Application::run() {
-    sf::RenderWindow window(sf::VideoMode({200, 200}), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    sf::Clock clock;
+    sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
-    while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) window.close();
+    while (mWindow.isOpen()) {
+        sf::Time dt = clock.restart();
+        timeSinceLastUpdate += dt;
+        while (timeSinceLastUpdate > TimePerFrame) {
+            timeSinceLastUpdate -= TimePerFrame;
+
+            processInput();
+            update(TimePerFrame);
+
+            // Check inside this loop, because stack might be empty before
+            // update() call
+            if (mStateStack.isEmpty()) mWindow.close();
         }
 
-        window.clear();
-        window.draw(shape);
-        window.display();
+        updateStatistics(dt);
+        render();
     }
+}
+
+void Application::processInput() {
+    sf::Event event;
+    while (mWindow.pollEvent(event)) {
+        mStateStack.handleEvent(event);
+
+        if (event.type == sf::Event::Closed) mWindow.close();
+    }
+}
+
+void Application::update(sf::Time dt) {
+    mStateStack.update(dt);
+}
+
+void Application::render() {
+    mWindow.clear();
+
+    mStateStack.draw();
+
+    mWindow.setView(mWindow.getDefaultView());
+    mWindow.draw(mStatisticsText);
+
+    mWindow.display();
+}
+
+void Application::updateStatistics(sf::Time dt) {
+    mStatisticsUpdateTime += dt;
+    mStatisticsNumFrames += 1;
+    if (mStatisticsUpdateTime >= sf::seconds(1.0f)) {
+        mStatisticsText.setString("FPS: " + toString(mStatisticsNumFrames));
+
+        mStatisticsUpdateTime -= sf::seconds(1.0f);
+        mStatisticsNumFrames = 0;
+    }
+}
+
+void Application::registerStates() {
+    mStateStack.registerState<TitleState>(States::Title);
+    // mStateStack.registerState<MenuState>(States::Menu);
+    // mStateStack.registerState<GameState>(States::Game);
+    // mStateStack.registerState<PauseState>(States::Pause);
+    // mStateStack.registerState<SettingsState>(States::Settings);
+    // mStateStack.registerState<GameOverState>(States::GameOver);
 }
