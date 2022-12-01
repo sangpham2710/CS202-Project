@@ -33,7 +33,7 @@ int main() {
 
   sf::Texture textureBush;
   textureBush.loadFromFile(
-      "./assets/textures/background/bush-1.png");
+      "./assets/textures/background/bush-2.png");
   sf::Sprite spriteBush(textureBush);
 
   sf::Texture textureRiver;
@@ -51,6 +51,11 @@ int main() {
       "./assets/textures/background/road-path-above.png");
   sf::Sprite spriteRoadPathAbove(textureRoadPathAbove);
 
+  sf::Texture textureRoadPathAbove2;
+  textureRoadPathAbove2.loadFromFile(
+      "./assets/textures/background/road-path-above-2.png");
+  sf::Sprite spriteRoadPathAbove2(textureRoadPathAbove2);
+
   sf::Texture textureRoadPathBelow;
   textureRoadPathBelow.loadFromFile(
       "./assets/textures/background/road-path-below.png");
@@ -61,6 +66,11 @@ int main() {
       "./assets/textures/background/pavement-1.png");
   sf::Sprite spritePavement;
   spritePavement.setTexture(texturePavement);
+
+  sf::Texture texturePavement2;
+  texturePavement2.loadFromFile("./assets/textures/background/pavement-2.png");
+  sf::Sprite spritePavement2;
+  spritePavement2.setTexture(texturePavement2);
 
   sf::Texture textureFireHydrant;
   textureFireHydrant.loadFromFile(
@@ -75,9 +85,6 @@ int main() {
   sf::Texture textureRoadPathMiddle;
   textureRoadPathMiddle.loadFromFile("./assets/textures/background/road-path-middle.png");
   sf::Sprite spriteRoadPathMiddle(textureRoadPathMiddle);
-
-
-
 
   while (window.isOpen()) {
     sf::Event event;
@@ -116,10 +123,11 @@ int main() {
       if (countBlock == 7) {
         spriteFireHydrant.setPosition(width, height);
         window.draw(spriteFireHydrant);
-        height += 64;
       }
       height += 64;
-      
+
+      printPath(spritePavement2, window, width, height);
+      printPath(spriteRoadPathAbove2, window, width, height);
 
       countBlock++;
       width += 64;
