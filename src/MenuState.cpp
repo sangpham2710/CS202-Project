@@ -4,30 +4,20 @@
 
 MenuState::MenuState(StateStack& stack, Context context)
     : State(stack, context) {
-    mGameButton = tgui::Button::create();
-    mGameButton->setTextSize(30);
-    mGameButton->setText("Play Game");
-    mGameButton->setPosition(100, 100);
-    mGameButton->setSize(200, 100);
-    mGameButton->onPress([&]() {
+
+    gui->loadWidgetsFromFile("./assets/gui/menu-state.txt");
+
+    gui->setFont("./assets/Sansation.ttf");
+
+    gui->get<tgui::Button>("playButton")->onPress([&] {
         requestStackPop();
         requestStackPush(States::Game);
     });
-    gui->add(mGameButton);
-    mSettingsButton = tgui::Button::create();
-    mSettingsButton->setTextSize(30);
-    mSettingsButton->setText("Settings");
-    mSettingsButton->setPosition(100, 250);
-    mSettingsButton->setSize(200, 100);
-    mSettingsButton->onPress([&]() { requestStackPush(States::Settings); });
-    gui->add(mSettingsButton);
-    mExitButton = tgui::Button::create();
-    mExitButton->setTextSize(30);
-    mExitButton->setText("Exit");
-    mExitButton->setPosition(100, 400);
-    mExitButton->setSize(200, 100);
-    mExitButton->onPress([&]() { requestStackPop(); });
-    gui->add(mExitButton);
+
+    gui->get<tgui::Button>("settingButton")->onPress([&] {
+        requestStackPush(States::Settings);
+    });
+
 }
 
 void MenuState::draw() {
