@@ -14,6 +14,8 @@
 // Sprite speed (high values = high speed)
 #define         SPRITE_SPEED        5
 
+
+
 int main()
 {
     // _____________________
@@ -50,10 +52,13 @@ int main()
     // Create the sprite and apply the texture
     sf::Sprite spriteCar;
     spriteCar.setTexture(textureCar);
-    sf::FloatRect spriteSize = spriteCar.getGlobalBounds();
-    spriteCar.setOrigin(spriteSize.width / 2., spriteSize.height / 2.);
+    sf::FloatRect spriteCarSize = spriteCar.getGlobalBounds();
+    spriteCar.setOrigin(spriteCarSize.width / 2., spriteCarSize.height / 2.);
 
-
+    sf::Sprite spriteCarRed2;
+    spriteCarRed2.setTexture(textureCar);
+    sf::FloatRect spriteSizeCarRed2 = spriteCarRed2.getGlobalBounds();
+    spriteCarRed2.setOrigin(spriteSizeCarRed2.width / 2., spriteSizeCarRed2.height / 2.);
     // _________________
 // ::: Main loop :::
 
@@ -117,7 +122,7 @@ int main()
 
         // Check screen boundaries
         if (x < 0) x = window.getSize().x;
-        if (x > (int)window.getSize().x + sprite.getTexture()->getSize().x) x = 0;
+        if (x > (int)window.getSize().x + spriteCar.getTexture()->getSize().x) x = 0;
         if (y < 0) y = 0;
         if (y > (int)window.getSize().y) y = window.getSize().y;
 
@@ -126,9 +131,10 @@ int main()
         
         x += 10;
         // Rotate and draw the sprite
-        sprite.setPosition(x, y);
+        spriteCar.setPosition(x, spriteCar.getTexture()->getSize().x/2);
+        spriteCarRed2.setPosition()
         //sprite.setRotation(timer.getElapsedTime().asSeconds() / M_PI * 90.f);
-        window.draw(sprite);
+        window.draw(spriteCar);
 
         // Update display and wait for vsync
         window.display();
