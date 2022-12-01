@@ -1,12 +1,24 @@
+
 #include <iostream>
 #include <stdexcept>
 #include <SFML/Graphics.hpp>
+#include <string.h>
 #include "Application.h"
+using namespace std;
+
+#define WIDTH_MAX 1024
+#define HEIGHT_MAX 768
+#define PIXEL 64
+
+void printPath(sf::Sprite sprite, sf::RenderWindow& window, int& width, int& height) {
+  sprite.setPosition(width, height);
+  window.draw(sprite);
+  height += PIXEL;
+}
 
 int main() {
-  unsigned widthMax = 1024;
-  unsigned heightMax = 768;
-  sf::RenderWindow window(sf::VideoMode({widthMax, heightMax}), "SFML Project");
+
+  sf::RenderWindow window(sf::VideoMode({WIDTH_MAX, HEIGHT_MAX}), "SFML Project");
   sf::Event event;
 
    sf::Texture textureGrassPath1;
@@ -47,7 +59,8 @@ int main() {
   sf::Texture texturePavement;
   texturePavement.loadFromFile(
       "./assets/textures/background/pavement-1.png");
-  sf::Sprite spritePavement(texturePavement);
+  sf::Sprite spritePavement;
+  spritePavement.setTexture(texturePavement);
 
   sf::Texture textureFireHydrant;
   textureFireHydrant.loadFromFile(
@@ -58,6 +71,10 @@ int main() {
   textureLilyPad.loadFromFile(
       "./assets/textures/background/lily-pad-1.png");
   sf::Sprite spriteLilyPad(textureLilyPad);
+
+  sf::Texture textureRoadPathMiddle;
+  textureRoadPathMiddle.loadFromFile("./assets/textures/background/road-path-middle.png");
+  sf::Sprite spriteRoadPathMiddle(textureRoadPathMiddle);
 
 
 
@@ -73,7 +90,7 @@ int main() {
     int width = 0;
     int height = 0;
     int countBlock = 0;
-    while (width < widthMax && height < heightMax) {
+    while (width < WIDTH_MAX && height < HEIGHT_MAX) {
       height = 0;
 
       if (countBlock % 3 == 0) {
@@ -87,23 +104,12 @@ int main() {
       }
       height += 64;
 
-      spriteRailway.setPosition(width, height);
-      window.draw(spriteRailway);
-      height += 64;
-
-      spriteRiver.setPosition(width, height);
-      window.draw(spriteRiver);
-      height += 64;
-      spriteLilyPad.setPosition(width, height);
-      window.draw(spriteLilyPad);
-      height += 64;
-
-      spriteRoadPathAbove.setPosition(width, height);
-      window.draw(spriteRoadPathAbove);
-      height += 64;
-      spriteRoadPathBelow.setPosition(width, height);
-      window.draw(spriteRoadPathBelow);
-      height += 64;
+      printPath(spriteRailway, window, width, height);
+      printPath(spriteRiver, window, width, height);
+      printPath(spriteLilyPad, window, width, height);
+      printPath(spriteRoadPathAbove, window, width, height);
+      printPath(spriteRoadPathMiddle, window, width, height);
+      printPath(spriteRoadPathBelow, window, width, height);
 
       spritePavement.setPosition(width, height);
       window.draw(spritePavement);
