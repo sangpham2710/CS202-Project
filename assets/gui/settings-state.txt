@@ -1,7 +1,7 @@
-Button.Exit {
+Button.backButton {
     Position = (310, 410);
     Size = (200, 50);
-    Text = Exit;
+    Text = Back;
     TextSize = 15;
 
     Renderer {

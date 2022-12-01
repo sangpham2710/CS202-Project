@@ -4,7 +4,6 @@
 
 MenuState::MenuState(StateStack& stack, Context context)
     : State(stack, context) {
-
     gui->loadWidgetsFromFile("./assets/gui/menu-state.txt");
 
     gui->setFont("./assets/Sansation.ttf");
@@ -14,10 +13,9 @@ MenuState::MenuState(StateStack& stack, Context context)
         requestStackPush(States::Game);
     });
 
-    gui->get<tgui::Button>("settingButton")->onPress([&] {
+    gui->get<tgui::Button>("settingsButton")->onPress([&] {
         requestStackPush(States::Settings);
     });
-
 }
 
 void MenuState::draw() {

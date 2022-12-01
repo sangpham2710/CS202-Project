@@ -30,7 +30,7 @@ Button.playButton {
     }
 }
 
-Button.settingButton {
+Button.settingsButton {
     Position = (150, 260);
     Size = (200, 50);
     Text = SETTINGS;

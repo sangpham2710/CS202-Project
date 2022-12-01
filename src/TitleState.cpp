@@ -26,6 +26,11 @@ bool TitleState::update(sf::Time dt) {
 
 bool TitleState::handleEvent(const sf::Event& event) {
     gui->handleEvent(event);
+    // If any key is pressed, trigger the next screen
+    if (event.type == sf::Event::MouseButtonPressed) {
+        requestStackPop();
+        requestStackPush(States::Menu);
+    }
      //If any key is pressed, trigger the next screen
      if (event.type == sf::Event::KeyPressed) {
          requestStackPop();

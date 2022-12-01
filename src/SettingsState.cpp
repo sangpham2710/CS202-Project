@@ -7,9 +7,9 @@
 SettingsState::SettingsState(StateStack& stack, Context context)
     : State(stack, context) {
 
-    gui->loadWidgetsFromFile("./assets/gui/setting-state.txt");
+    gui->loadWidgetsFromFile("./assets/gui/settings-state.txt");
 
-    gui->get<tgui::Button>("exitButton")->onPress([&] {
+    gui->get<tgui::Button>("backButton")->onPress([&] {
         requestStackPop();
     });
 }
