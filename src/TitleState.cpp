@@ -8,10 +8,6 @@ TitleState::TitleState(StateStack& stack, Context context)
     : State(stack, context) {
     gui->loadWidgetsFromFile("./assets/gui/title-state.txt");
 
-    gui->get<tgui::Button>("startButton")->onPress([&] {
-        requestStackPop();
-        requestStackPush(States::Menu);
-    });
 }
 
 void TitleState::draw() {
@@ -30,9 +26,10 @@ bool TitleState::update(sf::Time dt) {
 
 bool TitleState::handleEvent(const sf::Event& event) {
     gui->handleEvent(event);
-    // If any key is pressed, trigger the next screen
-    // if (event.type == sf::Event::KeyPressed) {
-
-    // }
+     //If any key is pressed, trigger the next screen
+     if (event.type == sf::Event::KeyPressed) {
+         requestStackPop();
+         requestStackPush(States::Menu);
+     }
     return true;
 }
