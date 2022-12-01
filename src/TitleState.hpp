@@ -14,5 +14,4 @@ class TitleState : public State {
     virtual bool handleEvent(const sf::Event& event);
 
    private:
-    tgui::Button::Ptr mPlayButton;
 };
