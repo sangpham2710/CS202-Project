@@ -17,14 +17,11 @@ Application::Application()
       mTextures(),
       mFonts(),
       mPlayer(),
-      mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer)),
-      mStatisticsText(),
-      mStatisticsUpdateTime(),
-      mStatisticsNumFrames(0) {
+      mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer)) {
     mWindow.setKeyRepeatEnabled(false);
 
     registerStates();
-    mStateStack.pushState(States::Title);
+    mStateStack.pushState(States::Game);
 }
 
 void Application::run() {
@@ -36,16 +33,10 @@ void Application::run() {
         timeSinceLastUpdate += dt;
         while (timeSinceLastUpdate > TimePerFrame) {
             timeSinceLastUpdate -= TimePerFrame;
-
             processInput();
             update(TimePerFrame);
-
-            // Check inside this loop, because stack might be empty before
-            // update() call
             if (mStateStack.isEmpty()) mWindow.close();
         }
-
-        updateStatistics(dt);
         render();
     }
 }
@@ -54,7 +45,6 @@ void Application::processInput() {
     sf::Event event;
     while (mWindow.pollEvent(event)) {
         mStateStack.handleEvent(event);
-
         if (event.type == sf::Event::Closed) mWindow.close();
     }
 }
@@ -65,31 +55,15 @@ void Application::update(sf::Time dt) {
 
 void Application::render() {
     mWindow.clear();
-
     mStateStack.draw();
-
-    mWindow.setView(mWindow.getDefaultView());
-    mWindow.draw(mStatisticsText);
-
     mWindow.display();
 }
 
-void Application::updateStatistics(sf::Time dt) {
-    mStatisticsUpdateTime += dt;
-    mStatisticsNumFrames += 1;
-    if (mStatisticsUpdateTime >= sf::seconds(1.0f)) {
-        mStatisticsText.setString("FPS: " + toString(mStatisticsNumFrames));
-
-        mStatisticsUpdateTime -= sf::seconds(1.0f);
-        mStatisticsNumFrames = 0;
-    }
-}
-
 void Application::registerStates() {
-    mStateStack.registerState<TitleState>(States::Title);
-    mStateStack.registerState<MenuState>(States::Menu);
-    // mStateStack.registerState<GameState>(States::Game);
+    // mStateStack.registerState<TitleState>(States::Title);
+    // mStateStack.registerState<MenuState>(States::Menu);
+    mStateStack.registerState<GameState>(States::Game);
     // mStateStack.registerState<PauseState>(States::Pause);
-    mStateStack.registerState<SettingsState>(States::Settings);
+    // mStateStack.registerState<SettingsState>(States::Settings);
     // mStateStack.registerState<GameOverState>(States::GameOver);
 }

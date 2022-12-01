@@ -22,8 +22,6 @@ class Application {
     void processInput();
     void update(sf::Time dt);
     void render();
-
-    void updateStatistics(sf::Time dt);
     void registerStates();
 
 
@@ -36,8 +34,4 @@ class Application {
     Player mPlayer;
 
     StateStack mStateStack;
-
-    sf::Text mStatisticsText;
-    sf::Time mStatisticsUpdateTime;
-    std::size_t mStatisticsNumFrames;
 };
