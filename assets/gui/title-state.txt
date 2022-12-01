@@ -1,90 +1,33 @@
-Button.ExitButton {
-    Position = (420, 420);
-    Size = (210, 72.625);
-    Text = Button;
+Label.Label {
+    Position = (280, 250);
+    Size = (500, 97);
+    Text = "Press any key to start....";
     TextSize = 30;
+    VerticalAlignment = Center;
 
     Renderer {
-        BackgroundColor = #F5F5F5;
-        BackgroundColorDisabled = #E6E6E6;
-        BackgroundColorDown = #EBEBEB;
-        BackgroundColorHover = white;
+        BackgroundColor = transparent;
         BorderColor = #3C3C3C;
-        BorderColorDisabled = #7D7D7D;
-        BorderColorDown = black;
-        BorderColorFocused = #1E1EB4;
-        BorderColorHover = black;
-        Borders = (1, 1, 1, 1);
+        Borders = (0, 0, 0, 0);
         TextColor = #3C3C3C;
-        TextColorDisabled = #7D7D7D;
-        TextColorDown = black;
-        TextColorHover = black;
-        Texture = None;
-        TextureDisabled = None;
-        TextureDown = None;
-        TextureDownFocused = None;
-        TextureDownHover = None;
-        TextureFocused = None;
-        TextureHover = None;
-    }
-}
+        TextureBackground = None;
 
-Button.PlayButton {
-    Position = (420, 230);
-    Size = (210, 72.625);
-    Text = Button;
-    TextSize = 30;
-
-    Renderer {
-        BackgroundColor = #F5F5F5;
-        BackgroundColorDisabled = #E6E6E6;
-        BackgroundColorDown = #EBEBEB;
-        BackgroundColorHover = white;
-        BorderColor = #3C3C3C;
-        BorderColorDisabled = #7D7D7D;
-        BorderColorDown = black;
-        BorderColorFocused = #1E1EB4;
-        BorderColorHover = black;
-        Borders = (1, 1, 1, 1);
-        RoundedBorderRadius = 10;
-        TextColor = #3C3C3C;
-        TextColorDisabled = #7D7D7D;
-        TextColorDown = black;
-        TextColorHover = black;
-        Texture = None;
-        TextureDisabled = None;
-        TextureDown = None;
-        TextureDownFocused = None;
-        TextureDownHover = None;
-        TextureFocused = None;
-        TextureHover = None;
-    }
-}
-
-EditBox.EditBox1 {
-    Position = (400, 350);
-    Size = (250, 34.5833);
-    TextSize = 13;
-
-    Renderer {
-        BackgroundColor = #F5F5F5;
-        BackgroundColorDisabled = #E6E6E6;
-        BackgroundColorHover = white;
-        BorderColor = #3C3C3C;
-        BorderColorDisabled = #7D7D7D;
-        BorderColorHover = black;
-        Borders = (1, 1, 1, 1);
-        CaretColor = black;
-        CaretWidth = 1;
-        DefaultTextColor = #A0A0A0;
-        Padding = (0, 0, 0, 0);
-        SelectedTextBackgroundColor = #006EFF;
-        SelectedTextColor = white;
-        TextColor = #3C3C3C;
-        TextColorDisabled = #7D7D7D;
-        Texture = None;
-        TextureDisabled = None;
-        TextureFocused = None;
-        TextureHover = None;
+        Scrollbar {
+            ArrowBackgroundColor = #F5F5F5;
+            ArrowBackgroundColorHover = white;
+            ArrowColor = #3C3C3C;
+            ArrowColorHover = black;
+            TextureArrowDown = None;
+            TextureArrowDownHover = None;
+            TextureArrowUp = None;
+            TextureArrowUpHover = None;
+            TextureThumb = None;
+            TextureThumbHover = None;
+            TextureTrack = None;
+            TextureTrackHover = None;
+            ThumbColor = #DCDCDC;
+            ThumbColorHover = #E6E6E6;
+            TrackColor = #F5F5F5;
+        }
     }
 }
