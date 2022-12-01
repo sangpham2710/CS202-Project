@@ -1,0 +1,13 @@
+{
+  "files.associations": {
+    "*.ejs": "html",
+    "functional": "cpp",
+    "filesystem": "cpp",
+    "queue": "cpp",
+    "stack": "cpp",
+    "future": "cpp",
+    "xlocale": "cpp",
+    "utility": "cpp"
+  },
+  "cSpell.words": ["tgui"]
+}
