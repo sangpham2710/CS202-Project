@@ -6,10 +6,8 @@
  * \date    12/18/2016
  */
 
- // SFML libraries
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include <math.h>
+
+#include"header.h"
 
 // Sprite speed (high values = high speed)
 #define         SPRITE_SPEED        5
@@ -44,33 +42,46 @@ int main()
         return -1;
     }
     // Enable the smooth filter. The texture appears smoother so that pixels are less noticeable.
+    spriteRun s1(textureCar, 20, 30, 10 );
+    spriteRun s2(textureCar, 300, 30, 10);
+
+    sf::Texture textureDi;
+    if (!textureDi.loadFromFile("E:/CS202/project/pixel/truck_pixel.png"))
+    {
+        std::cerr << "Error while loading texture" << std::endl;
+        return -1;
+    }
+    spriteRun s3(textureDi, 500, 90, 10);
+    spriteRun s4(textureDi, 20, 90, 10);
+    spriteRun s5(textureDi, 300, 90, 10);
+
 
 
     // _______________________________________
     // ::: Create sprite and apply texture :::
 
     // Create the sprite and apply the texture
-    sf::Sprite spriteCar;
-    spriteCar.setTexture(textureCar);
-    sf::FloatRect spriteCarSize = spriteCar.getGlobalBounds();
-    spriteCar.setOrigin(spriteCarSize.width / 2., spriteCarSize.height / 2.);
+    //sf::Sprite spriteCar;
+    //spriteCar.setTexture(textureCar);
+    //sf::FloatRect spriteCarSize = spriteCar.getGlobalBounds();
+    //spriteCar.setOrigin(spriteCarSize.width / 2., spriteCarSize.height / 2.);
 
-    sf::Sprite spriteCarRed2;
-    spriteCarRed2.setTexture(textureCar);
-    sf::FloatRect spriteSizeCarRed2 = spriteCarRed2.getGlobalBounds();
-    spriteCarRed2.setOrigin(spriteSizeCarRed2.width / 2., spriteSizeCarRed2.height / 2.);
+    //sf::Sprite spriteCarRed2;
+    //spriteCarRed2.setTexture(textureCar);
+    //sf::FloatRect spriteSizeCarRed2 = spriteCarRed2.getGlobalBounds();
+    //spriteCarRed2.setOrigin(spriteSizeCarRed2.width / 2., spriteSizeCarRed2.height / 2.);
     // _________________
 // ::: Main loop :::
 
 // Sprite coordinates
-    int x = window.getSize().x / 2.;
-    int y = window.getSize().y / 2.;
+    //int x = window.getSize().x / 2.;
+    //int y = window.getSize().y / 2.;
 
-    // Flags for key pressed
-    bool upFlag = false;
-    bool downFlag = false;
-    bool leftFlag = false;
-    bool rightFlag = false;
+    //// Flags for key pressed
+    //bool upFlag = false;
+    //bool downFlag = false;
+    //bool leftFlag = false;
+    //bool rightFlag = false;
 
     sf::Clock timer;
     while (window.isOpen())
@@ -115,26 +126,31 @@ int main()
         }
 
         // Update coordinates
-        if (leftFlag) x -= SPRITE_SPEED;
-        if (rightFlag) x += SPRITE_SPEED;
-        if (upFlag) y -= SPRITE_SPEED;
-        if (downFlag) y += SPRITE_SPEED;
+        //if (leftFlag) x -= SPRITE_SPEED;
+        //if (rightFlag) x += SPRITE_SPEED;
+        //if (upFlag) y -= SPRITE_SPEED;
+        //if (downFlag) y += SPRITE_SPEED;
 
         // Check screen boundaries
-        if (x < 0) x = window.getSize().x;
-        if (x > (int)window.getSize().x + spriteCar.getTexture()->getSize().x) x = 0;
-        if (y < 0) y = 0;
-        if (y > (int)window.getSize().y) y = window.getSize().y;
+        //if (x < 0) x = window.getSize().x;
+        //if (x > (int)window.getSize().x + spriteCar.getTexture()->getSize().x) x = 0;
+        //if (y < 0) y = 0;
+        //if (y > (int)window.getSize().y) y = window.getSize().y;
 
         // Clear the window and apply grey background
         window.clear(sf::Color(127, 127, 127));
-        
-        x += 10;
+  
+
+        s1.run(window);
+        s2.run(window);
+        s3.run(window);
+        s4.run(window);
+        s5.run(window);
         // Rotate and draw the sprite
-        spriteCar.setPosition(x, spriteCar.getTexture()->getSize().x/2);
-        spriteCarRed2.setPosition()
+        //spriteCar.setPosition(x, spriteCar.getTexture()->getSize().x/2);
+        //spriteCarRed2.setPosition()
         //sprite.setRotation(timer.getElapsedTime().asSeconds() / M_PI * 90.f);
-        window.draw(spriteCar);
+        //window.draw(spriteCar);
 
         // Update display and wait for vsync
         window.display();
