@@ -12,9 +12,10 @@ public:
 	void update();
 	void changeTexture(int type);
 	int getPhaseTime();
-
 private:
-	sf::Clock clock;
+	bool lockKeyBoard;
+	sf::Clock lockKeyBoardClock;
+	sf::Clock animationClock;
 	sf::RectangleShape hitBox;
 	sf::Texture texture;
 	bool left, up, down, right;

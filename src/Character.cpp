@@ -3,12 +3,13 @@
 Character::Character(float x, float y)
 {
 	hitBox.setSize(sf::Vector2f(x, y));
-	texture.loadFromFile("./assets/textures/Character Movement/A1.png");
+	texture.loadFromFile("./assets/textures/Character Movement/S1.png");
 	hitBox.setTexture(&texture);
 	up = 0;
 	right = 0;
 	down = 0;
 	left = 0;
+	lockKeyBoard = 0;
 }
 
 void Character::drawTo(sf::RenderWindow& window)
@@ -18,6 +19,8 @@ void Character::drawTo(sf::RenderWindow& window)
 
 void Character::processEvents(sf::Keyboard::Key key, bool checkPressed)
 {
+	if (lockKeyBoard == 1)
+		return;
 	if (checkPressed == 1) {
 		if (key == sf::Keyboard::W || key == sf::Keyboard::Up)
 			up = 1;
@@ -27,6 +30,8 @@ void Character::processEvents(sf::Keyboard::Key key, bool checkPressed)
 			down = 1;
 		if (key == sf::Keyboard::D || key == sf::Keyboard::Right)
 			right = 1;
+		lockKeyBoard = 1;
+		lockKeyBoardClock.restart();
 	}
 	if (checkPressed == 0) {
 		up = 0;
@@ -38,6 +43,15 @@ void Character::processEvents(sf::Keyboard::Key key, bool checkPressed)
 
 void Character::update()
 {
+	if (lockKeyBoardClock.getElapsedTime().asSeconds() > 1.0f) {
+		lockKeyBoard = 0; lockKeyBoardClock.restart();
+		up = 0;
+		down = 0;
+		left = 0;
+		right = 0;
+		changeTexture(-1);
+		return;
+	}
 	sf::Vector2f movement;
 	if (!up && !down && !right && !left) {
 		changeTexture(-1);
@@ -102,21 +116,22 @@ void Character::changeTexture(int type)
 }
 
 int Character::getPhaseTime()
-{
-	if (clock.getElapsedTime().asSeconds() < 0.1f) {
+{	
+	if (animationClock.getElapsedTime().asSeconds() < 0.1f) {
 		return 0;
 	}
-	if (clock.getElapsedTime().asSeconds() > 0.1f && clock.getElapsedTime().asSeconds() < 0.2f) {
+	if (animationClock.getElapsedTime().asSeconds() > 0.1f && animationClock.getElapsedTime().asSeconds() < 0.2f) {
 		return 1;
 	}
-	if (clock.getElapsedTime().asSeconds() > 0.2f && clock.getElapsedTime().asSeconds() < 0.3f) {
+	if (animationClock.getElapsedTime().asSeconds() > 0.2f && animationClock.getElapsedTime().asSeconds() < 0.3f) {
 		return 2;
 	}
-	if (clock.getElapsedTime().asSeconds() > 0.3f && clock.getElapsedTime().asSeconds() < 0.4f) {
+	if (animationClock.getElapsedTime().asSeconds() > 0.3f && animationClock.getElapsedTime().asSeconds() < 0.4f) {
 		return 3;
 	}
-	if (clock.getElapsedTime().asSeconds() > 0.4f) {
-		clock.restart();
+	if (animationClock.getElapsedTime().asSeconds() > 0.4f) {
+		animationClock.restart();
 		return 4;
 	}
 }
+
