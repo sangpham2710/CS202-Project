@@ -7,7 +7,8 @@
 TitleState::TitleState(StateStack& stack, Context context)
     : State(stack, context) {
     gui->loadWidgetsFromFile("./assets/gui/title-state.txt");
-    gui->get<tgui::Button>("PlayButton")->onPress([&] {
+
+    gui->get<tgui::Button>("startButton")->onPress([&] {
         requestStackPop();
         requestStackPush(States::Menu);
     });
