@@ -36,7 +36,7 @@ int main()
 
     // Create texture from PNG file
     sf::Texture textureCar;
-    if (!textureCar.loadFromFile("E:/CS202/project/pixel/yellow_car.png"))
+    if (!textureCar.loadFromFile("./assets/textures/pixel/yellow_car.png"))
     {
         std::cerr << "Error while loading texture" << std::endl;
         return -1;
@@ -46,7 +46,7 @@ int main()
     spriteRun s2(textureCar, 300, 30, 10);
 
     sf::Texture textureDi;
-    if (!textureDi.loadFromFile("E:/CS202/project/pixel/truck_pixel.png"))
+    if (!textureDi.loadFromFile("./assets/textures/pixel/truck_pixel.png"))
     {
         std::cerr << "Error while loading texture" << std::endl;
         return -1;
