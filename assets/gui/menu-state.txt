@@ -20,13 +20,13 @@ Button.playButton {
         TextColorDown = black;
         TextColorHover = black;
         TextStyle = Bold;
-        Texture = "../textures/ButtonNormal.png" Smooth;
+        Texture = "../textures/gui/ButtonNormal.png" Smooth;
         TextureDisabled = None;
         TextureDown = None;
-        TextureDownFocused = "../textures/ButtonPressed.png" Smooth;
+        TextureDownFocused = "../textures/gui/ButtonPressed.png" Smooth;
         TextureDownHover = None;
         TextureFocused = None;
-        TextureHover = "../textures/ButtonSelected.png" Smooth;
+        TextureHover = "../textures/gui/ButtonSelected.png" Smooth;
     }
 }
 
@@ -52,13 +52,13 @@ Button.settingsButton {
         TextColorDown = black;
         TextColorHover = black;
         TextStyle = Bold;
-        Texture = "../textures/ButtonNormal.png" Smooth;
+        Texture = "../textures/gui/ButtonNormal.png" Smooth;
         TextureDisabled = None;
         TextureDown = None;
-        TextureDownFocused = "../textures/ButtonPressed.png" Smooth;
+        TextureDownFocused = "../textures/gui/ButtonPressed.png" Smooth;
         TextureDownHover = None;
         TextureFocused = None;
-        TextureHover = "../textures/ButtonSelected.png" Smooth;
+        TextureHover = "../textures/gui/ButtonSelected.png" Smooth;
     }
 }
 
@@ -84,13 +84,13 @@ Button.exitButton {
         TextColorDown = black;
         TextColorHover = black;
         TextStyle = Bold;
-        Texture = "../textures/ButtonNormal.png" Smooth;
+        Texture = "../textures/gui/ButtonNormal.png" Smooth;
         TextureDisabled = None;
         TextureDown = None;
-        TextureDownFocused = "../textures/ButtonPressed.png" Smooth;
+        TextureDownFocused = "../textures/gui/ButtonPressed.png" Smooth;
         TextureDownHover = None;
         TextureFocused = None;
-        TextureHover = "../textures/ButtonSelected.png" Smooth;
+        TextureHover = "../textures/gui/ButtonSelected.png" Smooth;
     }
 }
 

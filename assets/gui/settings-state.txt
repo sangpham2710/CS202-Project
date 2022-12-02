@@ -19,13 +19,13 @@ Button.backButton {
         TextColorDisabled = #7D7D7D;
         TextColorDown = black;
         TextColorHover = black;
-        Texture = "../textures/ButtonNormal.png" Smooth;
+        Texture = "../textures/gui/ButtonNormal.png" Smooth;
         TextureDisabled = None;
         TextureDown = None;
-        TextureDownFocused = "../textures/ButtonPressed.png" Smooth;
+        TextureDownFocused = "../textures/gui/ButtonPressed.png" Smooth;
         TextureDownHover = None;
         TextureFocused = None;
-        TextureHover = "../textures/ButtonSelected.png" Smooth;
+        TextureHover = "../textures/gui/ButtonSelected.png" Smooth;
     }
 }
 

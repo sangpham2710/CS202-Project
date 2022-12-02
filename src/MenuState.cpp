@@ -16,6 +16,10 @@ MenuState::MenuState(StateStack& stack, Context context)
     gui->get<tgui::Button>("settingsButton")->onPress([&] {
         requestStackPush(States::Settings);
     });
+
+    gui->get<tgui::Button>("exitButton")->onPress([&] {
+        requestStackPop();
+	});
 }
 
 void MenuState::draw() {
