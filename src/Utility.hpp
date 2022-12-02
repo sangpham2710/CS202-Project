@@ -2,6 +2,9 @@
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Keyboard.hpp>
+#include <TGUI/Backend/SFML-Graphics.hpp>
+#include <TGUI/Core.hpp>
+#include <TGUI/TGUI.hpp>
 #include <sstream>
 
 
@@ -33,5 +36,7 @@ int randomInt(int exclusiveMax);
 float length(sf::Vector2f vector);
 sf::Vector2f unitVector(sf::Vector2f vector);
 
+// Align objects center
+void alignCenter(tgui::Widget::Ptr obj,sf::RenderWindow& window);
 
 #include "Utility.inl"

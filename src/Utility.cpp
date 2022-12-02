@@ -163,3 +163,7 @@ sf::Vector2f unitVector(sf::Vector2f vector) {
     assert(vector != sf::Vector2f(0.f, 0.f));
     return vector / length(vector);
 }
+
+void alignCenter(tgui::Widget::Ptr obj, sf::RenderWindow& window){
+    obj->setPosition(window.getSize().x / 2 - obj->getSize().x / 2, obj->getPosition().y);
+}
