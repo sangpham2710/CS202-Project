@@ -6,13 +6,12 @@
 
 SettingsState::SettingsState(StateStack& stack, Context context)
     : State(stack, context) {
-    auto backButton = tgui::Button::create();
-    backButton->setTextSize(30);
-    backButton->setPosition(100, 500);
-    backButton->setSize(200, 100);
-    backButton->setText("Back");
-    backButton->onPress([&]() { requestStackPop(); });
-    gui->add(backButton);
+
+    gui->loadWidgetsFromFile("./assets/gui/settings-state.txt");
+
+    gui->get<tgui::Button>("backButton")->onPress([&] {
+        requestStackPop();
+    });
 }
 
 void SettingsState::draw() {
