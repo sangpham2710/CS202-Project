@@ -95,8 +95,8 @@ Button.exitButton {
 }
 
 Label.menuLabel {
-    Position = (500, 100);
-    Size = (178, 107);
+    Position = (500, 130);
+    Size = (68, 67);
     Text = MENU;
     TextSize = 20;
     VerticalAlignment = Center;
