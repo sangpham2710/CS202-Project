@@ -86,6 +86,11 @@ int main() {
   textureRoadPathMiddle.loadFromFile("./assets/textures/background/road-path-middle.png");
   sf::Sprite spriteRoadPathMiddle(textureRoadPathMiddle);
 
+  sf::Texture textureCar;
+  textureCar.loadFromFile(
+      "./assets/textures/vehicle/bus-1.png");
+  sf::Sprite spriteCar(textureCar);
+
   while (window.isOpen()) {
     sf::Event event;
     while (window.pollEvent(event)) {
@@ -116,7 +121,9 @@ int main() {
       printPath(spriteLilyPad, window, width, height);
       printPath(spriteRoadPathAbove, window, width, height);
       printPath(spriteRoadPathMiddle, window, width, height);
+      
       printPath(spriteRoadPathBelow, window, width, height);
+      
 
       spritePavement.setPosition(width, height);
       window.draw(spritePavement);
@@ -129,9 +136,17 @@ int main() {
       printPath(spritePavement2, window, width, height);
       printPath(spriteRoadPathAbove2, window, width, height);
 
+      
+      
       countBlock++;
       width += 64;
     }
+    spriteCar.setPosition(100, 320);
+    window.draw(spriteCar);
+    spriteCar.setPosition(100, 320 + 64);
+    window.draw(spriteCar);
+    spriteCar.setPosition(100, 320 - 64);
+    window.draw(spriteCar);
     window.display();
   }
     return 0;
