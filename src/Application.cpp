@@ -21,7 +21,7 @@ Application::Application()
     mWindow.setKeyRepeatEnabled(false);
 
     registerStates();
-    mStateStack.pushState(States::Game);
+    mStateStack.pushState(States::Title);
 }
 
 void Application::run() {
@@ -60,10 +60,10 @@ void Application::render() {
 }
 
 void Application::registerStates() {
-    // mStateStack.registerState<TitleState>(States::Title);
-    // mStateStack.registerState<MenuState>(States::Menu);
-    mStateStack.registerState<GameState>(States::Game);
+    mStateStack.registerState<TitleState>(States::Title);
+    mStateStack.registerState<MenuState>(States::Menu);
+    // mStateStack.registerState<GameState>(States::Game);
     // mStateStack.registerState<PauseState>(States::Pause);
-    // mStateStack.registerState<SettingsState>(States::Settings);
+    mStateStack.registerState<SettingsState>(States::Settings);
     // mStateStack.registerState<GameOverState>(States::GameOver);
 }
