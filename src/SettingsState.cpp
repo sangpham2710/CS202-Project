@@ -6,12 +6,9 @@
 
 SettingsState::SettingsState(StateStack& stack, Context context)
     : State(stack, context) {
-
     gui->loadWidgetsFromFile("./assets/gui/settings-state.txt");
 
-    gui->get<tgui::Button>("backButton")->onPress([&] {
-        requestStackPop();
-    });
+    gui->get<tgui::Button>("backButton")->onPress([&] { requestStackPop(); });
 }
 
 void SettingsState::draw() {

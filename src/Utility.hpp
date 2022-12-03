@@ -37,6 +37,6 @@ float length(sf::Vector2f vector);
 sf::Vector2f unitVector(sf::Vector2f vector);
 
 // Align objects center
-void alignCenter(tgui::Widget::Ptr obj,sf::RenderWindow& window);
+void alignCenter(tgui::Widget::Ptr obj, sf::RenderWindow& window);
 
 #include "Utility.inl"

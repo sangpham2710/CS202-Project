@@ -22,14 +22,10 @@ MenuState::MenuState(StateStack& stack, Context context)
     });
     alignCenter(playBtn, window);
 
-    settingsBtn->onPress([&] {
-        requestStackPush(States::Settings);
-    });
+    settingsBtn->onPress([&] { requestStackPush(States::Settings); });
     alignCenter(settingsBtn, window);
 
-    exitBtn->onPress([&] {
-        requestStackPop();
-	});
+    exitBtn->onPress([&] { requestStackPop(); });
     alignCenter(exitBtn, window);
 }
 

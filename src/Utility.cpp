@@ -164,6 +164,7 @@ sf::Vector2f unitVector(sf::Vector2f vector) {
     return vector / length(vector);
 }
 
-void alignCenter(tgui::Widget::Ptr obj, sf::RenderWindow& window){
-    obj->setPosition(window.getSize().x / 2 - obj->getSize().x / 2, obj->getPosition().y);
+void alignCenter(tgui::Widget::Ptr obj, sf::RenderWindow& window) {
+    obj->setPosition(window.getSize().x / 2 - obj->getSize().x / 2,
+                     obj->getPosition().y);
 }

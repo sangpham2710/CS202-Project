@@ -16,18 +16,6 @@ void TitleState::draw() {
     rectangle.setFillColor(sf::Color::White);
     window.draw(rectangle);
 
-    sf::Texture texture;
-    if (!texture.loadFromFile("./assets/textures/vehicles/blue-bus-left.png")) {
-    }
-    sf::Sprite sprite;
-    sprite.setTexture(texture);
-    // auto tmp = 64.0 / texture.getSize().x;
-    // sprite.setScale(tmp, tmp);
-    sprite.setPosition(100, 100);
-    centerOrigin(sprite);
-    sprite.rotate(90);
-
-    window.draw(sprite);
     gui->draw();
 }
 
