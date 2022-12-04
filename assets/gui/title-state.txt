@@ -1,6 +1,6 @@
-Label.Label {
+Label.titleLabel {
     Position = (280, 250);
-    Size = (500, 97);
+    Size = (380, 97);
     Text = "Press any key to start....";
     TextSize = 30;
     VerticalAlignment = Center;

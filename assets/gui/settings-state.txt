@@ -9,29 +9,34 @@ Button.backButton {
         BackgroundColorDisabled = #E6E6E6;
         BackgroundColorDown = #EBEBEB;
         BackgroundColorHover = white;
-        BorderColor = #3C3C3C;
-        BorderColorDisabled = #7D7D7D;
-        BorderColorDown = black;
-        BorderColorFocused = #1E1EB4;
-        BorderColorHover = black;
+        BorderColor = None;
+        BorderColorDisabled = None;
+        BorderColorDown = None;
+        BorderColorDownFocused = None;
+        BorderColorDownHover = None;
+        BorderColorFocused = None;
+        BorderColorHover = None;
         Borders = (1, 1, 1, 1);
         TextColor = white;
         TextColorDisabled = #7D7D7D;
-        TextColorDown = black;
-        TextColorHover = black;
-        Texture = "../textures/gui/ButtonNormal.png" Smooth;
+        TextColorDown = white;
+        TextColorHover = #7D7D7DC8;
+        TextStyle = Bold;
+        Texture = "../textures/gui/buttons/orange-button-state-1.png" Smooth;
         TextureDisabled = None;
         TextureDown = None;
-        TextureDownFocused = "../textures/gui/ButtonPressed.png" Smooth;
+        TextureDownFocused = "../textures/gui/buttons/orange-button-state-2.png" Smooth;
         TextureDownHover = None;
         TextureFocused = None;
-        TextureHover = "../textures/gui/ButtonSelected.png" Smooth;
+        TextureHover = "../textures/gui/buttons/orange-button-state-3.png" Smooth;
     }
 }
 
-Label.settingLabel {
+Label.settingsLabel {
+    HorizontalAlignment = Center;
     Position = (340, 100);
-    Size = (118, 57);
+    ScrollbarPolicy = Never;
+    Size = (198, 57);
     Text = SETTINGS;
     TextSize = 20;
     VerticalAlignment = Center;
@@ -41,6 +46,7 @@ Label.settingLabel {
         BorderColor = #3C3C3C;
         Borders = (0, 0, 0, 0);
         TextColor = #3C3C3C;
+        TextStyle = Bold;
         TextureBackground = None;
 
         Scrollbar {
