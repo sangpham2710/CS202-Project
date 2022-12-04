@@ -7,7 +7,7 @@ MenuState::MenuState(StateStack& stack, Context context)
     sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/menu-state.txt");
 
-    gui->setFont("./assets/Sansation.ttf");
+    gui->setFont("./assets/FE5Cent-Regular.ttf");
 
     auto menulabel = gui->get<tgui::Label>("menuLabel");
     auto playBtn = gui->get<tgui::Button>("playButton");
