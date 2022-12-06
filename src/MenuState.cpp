@@ -28,7 +28,6 @@ MenuState::MenuState(StateStack& stack, Context context)
 }
 
 void MenuState::draw() {
-    sf::RenderWindow& window = *getContext().window;
     gui->draw();
 }
 

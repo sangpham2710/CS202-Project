@@ -2,16 +2,17 @@ Panel.Panel1 {
     Size = (1024, 768);
 
     Renderer {
-        BackgroundColor = white;
+        BackgroundColor = black;
         BorderColor = black;
-        TextureBackground = "./background/menu-state.png" Smooth;
+        Opacity = 0.4;
+        TextureBackground = None;
     }
 }
 
-Button.playButton {
+Button.continueButton {
     Position = (410, 270);
     Size = (200, 60);
-    Text = PLAY;
+    Text = CONTINUE;
     TextSize = 20;
 
     Renderer {
@@ -46,13 +47,13 @@ Button.playButton {
     }
 }
 
-Label.menuLabel {
+Label.pauseLabel {
     AutoSize = true;
     HorizontalAlignment = Center;
-    Position = (200, 80);
+    Position = (130, 90);
     ScrollbarPolicy = Never;
-    Size = (670.2, 129);
-    Text = "CROSSING ROAD";
+    Size = (607.2, 129);
+    Text = "GAME PAUSED";
     TextSize = 60;
     VerticalAlignment = Center;
 
@@ -125,10 +126,10 @@ Button.settingsButton {
     }
 }
 
-Button.exitButton {
+Button.backToMenuButton {
     Position = (410, 450);
     Size = (200, 60);
-    Text = EXIT;
+    Text = MENU;
     TextSize = 20;
 
     Renderer {

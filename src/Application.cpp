@@ -1,5 +1,6 @@
 #include "Application.hpp"
 
+#include "Constants.hpp"
 #include "GameOverState.hpp"
 #include "GameState.hpp"
 #include "MenuState.hpp"
@@ -13,7 +14,8 @@
 const sf::Time Application::TimePerFrame = sf::seconds(1.f / 60.f);  // 60 fps
 
 Application::Application()
-    : mWindow(sf::VideoMode(1024, 768), "Crossing Road", sf::Style::Close),
+    : mWindow(sf::VideoMode(Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT),
+              "Crossing Road", sf::Style::Close),
       mTextures(),
       mFonts(),
       mPlayer(),
@@ -63,7 +65,7 @@ void Application::registerStates() {
     mStateStack.registerState<TitleState>(States::Title);
     mStateStack.registerState<MenuState>(States::Menu);
     mStateStack.registerState<GameState>(States::Game);
-    // mStateStack.registerState<PauseState>(States::Pause);
+    mStateStack.registerState<PauseState>(States::Pause);
     mStateStack.registerState<SettingsState>(States::Settings);
     // mStateStack.registerState<GameOverState>(States::GameOver);
 }

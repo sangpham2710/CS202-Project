@@ -12,9 +12,9 @@ Label.titleLabel {
     AutoSize = true;
     HorizontalAlignment = Center;
     Position = (300, 310);
-    Size = (453.4, 66);
-    Text = "Press any key to start";
-    TextSize = 30;
+    Size = (634.8, 79);
+    Text = "PRESS ANY KEY TO START";
+    TextSize = 36;
     VerticalAlignment = Center;
 
     Renderer {
@@ -22,7 +22,7 @@ Label.titleLabel {
         BorderColor = #3C3C3C;
         Borders = (0, 0, 0, 0);
         Font = "FFFFORWA.TTF";
-        TextColor = #3C3C3C;
+        TextColor = #2C2C2C;
         TextureBackground = None;
 
         Scrollbar {

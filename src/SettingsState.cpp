@@ -17,7 +17,6 @@ SettingsState::SettingsState(StateStack& stack, Context context)
 }
 
 void SettingsState::draw() {
-    sf::RenderWindow& window = *getContext().window;
     gui->draw();
 }
 

@@ -30,7 +30,7 @@ Button.backButton {
         Font = "FFFFORWA.TTF";
         TextColor = white;
         TextColorDisabled = #7D7D7D;
-        TextColorDown = black;
+        TextColorDown = #FEDEBF;
         TextColorDownFocused = None;
         TextColorDownHover = None;
         TextColorFocused = None;
