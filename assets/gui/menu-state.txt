@@ -1,111 +1,67 @@
+Panel.Panel1 {
+    Size = (1030, 770);
+
+    Renderer {
+        BackgroundColor = white;
+        BorderColor = black;
+        TextureBackground = "./background/menu-state.png" Smooth;
+    }
+}
+
 Button.playButton {
-    Position = (150, 200);
-    Size = (200, 50);
+    Position = (410, 270);
+    Size = (200, 60);
     Text = PLAY;
-    TextSize = 13;
+    TextSize = 20;
 
     Renderer {
         BackgroundColor = #7750FF;
         BackgroundColorDisabled = #E6E6E6;
         BackgroundColorDown = #EBEBEB;
-        BackgroundColorHover = #41C4FF;
-        BorderColor = #3C3C3C;
-        BorderColorDisabled = #7D7D7D;
-        BorderColorDown = black;
-        BorderColorFocused = #1E1EB4;
-        BorderColorHover = black;
-        Borders = (1, 1, 1, 1);
+        BackgroundColorHover = None;
+        BorderColor = None;
+        BorderColorDisabled = None;
+        BorderColorDown = None;
+        BorderColorDownFocused = None;
+        BorderColorDownHover = None;
+        BorderColorFocused = None;
+        BorderColorHover = None;
+        Borders = (0, 0, 0, 0);
+        Font = "FFFFORWA.TTF";
         TextColor = white;
         TextColorDisabled = #7D7D7D;
         TextColorDown = black;
-        TextColorHover = black;
+        TextColorDownFocused = None;
+        TextColorDownHover = None;
+        TextColorFocused = None;
+        TextColorHover = None;
         TextStyle = Bold;
-        Texture = "../textures/gui/ButtonNormal.png" Smooth;
+        Texture = "./buttons/blue-button-state-1.png" Smooth;
         TextureDisabled = None;
         TextureDown = None;
-        TextureDownFocused = "../textures/gui/ButtonPressed.png" Smooth;
+        TextureDownFocused = "./buttons/orange-button-state-3.png" Smooth;
         TextureDownHover = None;
         TextureFocused = None;
-        TextureHover = "../textures/gui/ButtonSelected.png" Smooth;
-    }
-}
-
-Button.settingsButton {
-    Position = (150, 260);
-    Size = (200, 50);
-    Text = SETTINGS;
-    TextSize = 13;
-
-    Renderer {
-        BackgroundColor = #7750FF;
-        BackgroundColorDisabled = #E6E6E6;
-        BackgroundColorDown = #EBEBEB;
-        BackgroundColorHover = #41C4FF;
-        BorderColor = #3C3C3C;
-        BorderColorDisabled = #7D7D7D;
-        BorderColorDown = black;
-        BorderColorFocused = #1E1EB4;
-        BorderColorHover = black;
-        Borders = (1, 1, 1, 1);
-        TextColor = white;
-        TextColorDisabled = #7D7D7D;
-        TextColorDown = black;
-        TextColorHover = black;
-        TextStyle = Bold;
-        Texture = "../textures/gui/ButtonNormal.png" Smooth;
-        TextureDisabled = None;
-        TextureDown = None;
-        TextureDownFocused = "../textures/gui/ButtonPressed.png" Smooth;
-        TextureDownHover = None;
-        TextureFocused = None;
-        TextureHover = "../textures/gui/ButtonSelected.png" Smooth;
-    }
-}
-
-Button.exitButton {
-    Position = (150, 320);
-    Size = (200, 50);
-    Text = EXIT;
-    TextSize = 13;
-
-    Renderer {
-        BackgroundColor = #7750FF;
-        BackgroundColorDisabled = #E6E6E6;
-        BackgroundColorDown = #EBEBEB;
-        BackgroundColorHover = #41C4FF;
-        BorderColor = #3C3C3C;
-        BorderColorDisabled = #7D7D7D;
-        BorderColorDown = black;
-        BorderColorFocused = #1E1EB4;
-        BorderColorHover = black;
-        Borders = (1, 1, 1, 1);
-        TextColor = white;
-        TextColorDisabled = #7D7D7D;
-        TextColorDown = black;
-        TextColorHover = black;
-        TextStyle = Bold;
-        Texture = "../textures/gui/ButtonNormal.png" Smooth;
-        TextureDisabled = None;
-        TextureDown = None;
-        TextureDownFocused = "../textures/gui/ButtonPressed.png" Smooth;
-        TextureDownHover = None;
-        TextureFocused = None;
-        TextureHover = "../textures/gui/ButtonSelected.png" Smooth;
+        TextureHover = "./buttons/orange-button-state-1.png" Smooth;
     }
 }
 
 Label.menuLabel {
-    Position = (500, 130);
-    Size = (68, 67);
+    HorizontalAlignment = Center;
+    Position = (310, 90);
+    ScrollbarPolicy = Never;
+    Size = (405, 123.857);
     Text = MENU;
-    TextSize = 20;
+    TextSize = 60;
     VerticalAlignment = Center;
 
     Renderer {
         BackgroundColor = transparent;
         BorderColor = #3C3C3C;
         Borders = (0, 0, 0, 0);
-        TextColor = #3C3C3C;
+        Font = "FFFFORWA.TTF";
+        TextColor = white;
+        TextStyle = Bold;
         TextureBackground = None;
 
         Scrollbar {
@@ -125,5 +81,81 @@ Label.menuLabel {
             ThumbColorHover = #E6E6E6;
             TrackColor = #F5F5F5;
         }
+    }
+}
+
+Button.settingsButton {
+    Position = (410, 360);
+    Size = (200, 60);
+    Text = SETTINGS;
+    TextSize = 20;
+
+    Renderer {
+        BackgroundColor = #7750FF;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = None;
+        BorderColor = None;
+        BorderColorDisabled = None;
+        BorderColorDown = None;
+        BorderColorDownFocused = None;
+        BorderColorDownHover = None;
+        BorderColorFocused = None;
+        BorderColorHover = None;
+        Borders = (0, 0, 0, 0);
+        Font = "FFFFORWA.TTF";
+        TextColor = white;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = black;
+        TextColorDownFocused = None;
+        TextColorDownHover = None;
+        TextColorFocused = None;
+        TextColorHover = None;
+        TextStyle = Bold;
+        Texture = "./buttons/blue-button-state-1.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = None;
+        TextureDownFocused = "./buttons/orange-button-state-3.png" Smooth;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "./buttons/orange-button-state-1.png" Smooth;
+    }
+}
+
+Button.exitButton {
+    Position = (410, 450);
+    Size = (200, 60);
+    Text = EXIT;
+    TextSize = 20;
+
+    Renderer {
+        BackgroundColor = #7750FF;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = None;
+        BorderColor = None;
+        BorderColorDisabled = None;
+        BorderColorDown = None;
+        BorderColorDownFocused = None;
+        BorderColorDownHover = None;
+        BorderColorFocused = None;
+        BorderColorHover = None;
+        Borders = (0, 0, 0, 0);
+        Font = "FFFFORWA.TTF";
+        TextColor = white;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = black;
+        TextColorDownFocused = None;
+        TextColorDownHover = None;
+        TextColorFocused = None;
+        TextColorHover = None;
+        TextStyle = Bold;
+        Texture = "./buttons/blue-button-state-1.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = None;
+        TextureDownFocused = "./buttons/orange-button-state-3.png" Smooth;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "./buttons/orange-button-state-1.png" Smooth;
     }
 }

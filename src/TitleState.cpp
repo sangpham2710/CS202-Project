@@ -6,7 +6,11 @@
 
 TitleState::TitleState(StateStack& stack, Context context)
     : State(stack, context) {
+    sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/title-state.txt");
+
+    auto titlelabel = gui->get<tgui::Label>("titleLabel");
+    alignCenter(titlelabel, window);
 }
 
 void TitleState::draw() {
@@ -30,5 +34,5 @@ bool TitleState::handleEvent(const sf::Event& event) {
         requestStackPop();
         requestStackPush(States::Menu);
     }
-    return true;
+    return false;
 }

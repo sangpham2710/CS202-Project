@@ -7,14 +7,12 @@ MenuState::MenuState(StateStack& stack, Context context)
     sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/menu-state.txt");
 
-    gui->setFont("./assets/Sansation.ttf");
-
-    auto menulabel = gui->get<tgui::Label>("menuLabel");
+    auto menuLabel = gui->get<tgui::Label>("menuLabel");
     auto playBtn = gui->get<tgui::Button>("playButton");
     auto settingsBtn = gui->get<tgui::Button>("settingsButton");
     auto exitBtn = gui->get<tgui::Button>("exitButton");
 
-    alignCenter(menulabel, window);
+    alignCenter(menuLabel, window);
 
     playBtn->onPress([&] {
         requestStackPop();
@@ -31,11 +29,6 @@ MenuState::MenuState(StateStack& stack, Context context)
 
 void MenuState::draw() {
     sf::RenderWindow& window = *getContext().window;
-
-    sf::RectangleShape rectangle(sf::Vector2f(1024, 768));
-    rectangle.setFillColor(sf::Color::Green);
-    window.draw(rectangle);
-
     gui->draw();
 }
 
@@ -45,5 +38,5 @@ bool MenuState::update(sf::Time dt) {
 
 bool MenuState::handleEvent(const sf::Event& event) {
     gui->handleEvent(event);
-    return true;
+    return false;
 }
