@@ -6,13 +6,19 @@
 
 #include "Character.hpp"
 #include "CommandQueue.hpp"
+#include "Constants.hpp"
 
 using namespace std::placeholders;
 
+class CharacterMover {
+   public:
+    CharacterMover(float vx, float vy) : mVelocity{vx, vy} {}
+    void operator()(Character& character, sf::Time) const {
+        character.move(mVelocity);
+    }
 
-auto characterMover = [](float vx, float vy) {
-    sf::Vector2f velocity{vx, vy};
-    return [&](Character& character, sf::Time) {};
+   private:
+    sf::Vector2f mVelocity;
 };
 
 Player::Player() : mCurrentMissionStatus(MissionRunning) {
@@ -26,8 +32,8 @@ Player::Player() : mCurrentMissionStatus(MissionRunning) {
     initializeActions();
 
     // Assign all categories to player's aircraft
-    // for (auto& pair : mActionBinding)
-    //     pair.second.category = Category::PlayerAircraft;
+    for (auto& pair : mActionBinding)
+        pair.second.category = Category::PlayerCharacter;
 }
 
 void Player::handleEvent(const sf::Event& event, CommandQueue& commands) {
@@ -80,24 +86,24 @@ Player::MissionStatus Player::getMissionStatus() const {
 
 void Player::initializeActions() {
     mActionBinding[MoveLeft].action =
-        derivedAction<Character>(characterMover(-1, 0));
+        derivedAction<Character>(CharacterMover(-Constants::BLOCK_SIZE, 0));
     mActionBinding[MoveRight].action =
-        derivedAction<Character>(characterMover(+1, 0));
+        derivedAction<Character>(CharacterMover(+Constants::BLOCK_SIZE, 0));
     mActionBinding[MoveUp].action =
-        derivedAction<Character>(characterMover(0, -1));
+        derivedAction<Character>(CharacterMover(0, -Constants::BLOCK_SIZE));
     mActionBinding[MoveDown].action =
-        derivedAction<Character>(characterMover(0, +1));
+        derivedAction<Character>(CharacterMover(0, +Constants::BLOCK_SIZE));
 }
 
 bool Player::isRealtimeAction(Action action) {
     switch (action) {
         case MoveLeft:
-        case MoveRight:
-        case MoveDown:
         case MoveUp:
-            return true;
+        case MoveDown:
+        case MoveRight:
+            return false;
 
         default:
-            return false;
+            return true;
     }
 }

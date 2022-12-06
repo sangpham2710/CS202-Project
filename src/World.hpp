@@ -5,9 +5,12 @@
 #include <SFML/System/NonCopyable.hpp>
 #include <array>
 #include <queue>
+#include <vector>
 
+#include "Character.hpp"
 #include "Command.hpp"
 #include "CommandQueue.hpp"
+#include "Lane.hpp"
 #include "ResourceHolder.hpp"
 #include "ResourceIdentifiers.hpp"
 #include "SceneNode.hpp"
@@ -28,15 +31,16 @@ class World : private sf::NonCopyable {
 
    private:
     void loadTextures();
+    void adaptPlayerPosition();
     void handleCollisions();
 
     void buildScene();
-    void destroyEntitiesOutsideView();
+    void destroyObstaclesOutsideView();
     sf::FloatRect getViewBounds() const;
     sf::FloatRect getBattlefieldBounds() const;
 
    private:
-    enum Layer { Background, Lane, LayerCount };
+    enum Layer { Background, Land, Air, LayerCount };
 
    private:
     sf::RenderWindow& mWindow;
@@ -50,4 +54,7 @@ class World : private sf::NonCopyable {
 
     sf::FloatRect mWorldBounds;
     sf::Vector2f mSpawnPosition;
+    sf::Vector2f mViewPosition;
+    Character* mPlayerCharacter;
+    std::vector<Lane*> mLanes;
 };

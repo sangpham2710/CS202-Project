@@ -31,3 +31,11 @@ void Entity::accelerate(float vx, float vy) {
 void Entity::updateCurrent(sf::Time dt, CommandQueue&) {
     move(mVelocity * dt.asSeconds());
 }
+
+void Entity::destroy() {
+    mIsDestroyed = true;
+}
+
+bool Entity::isDestroyed() const {
+    return mIsDestroyed;
+}

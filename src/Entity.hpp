@@ -13,9 +13,13 @@ class Entity : public SceneNode {
     void accelerate(float vx, float vy);
     sf::Vector2f getVelocity() const;
 
+    virtual bool isDestroyed() const;
+    void destroy();
+
    protected:
     virtual void updateCurrent(sf::Time dt, CommandQueue& commands);
 
    private:
     sf::Vector2f mVelocity;
+    bool mIsDestroyed;
 };
