@@ -112,7 +112,7 @@ void World::buildScene() {
 void World::destroyObstaclesOutsideView() {
     Command command;
     command.category = Category::Obstacle;
-    command.action = derivedAction<Entity>([this](Entity& e, sf::Time) {
+    command.action = derivedAction<Obstacle>([this](Obstacle& e, sf::Time) {
         if (!getBattlefieldBounds().intersects(e.getBoundingRect())) {
             e.destroy();
         }

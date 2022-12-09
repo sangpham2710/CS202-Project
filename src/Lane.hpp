@@ -28,6 +28,8 @@ class Lane : public Entity {
     virtual void drawCurrent(sf::RenderTarget& target,
                              sf::RenderStates states) const override;
     virtual void updateCurrent(sf::Time dt, CommandQueue& commands) override;
+    virtual unsigned int getCategory() const override;
+    virtual bool isDestroyed() const override;
 
     void generateObstacle(sf::Time dt);
     void moveObstacles(sf::Time dt);

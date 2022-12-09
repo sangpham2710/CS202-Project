@@ -16,7 +16,6 @@ Lane::Lane(Lane::Type type, Lane::Direction direction, float speed)
       mSpeed(speed),
       mSprite(TexturesSingleton::getInstance().getTextures().get(
           Textures::GrassLane)) {
-    mSprite.setPosition(100, 100);
 }
 
 void Lane::drawCurrent(sf::RenderTarget& target,
@@ -30,6 +29,15 @@ void Lane::updateCurrent(sf::Time dt, CommandQueue& commands) {
 
     // Generate new obstacles
     // generateObstacle(dt);
+}
+
+unsigned int Lane::getCategory() const {
+    return Category::RoadLayer;
+}
+
+bool Lane::isDestroyed() const
+{
+    return false;
 }
 
 void Lane::generateObstacle(sf::Time dt) {
