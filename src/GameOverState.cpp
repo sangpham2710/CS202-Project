@@ -10,14 +10,29 @@
 
 GameOverState::GameOverState(StateStack& stack, Context context)
     : State(stack, context) {
+    sf::RenderWindow& window = *getContext().window;
+    gui->loadWidgetsFromFile("./assets/gui/gameOver-state.txt");
+
+    auto titlelabel = gui->get<tgui::Label>("gameOverLabel");
+    auto replayBtn = gui->get<tgui::Button>("replayButton");
+    auto menuBtn = gui->get<tgui::Button>("backToMenuButton");
+
+    alignCenter(titlelabel, window);
+    alignCenter(replayBtn, window);
+    alignCenter(menuBtn, window);
+
+    replayBtn->onPress([&] {
+        requestStateClear();
+        requestStackPush(States::Game);
+    });
+    menuBtn->onPress([&] {
+        requestStateClear();
+        requestStackPush(States::Menu);
+    });
 }
 
 void GameOverState::draw() {
-    sf::RenderWindow& window = *getContext().window;
-    sf::RectangleShape backgroundShape;
-    backgroundShape.setFillColor(sf::Color(0, 0, 0, 150));
-    backgroundShape.setSize(window.getView().getSize());
-    window.draw(backgroundShape);
+    gui->draw();
 }
 
 bool GameOverState::update(sf::Time) {
@@ -25,10 +40,6 @@ bool GameOverState::update(sf::Time) {
 }
 
 bool GameOverState::handleEvent(const sf::Event& event) {
-    // If any key is pressed, trigger the next screen
-    if (event.type == sf::Event::KeyPressed) {
-        requestStackPop();
-        requestStackPush(States::Title);
-    }
+    gui->handleEvent(event);
     return false;
 }
