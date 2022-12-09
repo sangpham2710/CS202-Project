@@ -7,7 +7,7 @@
 using namespace std;
 
 #define WIDTH_MAX 1024
-#define HEIGHT_MAX 768
+#define HEIGHT_MAX 1024
 #define PIXEL 64
 
 void printPath(sf::Sprite sprite, sf::RenderWindow& window, int& width, int& height) {
@@ -28,18 +28,27 @@ int main() {
 
   sf::Texture textureGrassPath2;
   textureGrassPath2.loadFromFile(
-      "./assets/textures/background/grass-path-3.png");
+      "./assets/textures/background/grass-path-1.png");
   sf::Sprite spriteGrassPath2(textureGrassPath2);
 
   sf::Texture textureBush;
   textureBush.loadFromFile(
-      "./assets/textures/background/bush-2.png");
+      "./assets/textures/background/bush-1.png");
   sf::Sprite spriteBush(textureBush);
 
   sf::Texture textureRiver;
   textureRiver.loadFromFile(
       "./assets/textures/background/river-1.png");
   sf::Sprite spriteRiver(textureRiver);
+
+  sf::Texture textureRiverDoubleAbove;
+  textureRiverDoubleAbove.loadFromFile("./assets/textures/background/river-double-above.png");
+  sf::Sprite spriteRiverDoubleAbove(textureRiverDoubleAbove);
+
+  sf::Texture textureRiverDoubleBelow;
+  textureRiverDoubleBelow.loadFromFile(
+      "./assets/textures/background/river-double-below.png");
+  sf::Sprite spriteRiverDoubleBelow(textureRiverDoubleBelow);
 
   sf::Texture textureRailway;
   textureRailway.loadFromFile(
@@ -123,7 +132,8 @@ int main() {
       printPath(spriteRoadPathMiddle, window, width, height);
       
       printPath(spriteRoadPathBelow, window, width, height);
-      
+      printPath(spriteRiverDoubleAbove, window, width, height);
+      printPath(spriteRiverDoubleBelow, window, width, height);
 
       spritePavement.setPosition(width, height);
       window.draw(spritePavement);
@@ -132,8 +142,6 @@ int main() {
         window.draw(spriteFireHydrant);
       }
       height += 64;
-
-      printPath(spritePavement2, window, width, height);
       printPath(spriteRoadPathAbove2, window, width, height);
 
       
