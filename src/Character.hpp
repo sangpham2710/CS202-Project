@@ -7,7 +7,7 @@
 
 class Character : public Entity {
    public:
-    Character(const TextureHolder& textures);
+    Character();
     virtual unsigned int getCategory() const override;
     virtual sf::FloatRect getBoundingRect() const override;
     virtual bool isMarkedForRemoval() const override;

@@ -5,10 +5,13 @@
 
 #include "CommandQueue.hpp"
 #include "ResourceHolder.hpp"
+#include "TexturesSingleton.hpp"
 #include "Utility.hpp"
 
-Character::Character(const TextureHolder& textures)
-    : mSprite(textures.get(Textures::Character)), mIsMarkedForRemoval(false) {
+Character::Character()
+    : mSprite(TexturesSingleton::getInstance().getTextures().get(
+          Textures::Character)),
+      mIsMarkedForRemoval(false) {
     centerOrigin(mSprite);
 }
 

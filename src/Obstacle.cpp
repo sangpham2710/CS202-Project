@@ -1,11 +1,13 @@
 #include "Obstacle.hpp"
 
 #include "ResourceHolder.hpp"
+#include "TexturesSingleton.hpp"
 #include "Utility.hpp"
 
-
-Obstacle::Obstacle(Type type, const TextureHolder& textures)
-    : mType(type), mSprite(textures.get(Textures::BlueBusLeft)) {
+Obstacle::Obstacle(Type type)
+    : mType(type),
+      mSprite(TexturesSingleton::getInstance().getTextures().get(
+          Textures::Obstacle)) {
     centerOrigin(mSprite);
 }
 
