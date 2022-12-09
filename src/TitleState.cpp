@@ -5,7 +5,7 @@
 #include "Utility.hpp"
 
 TitleState::TitleState(StateStack& stack, Context context)
-    : State(stack, context) {
+    : State(stack, context),isIncreasingOpacity(false) {
     sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/title-state.txt");
 
@@ -24,6 +24,34 @@ void TitleState::draw() {
 }
 
 bool TitleState::update(sf::Time dt) {
+    auto titlelabel = gui->get<tgui::Label>("titleLabel");
+    
+    double currentOpacity = titlelabel->getInheritedOpacity();
+    
+    if (isIncreasingOpacity) {
+        currentOpacity += dt.asSeconds();
+        titlelabel->setInheritedOpacity(std::min(currentOpacity, 1.0));
+
+        if (currentOpacity >= 1) {
+            currentOpacity = 1;
+            isIncreasingOpacity = false;
+        }
+        else {
+            isIncreasingOpacity = true;
+        }
+    }
+    else {
+        currentOpacity -= dt.asSeconds();
+        titlelabel->setInheritedOpacity(std::max(currentOpacity, 0.0));
+
+        if (currentOpacity <= 0) {
+            currentOpacity = 0;
+            isIncreasingOpacity = true;
+        }
+        else {
+            isIncreasingOpacity = false;
+        }
+    }
     return true;
 }
 

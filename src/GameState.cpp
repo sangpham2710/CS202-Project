@@ -29,6 +29,9 @@ bool GameState::handleEvent(const sf::Event& event) {
         event.key.code == sf::Keyboard::Escape) {
         requestStackPush(States::Pause);
     }
-
+    if (event.type == sf::Event::KeyPressed &&
+        event.key.code == sf::Keyboard::Space) {
+        requestStackPush(States::GameOver);
+    }
     return true;
 }

@@ -67,5 +67,5 @@ void Application::registerStates() {
     mStateStack.registerState<GameState>(States::Game);
     mStateStack.registerState<PauseState>(States::Pause);
     mStateStack.registerState<SettingsState>(States::Settings);
-    // mStateStack.registerState<GameOverState>(States::GameOver);
+    mStateStack.registerState<GameOverState>(States::GameOver);
 }
