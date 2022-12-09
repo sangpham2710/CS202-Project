@@ -45,7 +45,6 @@ class World : private sf::NonCopyable {
    private:
     sf::RenderWindow& mWindow;
     sf::View mWorldView;
-    TextureHolder mTextures;
     FontHolder& mFonts;
 
     SceneNode mSceneGraph;

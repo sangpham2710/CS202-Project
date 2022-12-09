@@ -39,7 +39,8 @@ enum ID {
     YellowCarRight,
     GrassLane,
     Railway,
-    RoadSingle
+    RoadSingle,
+    Obstacle,
 };
 }
 

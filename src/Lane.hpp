@@ -22,8 +22,7 @@ class Lane : public Entity {
         Right = 1,
     };
 
-    Lane(Type type, Direction direction, float speed,
-         const TextureHolder& textures);
+    Lane(Type type, Direction direction, float speed);
 
    private:
     virtual void drawCurrent(sf::RenderTarget& target,
@@ -38,5 +37,4 @@ class Lane : public Entity {
     float mSpeed;
     sf::Sprite mSprite;
     std::vector<Obstacle*> mObstacles;
-    const TextureHolder& mTextures;
 };

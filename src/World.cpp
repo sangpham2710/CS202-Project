@@ -6,12 +6,12 @@
 #include <limits>
 
 #include "Constants.hpp"
+#include "TexturesSingleton.hpp"
 
 World::World(sf::RenderWindow& window, FontHolder& fonts)
     : mWindow(window),
       mWorldView(window.getDefaultView()),
       mFonts(fonts),
-      mTextures(),
       mSceneGraph(),
       mSceneLayers(),
       mWorldBounds(0.f, 0.f, mWorldView.getSize().x + 400,
@@ -46,69 +46,6 @@ CommandQueue& World::getCommandQueue() {
 }
 
 void World::loadTextures() {
-    mTextures.load(Textures::Background, "./assets/textures/background.png");
-    mTextures.load(Textures::Character, "./assets/textures/character.png");
-    mTextures.load(Textures::BlueBusLeft,
-                   "./assets/textures/vehicles/blue-bus-left.png");
-    mTextures.load(Textures::BlueBusRight,
-                   "./assets/textures/vehicles/blue-bus-right.png");
-    mTextures.load(Textures::BlueCarLeft,
-                   "./assets/textures/vehicles/blue-car-left.png");
-    mTextures.load(Textures::BlueCarRight,
-                   "./assets/textures/vehicles/blue-car-right.png");
-    mTextures.load(Textures::GrayCarLeft,
-                   "./assets/textures/vehicles/gray-car-left.png");
-    mTextures.load(Textures::GrayCarRight,
-                   "./assets/textures/vehicles/gray-car-right.png");
-    mTextures.load(Textures::NewVanLeft,
-                   "./assets/textures/vehicles/new-van-left.png");
-    mTextures.load(Textures::NewVanRight,
-                   "./assets/textures/vehicles/new-van-right.png");
-    mTextures.load(Textures::OldVanLeft,
-                   "./assets/textures/vehicles/old-van-left.png");
-    mTextures.load(Textures::OldVanRight,
-                   "./assets/textures/vehicles/old-van-right.png");
-    mTextures.load(Textures::OrangeBusLeft,
-                   "./assets/textures/vehicles/orange-bus-left.png");
-    mTextures.load(Textures::OrangeBusRight,
-                   "./assets/textures/vehicles/orange-bus-right.png");
-    mTextures.load(Textures::PoliceCarLeft,
-                   "./assets/textures/vehicles/police-car-left.png");
-    mTextures.load(Textures::PoliceCarRight,
-                   "./assets/textures/vehicles/police-car-right.png");
-    mTextures.load(Textures::RedCarLeft,
-                   "./assets/textures/vehicles/red-car-left.png");
-    mTextures.load(Textures::RedCarRight,
-                   "./assets/textures/vehicles/red-car-right.png");
-    mTextures.load(Textures::RedStripedCarLeft,
-                   "./assets/textures/vehicles/red-striped-car-left.png");
-    mTextures.load(Textures::RedStripedCarRight,
-                   "./assets/textures/vehicles/red-striped-car-right.png");
-    mTextures.load(Textures::RedTruckLeft,
-                   "./assets/textures/vehicles/red-truck-left.png");
-    mTextures.load(Textures::RedTruckRight,
-                   "./assets/textures/vehicles/red-truck-right.png");
-    mTextures.load(Textures::SchoolBusLeft,
-                   "./assets/textures/vehicles/school-bus-left.png");
-    mTextures.load(Textures::SchoolBusRight,
-                   "./assets/textures/vehicles/school-bus-right.png");
-    mTextures.load(Textures::WhiteTruckLeft,
-                   "./assets/textures/vehicles/white-truck-left.png");
-    mTextures.load(Textures::WhiteTruckRight,
-                   "./assets/textures/vehicles/white-truck-right.png");
-    mTextures.load(Textures::YellowCabLeft,
-                   "./assets/textures/vehicles/yellow-cab-left.png");
-    mTextures.load(Textures::YellowCabRight,
-                   "./assets/textures/vehicles/yellow-cab-right.png");
-    mTextures.load(Textures::YellowCarLeft,
-                   "./assets/textures/vehicles/yellow-car-left.png");
-    mTextures.load(Textures::YellowCarRight,
-                   "./assets/textures/vehicles/yellow-car-right.png");
-
-    mTextures.load(Textures::GrassLane, "./assets/textures/lanes/grass-1.png");
-    mTextures.load(Textures::Railway, "./assets/textures/lanes/railway-1.png");
-    mTextures.load(Textures::RoadSingle,
-                   "./assets/textures/lanes/road-single.png");
 }
 
 void World::adaptPlayerPosition() {
@@ -151,7 +88,8 @@ void World::buildScene() {
         mSceneGraph.attachChild(std::move(layer));
     }
 
-    sf::Texture& texture = mTextures.get(Textures::Background);
+    sf::Texture& texture = TexturesSingleton::getInstance().getTextures().get(
+        Textures::Background);
     sf::IntRect textureRect(mWorldBounds);
     texture.setRepeated(true);
 
@@ -160,12 +98,12 @@ void World::buildScene() {
     backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
-	std::unique_ptr<Lane> laneNode(
-		new Lane(Lane::Type::Grass, Lane::Direction::Left, 100, mTextures));
+    std::unique_ptr<Lane> laneNode(
+        new Lane(Lane::Type::Grass, Lane::Direction::Left, 100));
     laneNode->setPosition(100, 100);
-	mSceneLayers[Land]->attachChild(std::move(laneNode));
+    mSceneLayers[Land]->attachChild(std::move(laneNode));
 
-    std::unique_ptr<Character> character(new Character(mTextures));
+    std::unique_ptr<Character> character(new Character());
     character->setPosition(mSpawnPosition);
     mPlayerCharacter = character.get();
     mSceneLayers[Land]->attachChild(std::move(character));

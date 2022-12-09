@@ -39,7 +39,7 @@ class Obstacle : public Entity {
         YellowCarRight,
     };
 
-    Obstacle(Type type, const TextureHolder& textures);
+    Obstacle(Type type);
     virtual sf::FloatRect getBoundingRect() const;
 
    private:
