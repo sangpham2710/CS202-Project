@@ -8,10 +8,16 @@
 #include "TexturesSingleton.hpp"
 #include "Utility.hpp"
 
-Character::Character()
-    : mSprite(TexturesSingleton::getInstance().getTextures().get(
-          Textures::CharacterDown)),
-      mIsMarkedForRemoval(false) {
+Character::Character() :
+    mAnimation(TexturesSingleton::getInstance().getTextures().get(Textures::CharacterDown))
+{
+    mSprite.setScale(sf::Vector2f(0.3, 0.3));
+    mSprite.setTexture(TexturesSingleton::getInstance().getTextures().get(Textures::CharacterDown));
+    mAnimation.setFrameSize(sf::Vector2i(256, 256));
+    mAnimation.setNumFrames(16);
+    mAnimation.setDuration(sf::seconds(1));
+
+    mIsMarkedForRemoval=false;
     centerOrigin(mSprite);
 }
 
@@ -50,4 +56,8 @@ void Character::moveLeftAnimation() {
 
 void Character::moveRightAnimation() {
     mSprite.setTexture(TexturesSingleton::getInstance().getTextures().get(Textures::CharacterRight));
+}
+
+void Character::drawCurrent(sf::RenderTarget& target,sf::RenderStates states) const {
+        target.draw(mAnimation, states);
 }

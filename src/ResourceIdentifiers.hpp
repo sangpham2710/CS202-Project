@@ -12,6 +12,7 @@ enum ID {
     CharacterDown,
     CharacterLeft,
     CharacterRight,
+    CharacterExplosion,
     BlueBusLeft,
     BlueBusRight,
     BlueCarLeft,
