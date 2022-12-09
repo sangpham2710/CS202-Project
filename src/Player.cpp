@@ -14,6 +14,18 @@ class CharacterMover {
    public:
     CharacterMover(float vx, float vy) : mVelocity{vx, vy} {}
     void operator()(Character& character, sf::Time) const {
+        if (mVelocity.x==0 && mVelocity.y<0) {//Up
+            character.moveUpAnimation();
+        }
+        if (mVelocity.x==0 && mVelocity.y>0) {//Down
+            character.moveDownAnimation();
+        }
+        if (mVelocity.x<0 && mVelocity.y==0) {//Left
+            character.moveLeftAnimation();
+        }
+        if (mVelocity.x>0 && mVelocity.y==0) {//Right
+            character.moveRightAnimation();
+        }
         character.move(mVelocity);
     }
 

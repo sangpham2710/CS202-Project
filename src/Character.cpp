@@ -10,7 +10,7 @@
 
 Character::Character()
     : mSprite(TexturesSingleton::getInstance().getTextures().get(
-          Textures::Character)),
+          Textures::CharacterDown)),
       mIsMarkedForRemoval(false) {
     centerOrigin(mSprite);
 }
@@ -34,4 +34,20 @@ void Character::drawCurrent(sf::RenderTarget& target,
 
 void Character::updateCurrent(sf::Time dt, CommandQueue& commands) {
     Entity::updateCurrent(dt, commands);
+}
+
+void Character::moveUpAnimation() {
+    mSprite.setTexture(TexturesSingleton::getInstance().getTextures().get(Textures::CharacterUp));
+}
+
+void Character::moveDownAnimation() {
+    mSprite.setTexture(TexturesSingleton::getInstance().getTextures().get(Textures::CharacterDown));
+}
+
+void Character::moveLeftAnimation() {
+    mSprite.setTexture(TexturesSingleton::getInstance().getTextures().get(Textures::CharacterLeft));
+}
+
+void Character::moveRightAnimation() {
+    mSprite.setTexture(TexturesSingleton::getInstance().getTextures().get(Textures::CharacterRight));
 }

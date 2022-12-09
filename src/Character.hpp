@@ -11,6 +11,10 @@ class Character : public Entity {
     virtual unsigned int getCategory() const override;
     virtual sf::FloatRect getBoundingRect() const override;
     virtual bool isMarkedForRemoval() const override;
+    void moveUpAnimation();
+    void moveDownAnimation();
+    void moveLeftAnimation();
+    void moveRightAnimation();
 
    private:
     virtual void drawCurrent(sf::RenderTarget& target,
