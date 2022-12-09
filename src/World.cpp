@@ -19,8 +19,7 @@ World::World(sf::RenderWindow& window, FontHolder& fonts)
       mSpawnPosition(mWorldView.getSize().x / 2.f,
                      Constants::LANE_HEIGHT / 2.f),
       mViewPosition(mWorldView.getSize().x / 2.f, mWorldView.getSize().y / 2.f),
-      mPlayerCharacter(nullptr),
-      mLanes() {
+      mPlayerCharacter(nullptr) {
     loadTextures();
     buildScene();
     mWorldView.setCenter(mViewPosition);
@@ -161,23 +160,10 @@ void World::buildScene() {
     backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
-    // for (int lane = 0; lane < Constants::NUM_LANES; ++lane) {
-    //     std::unique_ptr<Lane> laneNode(
-    //         new Lane(Lane::Grass, Lane::Direction::Left, 100, mTextures));
-    //     laneNode->setPosition(0, lane * Constants::LANE_HEIGHT);
-    //     mLanes.push_back(laneNode.get());
-
-
-    //     sf::Texture& laneTexture = mTextures.get(Textures::GrassLane);
-    //     sf::IntRect textureRect(mWorldBounds);
-    //     std::unique_ptr<SpriteNode> laneSprite(
-    //         new SpriteNode(texture, textureRect));
-    //     laneSprite->setPosition(0, lane * Constants::LANE_HEIGHT);
-    //     laneNode->attachChild(std::move(laneSprite));
-
-    //     mSceneLayers[Land]->attachChild(std::move(laneNode));
-    // }
-
+	std::unique_ptr<Lane> laneNode(
+		new Lane(Lane::Type::Grass, Lane::Direction::Left, 100, mTextures));
+    laneNode->setPosition(100, 100);
+	mSceneLayers[Land]->attachChild(std::move(laneNode));
 
     std::unique_ptr<Character> character(new Character(mTextures));
     character->setPosition(mSpawnPosition);

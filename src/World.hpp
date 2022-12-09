@@ -56,5 +56,4 @@ class World : private sf::NonCopyable {
     sf::Vector2f mSpawnPosition;
     sf::Vector2f mViewPosition;
     Character* mPlayerCharacter;
-    std::vector<Lane*> mLanes;
 };

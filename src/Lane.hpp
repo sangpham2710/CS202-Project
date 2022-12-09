@@ -22,13 +22,13 @@ class Lane : public Entity {
         Right = 1,
     };
 
-    Lane::Lane(Type type, Direction direction, float speed,
-               const TextureHolder& textures);
+    Lane(Type type, Direction direction, float speed,
+         const TextureHolder& textures);
 
    private:
     virtual void drawCurrent(sf::RenderTarget& target,
-                             sf::RenderStates states) const;
-    virtual void updateCurrent(sf::Time dt, CommandQueue& commands);
+                             sf::RenderStates states) const override;
+    virtual void updateCurrent(sf::Time dt, CommandQueue& commands) override;
 
     void generateObstacle(sf::Time dt);
     void moveObstacles(sf::Time dt);

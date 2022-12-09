@@ -12,15 +12,7 @@ class SettingsState : public State {
    public:
     SettingsState(StateStack& stack, Context context);
 
-    virtual void draw();
-    virtual bool update(sf::Time dt);
-    virtual bool handleEvent(const sf::Event& event);
-
-   private:
-    void updateLabels();
-    void addButtonLabel(Player::Action action, float y, const std::string& text,
-                        Context context);
-
-   private:
-    sf::Sprite mBackgroundSprite;
+    virtual void draw() override;
+    virtual bool update(sf::Time dt) override;
+    virtual bool handleEvent(const sf::Event& event) override;
 };

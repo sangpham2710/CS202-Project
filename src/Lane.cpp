@@ -8,21 +8,19 @@
 #include "ResourceHolder.hpp"
 #include "Utility.hpp"
 
-Lane::Lane(Type type, Direction direction, float speed,
-           const TextureHolder& textures)
-    : mType(type), mDirection(direction), mSpeed(speed), mTextures(textures) {
-    const sf::Texture& texture = mTextures.get(Textures::BlueBusLeft);
+#include <iostream>
 
-    mSprite.setTexture(texture);
-    sf::IntRect textureRect(0, 0, Constants::LANE_WIDTH,
-                            Constants::LANE_HEIGHT);
-    mSprite.setTextureRect(textureRect);
-    centerOrigin(mSprite);
+Lane::Lane(Lane::Type type, Lane::Direction direction, float speed,
+           const TextureHolder& textures)
+    : mType(type), mDirection(direction), mSpeed(speed), mTextures(textures), mSprite(textures.get(Textures::GrassLane)) {
+    mSprite.setPosition(100, 100);
+    std::cout << mSprite.getGlobalBounds().top << ' ' << mSprite.getGlobalBounds().left << std::endl;
 }
 
 void Lane::drawCurrent(sf::RenderTarget& target,
                        sf::RenderStates states) const {
     target.draw(mSprite, states);
+    std::cout << mSprite.getGlobalBounds().top << ' ' << mSprite.getGlobalBounds().left << std::endl;
 }
 
 void Lane::updateCurrent(sf::Time dt, CommandQueue& commands) {
