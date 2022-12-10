@@ -59,13 +59,17 @@ TexturesSingleton::TexturesSingleton() : mTextures() {
                    "./assets/textures/vehicles/yellow-car-left.png");
     mTextures.load(Textures::YellowCarRight,
                    "./assets/textures/vehicles/yellow-car-right.png");
-
-    mTextures.load(Textures::GrassLane, "./assets/textures/lanes/grass-1.png");
-    mTextures.load(Textures::Railway, "./assets/textures/lanes/railway-1.png");
     mTextures.load(Textures::RoadSingle,
                    "./assets/textures/lanes/road-single.png");
     mTextures.load(Textures::Obstacle,
                    "./assets/textures/vehicles/blue-bus-left.png");
+    mTextures.load(Textures::GrassLane, "./assets/textures/lanes/grass-1.png");
+    mTextures.load(Textures::Railway, "./assets/textures/lanes/railway-1.png");
+    mTextures.load(Textures::River, "./assets/textures/lanes/river-1.png");
+    mTextures.load(Textures::RoadAbove, "./assets/textures/lanes/road-above.png");
+    mTextures.load(Textures::RoadBelow, "./assets/textures/lanes/road-below.png");
+    mTextures.load(Textures::RoadMiddle, "./assets/textures/lanes/road-middle.png");
+    mTextures.load(Textures::Pavement, "./assets/textures/lanes/pavement-1.png");
 }
 
 TexturesSingleton& TexturesSingleton::getInstance() {

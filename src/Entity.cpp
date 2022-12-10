@@ -3,7 +3,7 @@
 #include <cassert>
 
 
-Entity::Entity() : mVelocity() {
+Entity::Entity() : mVelocity(), mIsDestroyed(false) {
 }
 
 void Entity::setVelocity(sf::Vector2f velocity) {

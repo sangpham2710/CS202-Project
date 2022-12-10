@@ -41,6 +41,11 @@ enum ID {
     Railway,
     RoadSingle,
     Obstacle,
+    River,
+    RoadAbove,
+    RoadBelow,
+    RoadMiddle,
+    Pavement,
 };
 }
 
