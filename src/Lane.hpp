@@ -5,7 +5,7 @@
 #include "Entity.hpp"
 #include "Obstacle.hpp"
 #include "ResourceIdentifiers.hpp"
-
+#include "World.hpp"
 class Lane : public Entity {
    public:
     // Type
@@ -29,10 +29,10 @@ class Lane : public Entity {
                              sf::RenderStates states) const override;
     virtual void updateCurrent(sf::Time dt, CommandQueue& commands) override;
     virtual unsigned int getCategory() const override;
-    virtual bool isDestroyed() const override;
 
     void generateObstacle(sf::Time dt);
     void moveObstacles(sf::Time dt);
+    void deleteObstacle(sf::Time dt);
 
     Type mType;
     Direction mDirection;

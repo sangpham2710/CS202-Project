@@ -98,11 +98,31 @@ void World::buildScene() {
     backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
-    std::unique_ptr<Lane> laneNode(
-        new Lane(Lane::Type::Grass, Lane::Direction::Left, 100));
-    laneNode->setPosition(100, 100);
-    mSceneLayers[Land]->attachChild(std::move(laneNode));
 
+    for (int i = 0; i < Constants::NUM_LANES; i++) {
+        Lane::Type type;
+        Lane::Direction direction;
+
+        if (i % 3 == 0) {
+            type = Lane::Type::Grass;
+            direction = Lane::Left;
+        }
+        else if (i % 3 == 1) {
+            type = Lane::Type::Pavement;
+            direction = Lane::NoDirection;
+        }
+        else {
+            type = Lane::Type::Road;
+            direction = Lane::Right;
+        }
+
+        std::unique_ptr<Lane> laneNode(
+            new Lane(type, direction, 100));
+        laneNode->setPosition(0, i * Constants::BLOCK_SIZE);
+
+        mSceneLayers[Land]->attachChild(std::move(laneNode));
+    }
+   
     std::unique_ptr<Character> character(new Character());
     character->setPosition(mSpawnPosition);
     mPlayerCharacter = character.get();
@@ -117,6 +137,7 @@ void World::destroyObstaclesOutsideView() {
             e.destroy();
         }
     });
+
 }
 
 sf::FloatRect World::getViewBounds() const {
