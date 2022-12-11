@@ -9,15 +9,20 @@
 #include "Utility.hpp"
 
 Character::Character() :
-    mAnimation(TexturesSingleton::getInstance().getTextures().get(Textures::CharacterDown))
+    mAnimation(TexturesSingleton::getInstance().getTextures().get(Textures::CharacterExplosion))
 {
-    mSprite.setScale(sf::Vector2f(0.3, 0.3));
     mSprite.setTexture(TexturesSingleton::getInstance().getTextures().get(Textures::CharacterDown));
+
     mAnimation.setFrameSize(sf::Vector2i(256, 256));
     mAnimation.setNumFrames(16);
     mAnimation.setDuration(sf::seconds(1));
+    mAnimation.setRepeating(1);
+
+    mAnimation.setPosition(-31,-31);
+    mAnimation.setScale(0.251, 0.251);
 
     mIsMarkedForRemoval=false;
+    isDead = 0;
     centerOrigin(mSprite);
 }
 
@@ -33,13 +38,28 @@ bool Character::isMarkedForRemoval() const {
     return mIsMarkedForRemoval;
 }
 
-void Character::drawCurrent(sf::RenderTarget& target,
-                            sf::RenderStates states) const {
-    target.draw(mSprite, states);
+void Character::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
+    if (isDead) {
+        target.draw(mAnimation,states);
+    }
+    else {
+        target.draw(mSprite, states);
+    }
 }
 
 void Character::updateCurrent(sf::Time dt, CommandQueue& commands) {
     Entity::updateCurrent(dt, commands);
+    if (characterClock.getElapsedTime().asSeconds() > 3.0) {
+        isDead = 1;
+    }
+    if (characterClock.getElapsedTime().asSeconds() > 6.0) {
+        isDead = 0;
+        characterClock.restart();
+    }
+    if (isDead) {
+        mAnimation.update(dt);
+        return;
+    }
 }
 
 void Character::moveUpAnimation() {
@@ -56,8 +76,4 @@ void Character::moveLeftAnimation() {
 
 void Character::moveRightAnimation() {
     mSprite.setTexture(TexturesSingleton::getInstance().getTextures().get(Textures::CharacterRight));
-}
-
-void Character::drawCurrent(sf::RenderTarget& target,sf::RenderStates states) const {
-        target.draw(mAnimation, states);
 }
