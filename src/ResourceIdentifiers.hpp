@@ -8,7 +8,10 @@ class Font;
 namespace Textures {
 enum ID {
     Background,
-    Character,
+    CharacterUp,
+    CharacterDown,
+    CharacterLeft,
+    CharacterRight,
     BlueBusLeft,
     BlueBusRight,
     BlueCarLeft,

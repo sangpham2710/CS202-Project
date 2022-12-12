@@ -2,7 +2,10 @@
 
 TexturesSingleton::TexturesSingleton() : mTextures() {
     mTextures.load(Textures::Background, "./assets/textures/background.png");
-    mTextures.load(Textures::Character, "./assets/textures/character.png");
+    mTextures.load(Textures::CharacterUp, "./assets/textures/character/Skin1Up.png");
+    mTextures.load(Textures::CharacterDown, "./assets/textures/character/Skin1Down.png");
+    mTextures.load(Textures::CharacterLeft, "./assets/textures/character/Skin1Left.png");
+    mTextures.load(Textures::CharacterRight, "./assets/textures/character/Skin1Right.png");
     mTextures.load(Textures::BlueBusLeft,
                    "./assets/textures/vehicles/blue-bus-left.png");
     mTextures.load(Textures::BlueBusRight,
