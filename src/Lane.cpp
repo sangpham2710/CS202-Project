@@ -30,7 +30,6 @@ Lane::Lane(Lane::Type type, Lane::Direction direction, float speed)
                     Textures::GrassLane));
         }
     }
-    lastObstacle = nullptr;
 }
 
 void Lane::drawCurrent(sf::RenderTarget& target,
@@ -48,12 +47,6 @@ void Lane::drawCurrent(sf::RenderTarget& target,
 }
 
 void Lane::updateCurrent(sf::Time dt, CommandQueue& commands) {
-    // Move obstacles
-    // moveObstacles(dt);
-
-    // Delete obstacles out of view
-    // deleteObstacle(dt);
-
     // Generate new obstacles
     generateObstacle(dt);
 }
@@ -64,48 +57,41 @@ unsigned int Lane::getCategory() const {
 
 void Lane::generateObstacle(sf::Time dt) {
     int tmp = randomInt(1000);
-    if (tmp >= 10) 
-        return;
-    tmp = randomInt((unsigned)Obstacle::Type::TypeCount);
-    if (!lastObstacle || checkPositionLastObstacle(mType)) {
-        if (mDirection == Lane::Left) {
-            std::unique_ptr<Obstacle> obstacle(
-                new Obstacle((Obstacle::Type)tmp, Obstacle::Direction::Left));
-            obstacle->setPosition(Constants::SCREEN_WIDTH, mSprite.getPosition().y);
-            obstacle->setVelocity(mDirection * mSpeed, 0.f);
+    if (tmp >= 10) return;
 
-            lastObstacle = obstacle.get();
+    auto obstacleType = Obstacle::getRandomObstacleType();
+    auto children = this->getChildren();
+    auto lastObstacle = children.empty() ? nullptr : children.back();
 
-            attachChild(std::move(obstacle));
-            
-            
-        }
-        else if (mDirection == Lane::Right) {
-            std::unique_ptr<Obstacle> obstacle(
-                new Obstacle((Obstacle::Type)tmp, Obstacle::Direction::Right));
-            obstacle->setPosition(0, mSprite.getPosition().y);
-            obstacle->setVelocity(mDirection * mSpeed, 0.f);
-            obstacle->setVelocity(mDirection * mSpeed, 0.f);
-
-            lastObstacle = obstacle.get();
-
-            attachChild(std::move(obstacle));
-
-        }
-    }
-}
-
-bool Lane::checkPositionLastObstacle(Lane::Type type){
     if (mDirection == Lane::Left) {
-        if (Constants::SCREEN_WIDTH - lastObstacle->getPosition().x >= 
-            lastObstacle->getBoundingRect().width)
-            return true;
+        std::unique_ptr<Obstacle> obstacle(
+            new Obstacle(obstacleType, Obstacle::Direction::Left));
+
+        if (lastObstacle) {
+            float end = lastObstacle->getPosition().x +
+                        lastObstacle->getBoundingRect().width;
+
+            if (end > Constants::SCREEN_WIDTH) return;
+        }
+
+        obstacle->setPosition(Constants::SCREEN_WIDTH, mSprite.getPosition().y);
+        obstacle->setVelocity(mDirection * mSpeed, 0.f);
+        attachChild(std::move(obstacle));
     }
-    else if (mDirection == Lane::Right) {
-        if (lastObstacle->getPosition().x - lastObstacle->getBoundingRect().width >= 0)
-            return true;
+
+    if (mDirection == Lane::Right) {
+        std::unique_ptr<Obstacle> obstacle(
+            new Obstacle(obstacleType, Obstacle::Direction::Right));
+
+        if (lastObstacle) {
+            float start = lastObstacle->getPosition().x;
+            if (start < 0) return;
+        }
+
+        obstacle->setPosition(-obstacle->getBoundingRect().width,
+                              mSprite.getPosition().y);
+        obstacle->setVelocity(mDirection * mSpeed, 0.f);
+
+        attachChild(std::move(obstacle));
     }
-    return false;
 }
-
-

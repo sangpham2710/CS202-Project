@@ -10,12 +10,7 @@
 class Lane : public Entity {
    public:
     // Type
-    enum Type {
-        Grass,
-        Pavement,
-        Road,
-        TypeCount
-    };
+    enum Type { Grass, Pavement, Road, TypeCount };
 
     // Direction of obstacles
     enum Direction {
@@ -33,11 +28,9 @@ class Lane : public Entity {
     virtual unsigned int getCategory() const override;
 
     void generateObstacle(sf::Time dt);
-    bool checkPositionLastObstacle(Lane::Type type);
 
     Type mType;
     Direction mDirection;
     float mSpeed;
     sf::Sprite mSprite;
-    Obstacle* lastObstacle;
 };

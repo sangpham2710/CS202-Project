@@ -149,6 +149,12 @@ bool SceneNode::isDestroyed() const {
     return false;
 }
 
+std::vector<SceneNode*> SceneNode::getChildren() const {
+    std::vector<SceneNode*> children;
+    for (const Ptr& child : mChildren) children.push_back(child.get());
+    return children;
+}
+
 bool collision(const SceneNode& lhs, const SceneNode& rhs) {
     return lhs.getBoundingRect().intersects(rhs.getBoundingRect());
 }

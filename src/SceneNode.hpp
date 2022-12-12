@@ -44,6 +44,7 @@ class SceneNode : public sf::Transformable,
     virtual sf::FloatRect getBoundingRect() const;
     virtual bool isMarkedForRemoval() const;
     virtual bool isDestroyed() const;
+    std::vector<SceneNode*> getChildren() const;
 
    private:
     virtual void updateCurrent(sf::Time dt, CommandQueue& commands);

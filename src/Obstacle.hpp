@@ -25,13 +25,12 @@ class Obstacle : public Entity {
         YellowCar,
         TypeCount
     };
-    enum Direction {
-        Left,
-        Right
-    };
+    enum class Direction { Left, Right };
 
-    Obstacle(Type type,Direction direction);
+    Obstacle(Type type, Direction direction);
     virtual sf::FloatRect getBoundingRect() const;
+
+    static Obstacle::Type getRandomObstacleType();
 
    private:
     virtual void drawCurrent(sf::RenderTarget& target,
