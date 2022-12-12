@@ -11,8 +11,16 @@ class Lane : public Entity {
     // Type
     enum Type {
         Grass,
-        Pavement,
-        Road,
+        LilyPadAbove,
+        LilyPadBelow,
+        LilyPadSingle,
+        PavementAbove,
+        PavementBelow,
+        Railway,
+        RoadAbove,
+        RoadBelow,
+        RoadMiddle,
+        RoadSingle,
         TypeCount
     };
 
