@@ -120,6 +120,10 @@ void Animation::update(sf::Time dt) {
     mSprite.setTextureRect(textureRect);
 }
 
+void Animation::setColor(const sf::Color& color) {
+    mSprite.setColor(color);
+}
+
 void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform();
     target.draw(mSprite, states);

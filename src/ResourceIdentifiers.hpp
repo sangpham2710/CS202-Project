@@ -53,6 +53,7 @@ enum ID {
     RoadAbove,
     RoadBelow,
     RoadMiddle,
+    Explosion,
 };
 }
 

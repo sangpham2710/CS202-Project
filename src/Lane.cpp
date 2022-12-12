@@ -6,10 +6,10 @@
 
 #include "CommandQueue.hpp"
 #include "Constants.hpp"
+#include "DataTables.hpp"
 #include "ResourceHolder.hpp"
 #include "TexturesSingleton.hpp"
 #include "Utility.hpp"
-#include "DataTables.hpp"
 
 namespace {
 const std::vector<LaneData> Table = initializeLaneData();
@@ -17,8 +17,8 @@ const std::vector<LaneData> Table = initializeLaneData();
 
 Lane::Lane(Lane::Type type, Lane::Direction direction, float speed)
     : mType(type), mDirection(direction), mSpeed(speed) {
-  mSprite = sf::Sprite(
-      TexturesSingleton::getInstance().getTextures().get(Table[type].texture));
+    mSprite = sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
+        Table[type].texture));
 }
 
 void Lane::drawCurrent(sf::RenderTarget& target,
@@ -46,7 +46,7 @@ unsigned int Lane::getCategory() const {
 
 void Lane::generateObstacle(sf::Time dt) {
     int tmp = randomInt(10000);
-    if (tmp >= 20) return;
+    if (tmp >= 10) return;
 
     auto obstacleType = Obstacle::getRandomObstacleType();
     auto children = this->getChildren();

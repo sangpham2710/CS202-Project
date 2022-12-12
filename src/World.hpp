@@ -28,6 +28,7 @@ class World : private sf::NonCopyable {
     void draw();
 
     CommandQueue& getCommandQueue();
+    bool hasAlivePlayer() const;
 
    private:
     void loadTextures();

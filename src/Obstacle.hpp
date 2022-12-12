@@ -32,6 +32,8 @@ class Obstacle : public Entity {
 
     static Obstacle::Type getRandomObstacleType();
 
+    void setTextureWrecked();
+
    private:
     virtual void drawCurrent(sf::RenderTarget& target,
                              sf::RenderStates states) const;

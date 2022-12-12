@@ -8,5 +8,6 @@ class Constants {
     static constexpr int LANE_HEIGHT = 64;
     static constexpr int LANE_WIDTH = SCREEN_WIDTH;
     static constexpr int NUM_LANES = 12;
-    static constexpr float MOVE_ANIMATION_DURATION = 0.3f;
+    static constexpr float MOVE_ANIMATION_DURATION = 0.2f;
+    static constexpr int HITBOX_SIZE = 56;
 };

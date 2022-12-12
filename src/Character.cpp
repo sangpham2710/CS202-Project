@@ -9,7 +9,7 @@
 #include "TexturesSingleton.hpp"
 #include "Utility.hpp"
 
-Character::Character() : mIsMarkedForRemoval(false), mIsMoving(false) {
+Character::Character() : mIsMoving(false), mShowExplosion(true) {
     mAnimation.setTexture(TexturesSingleton::getInstance().getTextures().get(
         Textures::CharacterDown));
     mAnimation.setFrameSize(sf::Vector2i(64, 64));
@@ -17,6 +17,12 @@ Character::Character() : mIsMarkedForRemoval(false), mIsMoving(false) {
     mAnimation.setDuration(sf::seconds(Constants::MOVE_ANIMATION_DURATION));
     mAnimation.restart();
     centerOrigin(mAnimation);
+    mExplosion.setTexture(TexturesSingleton::getInstance().getTextures().get(
+        Textures::Explosion));
+    mExplosion.setFrameSize(sf::Vector2i(256, 256));
+    mExplosion.setNumFrames(16);
+    mExplosion.setDuration(sf::seconds(1));
+    centerOrigin(mExplosion);
 }
 
 unsigned int Character::getCategory() const {
@@ -24,27 +30,45 @@ unsigned int Character::getCategory() const {
 }
 
 sf::FloatRect Character::getBoundingRect() const {
-    return getWorldTransform().transformRect(mAnimation.getGlobalBounds());
+    auto rect = getWorldTransform().transformRect(mAnimation.getGlobalBounds());
+    rect.left -= Constants::BLOCK_SIZE / 2;
+    rect.top -= Constants::BLOCK_SIZE / 2;
+    rect.left += (Constants::BLOCK_SIZE - Constants::HITBOX_SIZE) / 2;
+    rect.top += (Constants::BLOCK_SIZE - Constants::HITBOX_SIZE) / 2;
+    rect.width = Constants::HITBOX_SIZE;
+    rect.height = Constants::HITBOX_SIZE;
+    return rect;
 }
 
 bool Character::isMarkedForRemoval() const {
-    return mIsMarkedForRemoval;
+    return isDestroyed() && (mExplosion.isFinished() || !mShowExplosion);
 }
 
 void Character::drawCurrent(sf::RenderTarget& target,
                             sf::RenderStates states) const {
-    target.draw(mAnimation, states);
+    if (isDestroyed() && mShowExplosion) {
+        target.draw(mExplosion, states);
+        target.draw(mAnimation, states);
+    } else {
+        target.draw(mAnimation, states);
+    }
 }
 
 void Character::updateCurrent(sf::Time dt, CommandQueue& commands) {
+    if (isDestroyed()) {
+        mExplosion.update(dt);
+        return;
+    }
     if (mIsMoving) mAnimation.update(dt);
     if (mAnimation.isFinished()) {
+        mIsMoving = false;
         setVelocity(0.0f, 0.0f);
         setPosition(floor(getPosition().x / Constants::BLOCK_SIZE) *
-                            Constants::BLOCK_SIZE + Constants::BLOCK_SIZE / 2,
+                            Constants::BLOCK_SIZE +
+                        Constants::BLOCK_SIZE / 2,
                     floor(getPosition().y / Constants::BLOCK_SIZE) *
-                            Constants::BLOCK_SIZE + Constants::BLOCK_SIZE / 2);
-        mIsMoving = false;
+                            Constants::BLOCK_SIZE +
+                        Constants::BLOCK_SIZE / 2);
         mAnimation.restart();
     }
     Entity::updateCurrent(dt, commands);
@@ -52,6 +76,14 @@ void Character::updateCurrent(sf::Time dt, CommandQueue& commands) {
 
 bool Character::isMoving() const {
     return mIsMoving;
+}
+
+void Character::setTextureWrecked() {
+    mAnimation.setColor(sf::Color(255, 255, 255, 128));
+}
+
+void Character::setExplosionPosition(sf::Vector2f position) {
+    mExplosion.setPosition(position);
 }
 
 void Character::moveUp() {

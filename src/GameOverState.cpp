@@ -1,32 +1,33 @@
 #include "GameOverState.hpp"
 
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Graphics/View.hpp>
-
-#include "ResourceHolder.hpp"
-#include "ResourceIdentifiers.hpp"
 #include "Utility.hpp"
 
 GameOverState::GameOverState(StateStack& stack, Context context)
     : State(stack, context) {
-}
-
-void GameOverState::draw() {
     sf::RenderWindow& window = *getContext().window;
-    sf::RectangleShape backgroundShape;
-    backgroundShape.setFillColor(sf::Color(0, 0, 0, 150));
-    backgroundShape.setSize(window.getView().getSize());
-    window.draw(backgroundShape);
+    gui->loadWidgetsFromFile("./assets/gui/game-over-state.txt");
+
+    auto gameOverLabel = gui->get<tgui::Label>("gameOverLabel");
+
+    alignCenter(gameOverLabel, window);
+}
+void GameOverState::draw() {
+    gui->draw();
 }
 
-bool GameOverState::update(sf::Time) {
+bool GameOverState::update(sf::Time dt) {
+    mElapsedTime += dt;
+    if (mElapsedTime > sf::seconds(3)) {
+        requestStateClear();
+        requestStackPush(States::Menu);
+    }
     return false;
 }
 
 bool GameOverState::handleEvent(const sf::Event& event) {
     // If any key is pressed, trigger the next screen
-    if (event.type == sf::Event::KeyPressed) {
+    if (event.type == sf::Event::KeyPressed &&
+        event.key.code == sf::Keyboard::Escape) {
         requestStackPop();
         requestStackPush(States::Title);
     }

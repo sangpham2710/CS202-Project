@@ -10,39 +10,6 @@
 
 using namespace std::placeholders;
 
-// class CharacterMover {
-//    public:
-//     CharacterMover(float vx, float vy) : mVelocity{vx / 0.3, vy / 0.3} {}
-//     void operator()(Character& character, sf::Time) const {
-//         character.setVelocity(mVelocity);
-//         // 1s finish jump
-//         // 4 frames
-//         // 64 pixel jump
-//         // move per dt: 1/60 * 64
-//         while (1) {
-//             if (mVelocity.x == 0 && mVelocity.y < 0) {
-//                 character.setAnimation(0);
-//                 break;
-//             }
-//             if (mVelocity.x == 0 && mVelocity.y > 0) {
-//                 character.setAnimation(1);
-//                 break;
-//             }
-//             if (mVelocity.x < 0 && mVelocity.y == 0) {
-//                 character.setAnimation(2);
-//                 break;
-//             }
-//             if (mVelocity.x > 0 && mVelocity.y == 0) {
-//                 character.setAnimation(3);
-//                 break;
-//             }
-//         }
-//     }
-
-//    private:
-//     sf::Vector2f mVelocity;
-// };
-
 Player::Player() : mCurrentMissionStatus(MissionRunning) {
     // Set initial key bindings
     mKeyBinding[sf::Keyboard::Left] = MoveLeft;

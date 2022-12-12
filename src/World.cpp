@@ -30,6 +30,7 @@ void World::update(sf::Time dt) {
     while (!mCommandQueue.isEmpty()) {
         mSceneGraph.onCommand(mCommandQueue.pop(), dt);
     }
+    handleCollisions();
     mSceneGraph.removeWrecks();
     mSceneGraph.update(dt, mCommandQueue);
     adaptPlayerPosition();
@@ -42,6 +43,10 @@ void World::draw() {
 
 CommandQueue& World::getCommandQueue() {
     return mCommandQueue;
+}
+
+bool World::hasAlivePlayer() const {
+    return !mPlayerCharacter->isMarkedForRemoval();
 }
 
 void World::loadTextures() {
@@ -77,7 +82,40 @@ bool matchesCategories(SceneNode::Pair& colliders, Category::Type type1,
     }
 }
 
+#include <iostream>
+
 void World::handleCollisions() {
+    std::set<SceneNode::Pair> collisionPairs;
+    mSceneGraph.checkSceneCollision(mSceneGraph, collisionPairs);
+
+    for (SceneNode::Pair pair : collisionPairs) {
+        if (matchesCategories(pair, Category::PlayerCharacter,
+                              Category::Obstacle)) {
+            auto& character = static_cast<Character&>(*pair.first);
+            auto& obstacle = static_cast<Obstacle&>(*pair.second);
+
+            auto characterPosition = character.getWorldPosition();
+            auto obstaclePosition =
+                obstacle.getWorldPosition() +
+                sf::Vector2f(obstacle.getBoundingRect().width,
+                             obstacle.getBoundingRect().height) *
+                    0.5f;
+            auto explosionPosition =
+                (obstaclePosition - characterPosition) * 0.5f;
+            character.setExplosionPosition(explosionPosition);
+            character.destroy();
+            obstacle.setTextureWrecked();
+            character.setTextureWrecked();
+            Command command;
+            command.category = Category::Obstacle;
+            // stop all obstacles
+            command.action =
+                derivedAction<Obstacle>([](Obstacle& obstacle, sf::Time) {
+                    obstacle.setVelocity(0.0f, 0.0f);
+                });
+            mCommandQueue.push(command);
+        }
+    }
 }
 
 void World::buildScene() {

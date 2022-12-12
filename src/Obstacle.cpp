@@ -28,6 +28,10 @@ Obstacle::Type Obstacle::getRandomObstacleType() {
     return Obstacle::Type(randomInt((unsigned)Obstacle::Type::TypeCount));
 }
 
+void Obstacle::setTextureWrecked() {
+    mSprite.setColor(sf::Color(255, 255, 255, 128));
+}
+
 void Obstacle::drawCurrent(sf::RenderTarget& target,
                            sf::RenderStates states) const {
     target.draw(mSprite, states);

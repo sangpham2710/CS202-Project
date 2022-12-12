@@ -17,6 +17,8 @@ class Character : public Entity {
     void moveLeft();
     void moveRight();
     bool isMoving() const;
+    void setTextureWrecked();
+    void setExplosionPosition(sf::Vector2f position);
 
    private:
     virtual void drawCurrent(sf::RenderTarget& target,
@@ -25,6 +27,7 @@ class Character : public Entity {
 
     sf::Sprite mSprite;
     Animation mAnimation;
-    bool mIsMarkedForRemoval;
+    Animation mExplosion;
     bool mIsMoving;
+    bool mShowExplosion;
 };

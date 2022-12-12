@@ -33,6 +33,7 @@ class Animation : public sf::Drawable, public sf::Transformable {
 
     void update(sf::Time dt);
 
+    void setColor(const sf::Color& color);
 
    private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;

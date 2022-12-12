@@ -14,4 +14,5 @@ class GameOverState : public State {
     virtual bool handleEvent(const sf::Event& event) override;
 
    private:
+    sf::Time mElapsedTime;
 };
