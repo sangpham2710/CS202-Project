@@ -39,7 +39,11 @@ void Character::drawCurrent(sf::RenderTarget& target,
 void Character::updateCurrent(sf::Time dt, CommandQueue& commands) {
     if (mIsMoving) mAnimation.update(dt);
     if (mAnimation.isFinished()) {
-        this->setVelocity(0.0f, 0.0f);
+        setVelocity(0.0f, 0.0f);
+        setPosition(floor(getPosition().x / Constants::BLOCK_SIZE) *
+                            Constants::BLOCK_SIZE + Constants::BLOCK_SIZE / 2,
+                    floor(getPosition().y / Constants::BLOCK_SIZE) *
+                            Constants::BLOCK_SIZE + Constants::BLOCK_SIZE / 2);
         mIsMoving = false;
         mAnimation.restart();
     }

@@ -16,7 +16,7 @@ World::World(sf::RenderWindow& window, FontHolder& fonts)
       mSceneLayers(),
       mWorldBounds(0.f, 0.f, mWorldView.getSize().x + 400,
                    mWorldView.getSize().y),
-      mSpawnPosition(mWorldView.getSize().x / 2.f,
+      mSpawnPosition(Constants::BLOCK_SIZE * 8 + Constants::BLOCK_SIZE / 2,
                      Constants::LANE_HEIGHT / 2.f),
       mViewPosition(mWorldView.getSize().x / 2.f, mWorldView.getSize().y / 2.f),
       mPlayerCharacter(nullptr) {

@@ -45,8 +45,8 @@ unsigned int Lane::getCategory() const {
 }
 
 void Lane::generateObstacle(sf::Time dt) {
-    int tmp = randomInt(1000);
-    if (tmp >= 10) return;
+    int tmp = randomInt(10000);
+    if (tmp >= 20) return;
 
     auto obstacleType = Obstacle::getRandomObstacleType();
     auto children = this->getChildren();
