@@ -33,9 +33,25 @@ std::vector<LaneData> initializeLaneData() {
   
   data[Lane::Grass].texture = Textures::GrassLane;
 
-  /*data[Lane::LilyPadAbove].texture = Textures::LilyPadAbove;
+  data[Lane::LilyPadAbove].texture = Textures::LilyPadAbove;
 
-  data[Lane::LilyPadSingle].texture = Textures::LilyPadSingle;*/
+  data[Lane::LilyPadBelow].texture = Textures::LilyPadBelow;
+
+  data[Lane::LilyPadSingle].texture = Textures::LilyPadSingle;
+
+  data[Lane::PavementAbove].texture = Textures::PavementAbove;
+
+  data[Lane::PavementBelow].texture = Textures::PavementBelow;
+
+  data[Lane::Railway].texture = Textures::Railway;
+
+  data[Lane::RoadAbove].texture = Textures::RoadAbove;
+
+  data[Lane::RoadBelow].texture = Textures::RoadBelow;
+
+  data[Lane::RoadMiddle].texture = Textures::RoadMiddle;
+
+  data[Lane::RoadSingle].texture = Textures::RoadSingle;
 	 
-	return {};
+	return data;
 }
