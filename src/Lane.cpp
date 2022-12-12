@@ -10,24 +10,24 @@
 #include "TexturesSingleton.hpp"
 #include "Utility.hpp"
 
+
 Lane::Lane(Lane::Type type, Lane::Direction direction, float speed)
-    : mType(type),
-      mDirection(direction),
-      mSpeed(speed) {
+    : mType(type), mDirection(direction), mSpeed(speed) {
     switch (type) {
         case Road: {
-            mSprite = sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
-            Textures::RoadSingle));
-        }
-             break;
+            mSprite =
+                sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
+                    Textures::RoadSingle));
+        } break;
         case Pavement: {
-            mSprite = sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
-                Textures::Pavement));
-        }
-             break;
+            mSprite =
+                sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
+                    Textures::Pavement));
+        } break;
         case Grass: {
-            mSprite = sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
-                Textures::GrassLane));
+            mSprite =
+                sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
+                    Textures::GrassLane));
         }
     }
 }
@@ -35,7 +35,7 @@ Lane::Lane(Lane::Type type, Lane::Direction direction, float speed)
 void Lane::drawCurrent(sf::RenderTarget& target,
                        sf::RenderStates states) const {
     target.draw(mSprite, states);
-    
+
     int numsOfBlocks = Constants::SCREEN_WIDTH / Constants::BLOCK_SIZE;
 
     for (int i = 1; i < numsOfBlocks; i++) {
@@ -48,10 +48,10 @@ void Lane::drawCurrent(sf::RenderTarget& target,
 
 void Lane::updateCurrent(sf::Time dt, CommandQueue& commands) {
     // Move obstacles
-    //moveObstacles(dt);
-    
+    // moveObstacles(dt);
+
     // Delete obstacles out of view
-    //deleteObstacle(dt);
+    // deleteObstacle(dt);
 
     // Generate new obstacles
     generateObstacle(dt);
@@ -63,21 +63,21 @@ unsigned int Lane::getCategory() const {
 
 
 void Lane::generateObstacle(sf::Time dt) {
-    int tmp = randomInt(10000);
+    int tmp = randomInt(1000);
     if (tmp < 10) {
         if (mDirection == Lane::Left) {
-            std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::SchoolBusRight));
-            obstacle->setPosition(Constants::SCREEN_WIDTH, mSprite.getPosition().y);
+            std::unique_ptr<Obstacle> obstacle(
+                new Obstacle(Obstacle::SchoolBusRight));
+            obstacle->setPosition(Constants::SCREEN_WIDTH,
+                                  mSprite.getPosition().y);
             obstacle->setVelocity(mDirection * mSpeed, 0.f);
             attachChild(std::move(obstacle));
-        }
-        else if (mDirection == Lane::Right) {
-            std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::SchoolBusRight));
+        } else if (mDirection == Lane::Right) {
+            std::unique_ptr<Obstacle> obstacle(
+                new Obstacle(Obstacle::SchoolBusRight));
             obstacle->setPosition(0, mSprite.getPosition().y);
             obstacle->setVelocity(mDirection * mSpeed, 0.f);
             attachChild(std::move(obstacle));
         }
     }
 }
-
-

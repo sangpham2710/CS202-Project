@@ -106,23 +106,20 @@ void World::buildScene() {
         if (i % 3 == 0) {
             type = Lane::Type::Grass;
             direction = Lane::Left;
-        }
-        else if (i % 3 == 1) {
+        } else if (i % 3 == 1) {
             type = Lane::Type::Pavement;
             direction = Lane::NoDirection;
-        }
-        else {
+        } else {
             type = Lane::Type::Road;
             direction = Lane::Right;
         }
 
-        std::unique_ptr<Lane> laneNode(
-            new Lane(type, direction, 100));
+        std::unique_ptr<Lane> laneNode(new Lane(type, direction, 100));
         laneNode->setPosition(0, i * Constants::BLOCK_SIZE);
 
         mSceneLayers[Land]->attachChild(std::move(laneNode));
     }
-   
+
     std::unique_ptr<Character> character(new Character());
     character->setPosition(mSpawnPosition);
     mPlayerCharacter = character.get();
@@ -148,7 +145,7 @@ sf::FloatRect World::getViewBounds() const {
 sf::FloatRect World::getBattlefieldBounds() const {
     // Return view bounds + some area at top, where enemies spawn
     sf::FloatRect bounds = getViewBounds();
-    /*bounds.left -= 200;
-    bounds.width += 400;*/
+    bounds.left -= 200;
+    bounds.width += 400;
     return bounds;
 }
