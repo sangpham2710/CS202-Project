@@ -15,6 +15,24 @@ class CharacterMover {
     CharacterMover(float vx, float vy) : mVelocity{vx, vy} {}
     void operator()(Character& character, sf::Time) const {
         character.move(mVelocity);
+        while (1) {
+            if (mVelocity.x==0 && mVelocity.y<0) {
+                character.setAnimation(0);
+                break;
+            }
+            if (mVelocity.x==0 && mVelocity.y>0) {
+                character.setAnimation(1);
+                break;
+            }
+            if (mVelocity.x<0 && mVelocity.y==0) {
+                character.setAnimation(2);
+                break;
+            }
+            if (mVelocity.x>0&& mVelocity.y==0) {
+                character.setAnimation(3);
+                break;
+            }
+        }
     }
 
    private:
