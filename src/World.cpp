@@ -132,12 +132,12 @@ void World::buildScene() {
 void World::destroyObstaclesOutsideView() {
     Command command;
     command.category = Category::Obstacle;
-    command.action = derivedAction<Obstacle>([this](Obstacle& e, sf::Time) {
+    command.action = derivedAction<Obstacle>([this](Entity& e, sf::Time) {
         if (!getBattlefieldBounds().intersects(e.getBoundingRect())) {
             e.destroy();
         }
     });
-
+    mCommandQueue.push(command);
 }
 
 sf::FloatRect World::getViewBounds() const {
@@ -148,7 +148,7 @@ sf::FloatRect World::getViewBounds() const {
 sf::FloatRect World::getBattlefieldBounds() const {
     // Return view bounds + some area at top, where enemies spawn
     sf::FloatRect bounds = getViewBounds();
-    bounds.left -= 200;
-    bounds.width += 400;
+    /*bounds.left -= 200;
+    bounds.width += 400;*/
     return bounds;
 }

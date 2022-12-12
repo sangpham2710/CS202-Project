@@ -8,7 +8,7 @@ Obstacle::Obstacle(Type type)
     : mType(type),
       mSprite(TexturesSingleton::getInstance().getTextures().get(
           Textures::Obstacle)) {
-    centerOrigin(mSprite);
+    //centerOrigin(mSprite);
 }
 
 sf::FloatRect Obstacle::getBoundingRect() const {

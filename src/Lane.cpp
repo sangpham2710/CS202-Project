@@ -48,17 +48,17 @@ void Lane::drawCurrent(sf::RenderTarget& target,
 
 void Lane::updateCurrent(sf::Time dt, CommandQueue& commands) {
     // Move obstacles
-    moveObstacles(dt);
+    //moveObstacles(dt);
     
     // Delete obstacles out of view
-    deleteObstacle(dt);
+    //deleteObstacle(dt);
 
     // Generate new obstacles
     generateObstacle(dt);
 }
 
 unsigned int Lane::getCategory() const {
-    return Category::RoadLayer;
+    return Category::Lane;
 }
 
 
@@ -67,32 +67,17 @@ void Lane::generateObstacle(sf::Time dt) {
     if (tmp < 10) {
         if (mDirection == Lane::Left) {
             std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::SchoolBusRight));
-            obstacle->setPosition(
-                Constants::SCREEN_WIDTH + Constants::BLOCK_SIZE / 2, mSprite.getPosition().y + Constants::BLOCK_SIZE / 2);
-            mObstacles.push_back(obstacle.get());
+            obstacle->setPosition(Constants::SCREEN_WIDTH, mSprite.getPosition().y);
+            obstacle->setVelocity(mDirection * mSpeed, 0.f);
             attachChild(std::move(obstacle));
         }
         else if (mDirection == Lane::Right) {
             std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::SchoolBusRight));
-            obstacle->setPosition(
-                -Constants::BLOCK_SIZE / 2, mSprite.getPosition().y + Constants::BLOCK_SIZE / 2);
-            mObstacles.push_back(obstacle.get());
+            obstacle->setPosition(0, mSprite.getPosition().y);
+            obstacle->setVelocity(mDirection * mSpeed, 0.f);
             attachChild(std::move(obstacle));
         }
     }
 }
 
-void Lane::moveObstacles(sf::Time dt) {
-    for (auto& obstacle : mObstacles) {
-        obstacle->move(mDirection * mSpeed * dt.asSeconds(), 0.f);
-    }
-}
-
-void Lane::deleteObstacle(sf::Time dt) {
-    for (auto it = mObstacles.begin(); it != mObstacles.end(); ++it) {
-        if ((*it)->isDestroyed()) {
-            mObstacles.erase(it);
-        }
-    }
-}
 

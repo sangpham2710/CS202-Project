@@ -31,12 +31,9 @@ class Lane : public Entity {
     virtual unsigned int getCategory() const override;
 
     void generateObstacle(sf::Time dt);
-    void moveObstacles(sf::Time dt);
-    void deleteObstacle(sf::Time dt);
 
     Type mType;
     Direction mDirection;
     float mSpeed;
     sf::Sprite mSprite;
-    std::vector<Obstacle*> mObstacles;
 };
