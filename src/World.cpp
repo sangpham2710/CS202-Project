@@ -102,7 +102,6 @@ void World::buildScene() {
     for (int i = 0; i < Constants::NUM_LANES; i++) {
         Lane::Type type;
         Lane::Direction direction;
-
         if (i % 3 == 0) {
             type = Lane::Type::Grass;
             direction = Lane::Left;

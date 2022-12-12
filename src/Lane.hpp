@@ -1,11 +1,13 @@
 #pragma once
 
 #include <SFML/Graphics/Sprite.hpp>
+#include <vector>
 
 #include "Entity.hpp"
 #include "Obstacle.hpp"
 #include "ResourceIdentifiers.hpp"
 #include "World.hpp"
+
 class Lane : public Entity {
    public:
     // Type
