@@ -1,16 +1,30 @@
 #pragma once
 
 #include <SFML/Graphics/Sprite.hpp>
+#include <vector>
 
 #include "Entity.hpp"
 #include "Obstacle.hpp"
 #include "ResourceIdentifiers.hpp"
 #include "World.hpp"
-#
+
 class Lane : public Entity {
    public:
     // Type
-    enum Type { Grass, Pavement, Road, TypeCount };
+    enum Type {
+        Grass,
+        LilyPadAbove,
+        LilyPadBelow,
+        LilyPadSingle,
+        PavementAbove,
+        PavementBelow,
+        Railway,
+        RoadAbove,
+        RoadBelow,
+        RoadMiddle,
+        RoadSingle,
+        TypeCount
+    };
 
     // Direction of obstacles
     enum Direction {

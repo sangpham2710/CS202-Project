@@ -9,27 +9,16 @@
 #include "ResourceHolder.hpp"
 #include "TexturesSingleton.hpp"
 #include "Utility.hpp"
+#include "DataTables.hpp"
 
+namespace {
+const std::vector<LaneData> Table = initializeLaneData();
+}
 
 Lane::Lane(Lane::Type type, Lane::Direction direction, float speed)
     : mType(type), mDirection(direction), mSpeed(speed) {
-    switch (type) {
-        case Road: {
-            mSprite =
-                sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
-                    Textures::RoadSingle));
-        } break;
-        case Pavement: {
-            mSprite =
-                sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
-                    Textures::Pavement));
-        } break;
-        case Grass: {
-            mSprite =
-                sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
-                    Textures::GrassLane));
-        }
-    }
+  mSprite = sf::Sprite(
+      TexturesSingleton::getInstance().getTextures().get(Table[type].texture));
 }
 
 void Lane::drawCurrent(sf::RenderTarget& target,

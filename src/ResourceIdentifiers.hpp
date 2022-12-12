@@ -38,6 +38,11 @@ enum ID {
     YellowCarLeft,
     YellowCarRight,
     GrassLane,
+    LilyPadAbove,
+    LilyPadBelow,
+    LilyPadSingle,
+    PavementAbove,
+    PavementBelow,
     Railway,
     RoadSingle,
     Obstacle,
@@ -45,7 +50,6 @@ enum ID {
     RoadAbove,
     RoadBelow,
     RoadMiddle,
-    Pavement,
 };
 }
 
