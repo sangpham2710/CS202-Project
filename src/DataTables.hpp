@@ -1,16 +1,17 @@
 #pragma once
 
+#include "ResourceIdentifiers.hpp"
 #include <functional>
 #include <vector>
 
+class Obstacle;
+class Lane;
+
 struct ObstacleData {
-    Obstacle::Type mType;
     Textures::ID texture;
 };
 
 struct LaneData {
-    Lane::Type mType;
-    Lane::Direction mDirection;
     float mSpeed;
     Textures::ID texture;
 };

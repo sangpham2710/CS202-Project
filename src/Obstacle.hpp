@@ -37,6 +37,7 @@ class Obstacle : public Entity {
         YellowCabRight,
         YellowCarLeft,
         YellowCarRight,
+        TypeCount
     };
 
     Obstacle(Type type);

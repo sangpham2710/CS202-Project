@@ -13,6 +13,7 @@ class Lane : public Entity {
         Grass,
         Pavement,
         Road,
+        TypeCount
     };
 
     // Direction of obstacles
