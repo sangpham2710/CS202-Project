@@ -20,7 +20,7 @@ Application::Application()
       mFonts(),
       mPlayer(),
       mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer)) {
-    mWindow.setKeyRepeatEnabled(false);
+    mWindow.setKeyRepeatEnabled(true);
 
     registerStates();
     mStateStack.pushState(States::Title);

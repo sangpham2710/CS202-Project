@@ -10,34 +10,38 @@
 
 using namespace std::placeholders;
 
-class CharacterMover {
-   public:
-    CharacterMover(float vx, float vy) : mVelocity{vx, vy} {}
-    void operator()(Character& character, sf::Time) const {
-        character.move(mVelocity);
-        while (1) {
-            if (mVelocity.x==0 && mVelocity.y<0) {
-                character.setAnimation(0);
-                break;
-            }
-            if (mVelocity.x==0 && mVelocity.y>0) {
-                character.setAnimation(1);
-                break;
-            }
-            if (mVelocity.x<0 && mVelocity.y==0) {
-                character.setAnimation(2);
-                break;
-            }
-            if (mVelocity.x>0&& mVelocity.y==0) {
-                character.setAnimation(3);
-                break;
-            }
-        }
-    }
+// class CharacterMover {
+//    public:
+//     CharacterMover(float vx, float vy) : mVelocity{vx / 0.3, vy / 0.3} {}
+//     void operator()(Character& character, sf::Time) const {
+//         character.setVelocity(mVelocity);
+//         // 1s finish jump
+//         // 4 frames
+//         // 64 pixel jump
+//         // move per dt: 1/60 * 64
+//         while (1) {
+//             if (mVelocity.x == 0 && mVelocity.y < 0) {
+//                 character.setAnimation(0);
+//                 break;
+//             }
+//             if (mVelocity.x == 0 && mVelocity.y > 0) {
+//                 character.setAnimation(1);
+//                 break;
+//             }
+//             if (mVelocity.x < 0 && mVelocity.y == 0) {
+//                 character.setAnimation(2);
+//                 break;
+//             }
+//             if (mVelocity.x > 0 && mVelocity.y == 0) {
+//                 character.setAnimation(3);
+//                 break;
+//             }
+//         }
+//     }
 
-   private:
-    sf::Vector2f mVelocity;
-};
+//    private:
+//     sf::Vector2f mVelocity;
+// };
 
 Player::Player() : mCurrentMissionStatus(MissionRunning) {
     // Set initial key bindings
@@ -103,14 +107,17 @@ Player::MissionStatus Player::getMissionStatus() const {
 }
 
 void Player::initializeActions() {
-    mActionBinding[MoveLeft].action =
-        derivedAction<Character>(CharacterMover(-Constants::BLOCK_SIZE, 0));
-    mActionBinding[MoveRight].action =
-        derivedAction<Character>(CharacterMover(+Constants::BLOCK_SIZE, 0));
-    mActionBinding[MoveUp].action =
-        derivedAction<Character>(CharacterMover(0, -Constants::BLOCK_SIZE));
-    mActionBinding[MoveDown].action =
-        derivedAction<Character>(CharacterMover(0, +Constants::BLOCK_SIZE));
+    mActionBinding[MoveLeft].action = derivedAction<Character>(
+        [this](Character& c, sf::Time dt) { c.moveLeft(); });
+
+    mActionBinding[MoveRight].action = derivedAction<Character>(
+        [this](Character& c, sf::Time dt) { c.moveRight(); });
+
+    mActionBinding[MoveUp].action = derivedAction<Character>(
+        [this](Character& c, sf::Time dt) { c.moveUp(); });
+
+    mActionBinding[MoveDown].action = derivedAction<Character>(
+        [this](Character& c, sf::Time dt) { c.moveDown(); });
 }
 
 bool Player::isRealtimeAction(Action action) {

@@ -27,7 +27,6 @@ World::World(sf::RenderWindow& window, FontHolder& fonts)
 
 void World::update(sf::Time dt) {
     destroyObstaclesOutsideView();
-    mPlayerCharacter->setVelocity(0.f, 0.f);
     while (!mCommandQueue.isEmpty()) {
         mSceneGraph.onCommand(mCommandQueue.pop(), dt);
     }

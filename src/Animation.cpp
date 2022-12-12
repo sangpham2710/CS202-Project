@@ -1,4 +1,5 @@
 #include "Animation.hpp"
+
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
@@ -65,6 +66,7 @@ bool Animation::isRepeating() const {
 
 void Animation::restart() {
     mCurrentFrame = 0;
+    mSprite.setTextureRect(sf::IntRect(0, 0, mFrameSize.x, mFrameSize.y));
 }
 
 bool Animation::isFinished() const {
