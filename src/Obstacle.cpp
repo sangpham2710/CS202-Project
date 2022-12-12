@@ -3,12 +3,22 @@
 #include "ResourceHolder.hpp"
 #include "TexturesSingleton.hpp"
 #include "Utility.hpp"
+#include "DataTables.hpp"
 
-Obstacle::Obstacle(Type type)
-    : mType(type),
-      mSprite(TexturesSingleton::getInstance().getTextures().get(
-          Textures::Obstacle)) {
-    //centerOrigin(mSprite);
+namespace {
+    const std::vector<ObstacleData> Table = initializeObstacleData();
+}
+
+Obstacle::Obstacle(Type type, Direction direction)
+    : mType(type){
+    if (direction == Left) {
+        mSprite = sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
+            Table[(unsigned)type].texture));
+    }
+    else{
+        mSprite = sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
+            Table[(unsigned)type + (unsigned)Obstacle::Type::TypeCount].texture));
+    }
 }
 
 sf::FloatRect Obstacle::getBoundingRect() const {

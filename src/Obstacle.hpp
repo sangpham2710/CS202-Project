@@ -8,39 +8,29 @@
 
 class Obstacle : public Entity {
    public:
-    enum Type {
-        BlueBusLeft,
-        BlueBusRight,
-        BlueCarLeft,
-        BlueCarRight,
-        GrayCarLeft,
-        GrayCarRight,
-        NewVanLeft,
-        NewVanRight,
-        OldVanLeft,
-        OldVanRight,
-        OrangeBusLeft,
-        OrangeBusRight,
-        PoliceCarLeft,
-        PoliceCarRight,
-        RedCarLeft,
-        RedCarRight,
-        RedStripedCarLeft,
-        RedStripedCarRight,
-        RedTruckLeft,
-        RedTruckRight,
-        SchoolBusLeft,
-        SchoolBusRight,
-        WhiteTruckLeft,
-        WhiteTruckRight,
-        YellowCabLeft,
-        YellowCabRight,
-        YellowCarLeft,
-        YellowCarRight,
+    enum class Type {
+        BlueBus,
+        BlueCar,
+        GrayCar,
+        NewVan,
+        OldVan,
+        OrangeBus,
+        PoliceCar,
+        RedCar,
+        RedStripedCar,
+        RedTruck,
+        SchoolBus,
+        WhiteTruck,
+        YellowCab,
+        YellowCar,
         TypeCount
     };
+    enum Direction {
+        Left,
+        Right
+    };
 
-    Obstacle(Type type);
+    Obstacle(Type type,Direction direction);
     virtual sf::FloatRect getBoundingRect() const;
 
    private:

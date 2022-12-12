@@ -6,6 +6,7 @@
 #include "Obstacle.hpp"
 #include "ResourceIdentifiers.hpp"
 #include "World.hpp"
+#
 class Lane : public Entity {
    public:
     // Type
@@ -32,9 +33,11 @@ class Lane : public Entity {
     virtual unsigned int getCategory() const override;
 
     void generateObstacle(sf::Time dt);
+    bool checkPositionLastObstacle(Lane::Type type);
 
     Type mType;
     Direction mDirection;
     float mSpeed;
     sf::Sprite mSprite;
+    Obstacle* lastObstacle;
 };
