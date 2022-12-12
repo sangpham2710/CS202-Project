@@ -29,5 +29,11 @@ std::vector<ObstacleData> initializeObstacleData() {
 }
 
 std::vector<LaneData> initializeLaneData() {
+  std::vector<LaneData> data(Lane::TypeCount);
+  
+  data[Lane::Grass].texture = Textures::GrassLane;
+
+  data[Lane::Pavement].texture = Textures::Pavement;
+	 
 	return {};
 }
