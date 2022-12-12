@@ -63,13 +63,20 @@ TexturesSingleton::TexturesSingleton() : mTextures() {
                    "./assets/textures/lanes/road-single.png");
     mTextures.load(Textures::Obstacle,
                    "./assets/textures/vehicles/blue-bus-left.png");
-    mTextures.load(Textures::GrassLane, "./assets/textures/lanes/grass-1.png");
-    mTextures.load(Textures::Railway, "./assets/textures/lanes/railway-1.png");
-    mTextures.load(Textures::River, "./assets/textures/lanes/river-1.png");
+    mTextures.load(Textures::GrassLane, "./assets/textures/lanes/grass.png");
+    mTextures.load(Textures::Railway, "./assets/textures/lanes/railway.png");
+    mTextures.load(Textures::River, "./assets/textures/objects/river-single.png");
     mTextures.load(Textures::RoadAbove, "./assets/textures/lanes/road-above.png");
     mTextures.load(Textures::RoadBelow, "./assets/textures/lanes/road-below.png");
     mTextures.load(Textures::RoadMiddle, "./assets/textures/lanes/road-middle.png");
-    mTextures.load(Textures::Pavement, "./assets/textures/lanes/pavement-1.png");
+    mTextures.load(Textures::PavementAbove, "./assets/textures/lanes/pavement-above.png");
+    mTextures.load(Textures::PavementBelow,
+                   "./assets/textures/lanes/pavement-below.png");
+    mTextures.load(Textures::LilyPadAbove,
+                   "./assets/textures/lanes/lily-pad-above.png");
+    mTextures.load(Textures::LilyPadBelow,
+                   "./assets/textures/lanes/lily-pad-below.png");
+    mTextures.load(Textures::LilyPadSingle, "./assets/textures/lanes/lily-pad-single.png");
 }
 
 TexturesSingleton& TexturesSingleton::getInstance() {

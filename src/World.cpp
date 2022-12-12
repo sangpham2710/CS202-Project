@@ -107,10 +107,10 @@ void World::buildScene() {
             type = Lane::Type::Grass;
             direction = Lane::Left;
         } else if (i % 3 == 1) {
-            type = Lane::Type::Pavement;
+            type = Lane::Type::PavementAbove;
             direction = Lane::NoDirection;
         } else {
-            type = Lane::Type::Road;
+            type = Lane::Type::RoadSingle;
             direction = Lane::Right;
         }
 

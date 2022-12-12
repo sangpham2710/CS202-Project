@@ -14,15 +14,15 @@
 Lane::Lane(Lane::Type type, Lane::Direction direction, float speed)
     : mType(type), mDirection(direction), mSpeed(speed) {
     switch (type) {
-        case Road: {
+        case RoadSingle: {
             mSprite =
                 sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
                     Textures::RoadSingle));
         } break;
-        case Pavement: {
+        case PavementAbove: {
             mSprite =
                 sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
-                    Textures::Pavement));
+                    Textures::PavementAbove));
         } break;
         case Grass: {
             mSprite =
