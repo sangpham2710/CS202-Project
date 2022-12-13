@@ -89,6 +89,13 @@ TexturesSingleton::TexturesSingleton() : mTextures() {
     mTextures.load(Textures::LilyPadSingle,
                    "./assets/textures/lanes/lily-pad-single.png");
     mTextures.load(Textures::Explosion, "./assets/textures/explosion.png");
+    mTextures.load(Textures::GreenLight, 
+                    "./assets/textures/objects/green-light.png");
+    mTextures.load(Textures::YellowLight,
+                    "./assets/textures/objects/yellow-light.png");
+    mTextures.load(Textures::RedLight,
+                    "./assets/textures/objects/red-light.png");
+
 }
 
 TexturesSingleton& TexturesSingleton::getInstance() {

@@ -54,6 +54,9 @@ enum ID {
     RoadBelow,
     RoadMiddle,
     Explosion,
+    GreenLight,
+    YellowLight,
+    RedLight
 };
 }
 
