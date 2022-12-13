@@ -135,7 +135,6 @@ void World::buildScene() {
     backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
-
     std::unique_ptr<Lane> laneNode0(
         new Lane(Lane::Type::Grass, Lane::Left, 100));
     laneNode0->setPosition(0, 0 * Constants::BLOCK_SIZE);

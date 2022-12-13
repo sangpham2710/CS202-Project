@@ -28,7 +28,7 @@ class Obstacle : public Entity {
     enum class Direction { Left, Right };
 
     Obstacle(Type type, Direction direction);
-    virtual sf::FloatRect getBoundingRect() const;
+    virtual sf::FloatRect getBoundingRect() const override;
 
     static Obstacle::Type getRandomObstacleType();
 
@@ -36,9 +36,9 @@ class Obstacle : public Entity {
 
    private:
     virtual void drawCurrent(sf::RenderTarget& target,
-                             sf::RenderStates states) const;
-
-    virtual unsigned int getCategory() const;
+                             sf::RenderStates states) const override;
+    virtual void updateCurrent(sf::Time dt, CommandQueue& commands) override;
+    virtual unsigned int getCategory() const override;
 
     Type mType;
     sf::Sprite mSprite;

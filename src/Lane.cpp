@@ -23,15 +23,15 @@ Lane::Lane(Lane::Type type, Lane::Direction direction, float speed)
 
 void Lane::drawCurrent(sf::RenderTarget& target,
                        sf::RenderStates states) const {
-    target.draw(mSprite, states);
+    // target.draw(mSprite, states);
 
     int numsOfBlocks = Constants::SCREEN_WIDTH / Constants::BLOCK_SIZE;
 
-    for (int i = 1; i < numsOfBlocks; i++) {
+    for (int i = 0; i < numsOfBlocks; i++) {
         sf::Sprite addLane = mSprite;
 
         addLane.setPosition(i * Constants::BLOCK_SIZE, this->getPosition().y);
-        target.draw(addLane);
+        target.draw(addLane, states);
     }
 }
 
