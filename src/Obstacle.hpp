@@ -37,7 +37,6 @@ class Obstacle : public Entity {
    private:
     virtual void drawCurrent(sf::RenderTarget& target,
                              sf::RenderStates states) const override;
-    virtual void updateCurrent(sf::Time dt, CommandQueue& commands) override;
     virtual unsigned int getCategory() const override;
 
     Type mType;
