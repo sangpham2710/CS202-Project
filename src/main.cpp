@@ -7,7 +7,7 @@
 using namespace std;
 
 #define WIDTH_MAX 1024
-#define HEIGHT_MAX 1024
+#define HEIGHT_MAX 768
 #define PIXEL 64
 
 void printPath(sf::Sprite sprite, sf::RenderWindow& window, int& width, int& height) {
