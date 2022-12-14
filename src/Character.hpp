@@ -5,10 +5,20 @@
 #include "Animation.hpp"
 #include "Entity.hpp"
 #include "ResourceIdentifiers.hpp"
+#include "DataTables.hpp"
 
 class Character : public Entity {
    public:
-    Character();
+       enum class Direction {
+           CharacterUp,
+           CharacterDown,
+           CharacterLeft,
+           CharacterRight,
+           TypeCount
+       };
+
+   public:
+    Character(int type);
     virtual unsigned int getCategory() const override;
     virtual sf::FloatRect getBoundingRect() const override;
     virtual bool isMarkedForRemoval() const override;
@@ -30,4 +40,6 @@ class Character : public Entity {
     Animation mExplosion;
     bool mIsMoving;
     bool mShowExplosion;
+
+    int mType;
 };
