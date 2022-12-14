@@ -190,7 +190,7 @@ void World::buildScene() {
     laneNode10->setPosition(0, 10 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode10));
 
-    std::unique_ptr<Character> character(new Character());
+    std::unique_ptr<Character> character(new Character(0));
     character->setPosition(mSpawnPosition);
     mPlayerCharacter = character.get();
     mSceneLayers[Land]->attachChild(std::move(character));
