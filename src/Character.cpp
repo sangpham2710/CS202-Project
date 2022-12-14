@@ -33,10 +33,10 @@ sf::FloatRect Character::getBoundingRect() const {
     auto rect = getWorldTransform().transformRect(mAnimation.getGlobalBounds());
     rect.left -= Constants::BLOCK_SIZE / 2;
     rect.top -= Constants::BLOCK_SIZE / 2;
-    rect.left += (Constants::BLOCK_SIZE - Constants::HITBOX_SIZE) / 2;
-    rect.top += (Constants::BLOCK_SIZE - Constants::HITBOX_SIZE) / 2;
-    rect.width = Constants::HITBOX_SIZE;
-    rect.height = Constants::HITBOX_SIZE;
+    rect.left += (Constants::BLOCK_SIZE - Constants::HITBOX_WIDTH) / 2;
+    rect.top += (Constants::BLOCK_SIZE - Constants::HITBOX_HEIGHT) / 2;
+    rect.width = Constants::HITBOX_WIDTH;
+    rect.height = Constants::HITBOX_HEIGHT;
     return rect;
 }
 

@@ -1,5 +1,3 @@
 build/
 .vs/
 .vscode/
-/src/TrafficLight.hpp
-/src/TrafficLight.cpp

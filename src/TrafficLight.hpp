@@ -7,24 +7,17 @@
 #include "ResourceIdentifiers.hpp"
 
 class TrafficLight : public Entity {
-public:
-	enum class State {
-		Green,
-		Yellow,
-		Red
-	};
+   public:
+    enum class State { Green, Yellow, Red };
 
-	TrafficLight();
-	
+    TrafficLight();
 
-private:
-	State mCurrentState;
-	sf::Sprite mSprite;
-	sf::Time accuTime;
-	sf::Time scale;
-	virtual void drawCurrent(sf::RenderTarget& target,
-		sf::RenderStates states) const override;
-	virtual void updateCurrent(sf::Time dt, CommandQueue& commands) override;
+   private:
+    virtual void drawCurrent(sf::RenderTarget& target,
+                             sf::RenderStates states) const override;
+    virtual void updateCurrent(sf::Time dt, CommandQueue& commands) override;
+
+    State mCurrentState;
+    sf::Sprite mSprite;
+    sf::Time elapsedTime;
 };
-
-
