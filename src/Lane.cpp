@@ -16,9 +16,26 @@ const std::vector<LaneData> Table = initializeLaneData();
 }
 
 Lane::Lane(Lane::Type type, Lane::Direction direction, float speed)
-    : mType(type), mDirection(direction), mSpeed(speed) {
+    : mType(type), mDirection(direction), mSpeed(speed)
+{
     mSprite = sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
         Table[type].texture));
+    //
+    maxSpeed = mSpeed;
+    if (mType == RoadAbove || mType == RoadBelow || mType == RoadMiddle || mType == RoadSingle) {
+        hasTrafficLight = 1;
+        laneTrafficLight = new TrafficLight();
+    }
+    else {
+        hasTrafficLight = 0;
+        laneTrafficLight = nullptr;
+    }
+}
+
+Lane::~Lane()
+{
+    if (hasTrafficLight)
+        delete laneTrafficLight;
 }
 
 void Lane::drawCurrent(sf::RenderTarget& target,
@@ -31,11 +48,30 @@ void Lane::drawCurrent(sf::RenderTarget& target,
         laneSprite.setPosition(i * Constants::BLOCK_SIZE, 0);
         target.draw(laneSprite, states);
     }
+    //
+    if (hasTrafficLight) {
+        target.draw(*laneTrafficLight, states);
+    }
 }
 
 void Lane::updateCurrent(sf::Time dt, CommandQueue& commands) {
     // Generate new obstacles
     generateObstacle(dt);
+    //
+    if (hasTrafficLight) {
+        laneTrafficLight->update(dt, commands);
+        if (laneTrafficLight->getState() == 0) {//red
+            mSpeed = 0;
+        }
+        else if (laneTrafficLight->getState() == 1) {//yellow
+            mSpeed = maxSpeed / 2;
+        }
+        else if (laneTrafficLight->getState() == 2) {//green
+            mSpeed = maxSpeed;
+        }
+
+    }
+    
 }
 
 unsigned int Lane::getCategory() const {
@@ -43,17 +79,19 @@ unsigned int Lane::getCategory() const {
 }
 
 void Lane::generateObstacle(sf::Time dt) {
+    if (mSpeed != maxSpeed)
+        return;
     int tmp = randomInt(10000);
-    if (tmp >= 10) return;
+    if (tmp >= 1000) return;
 
     auto obstacleType = Obstacle::getRandomObstacleType();
     auto children = this->getChildren();
     auto lastObstacle = children.empty() ? nullptr : children.back();
-
+    std::cout << children.size()<<"\n";
     if (mDirection == Lane::Left) {
         std::unique_ptr<Obstacle> obstacle(
             new Obstacle(obstacleType, Obstacle::Direction::Left));
-
+        
         if (lastObstacle) {
             float end = lastObstacle->getPosition().x +
                         lastObstacle->getBoundingRect().width;
@@ -65,7 +103,6 @@ void Lane::generateObstacle(sf::Time dt) {
         obstacle->setVelocity(mDirection * mSpeed, 0.f);
         attachChild(std::move(obstacle));
     }
-
     if (mDirection == Lane::Right) {
         std::unique_ptr<Obstacle> obstacle(
             new Obstacle(obstacleType, Obstacle::Direction::Right));
