@@ -15,7 +15,7 @@
 #include "ResourceIdentifiers.hpp"
 #include "SceneNode.hpp"
 #include "SpriteNode.hpp"
-
+#include "Application.hpp"
 // Forward declaration
 namespace sf {
 class RenderWindow;
