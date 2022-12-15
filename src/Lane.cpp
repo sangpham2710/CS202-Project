@@ -69,7 +69,15 @@ void Lane::updateCurrent(sf::Time dt, CommandQueue& commands) {
         else if (laneTrafficLight->getState() == 2) {//green
             mSpeed = maxSpeed;
         }
-
+        auto children = this->getChildren();
+        for (SceneNode* each : children) {
+            Entity* obstical = dynamic_cast<Entity*>(each);
+            if (obstical != nullptr) {
+                obstical->setVelocity(mDirection * mSpeed, 0.f);
+                obstical->setVelocity(mDirection * mSpeed, 0.f);
+                obstical->setVelocity(mDirection * mSpeed, 0.f);
+            }
+        }
     }
     
 }
@@ -82,12 +90,11 @@ void Lane::generateObstacle(sf::Time dt) {
     if (mSpeed != maxSpeed)
         return;
     int tmp = randomInt(10000);
-    if (tmp >= 1000) return;
+    if (tmp >= 10) return;
 
     auto obstacleType = Obstacle::getRandomObstacleType();
     auto children = this->getChildren();
     auto lastObstacle = children.empty() ? nullptr : children.back();
-    std::cout << children.size()<<"\n";
     if (mDirection == Lane::Left) {
         std::unique_ptr<Obstacle> obstacle(
             new Obstacle(obstacleType, Obstacle::Direction::Left));
