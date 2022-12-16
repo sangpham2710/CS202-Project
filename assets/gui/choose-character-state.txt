@@ -1,0 +1,238 @@
+Panel.characterPanel {
+    Position = (20, -170);
+    Size = (1024, 768);
+
+    Renderer {
+        BackgroundColor = white;
+        BorderColor = black;
+        TextureBackground = None;
+    }
+
+    Button.character1 {
+        MouseCursor = Hand;
+        Position = (40, 380);
+        Size = (150, 150);
+        TextSize = 13;
+
+        Renderer {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorDisabled = #E6E6E6;
+            BackgroundColorDown = #EBEBEB;
+            BackgroundColorHover = white;
+            BorderColor = #3C3C3C;
+            BorderColorDisabled = #7D7D7D;
+            BorderColorDown = black;
+            BorderColorFocused = #1E1EB4;
+            BorderColorHover = #47FF2E;
+            Borders = (1, 1, 1, 1);
+            TextColor = #3C3C3C;
+            TextColorDisabled = #7D7D7D;
+            TextColorDown = black;
+            TextColorHover = black;
+            Texture = "../textures/character/character-1/down.png" Part(0, 0, 64, 64) Smooth;
+            TextureDisabled = None;
+            TextureDown = None;
+            TextureDownFocused = None;
+            TextureDownHover = None;
+            TextureFocused = None;
+            TextureHover = None;
+        }
+    }
+
+    Button.character2 {
+        MouseCursor = Hand;
+        Position = (270, 380);
+        Size = (150, 150);
+        TextSize = 13;
+
+        Renderer {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorDisabled = #E6E6E6;
+            BackgroundColorDown = #EBEBEB;
+            BackgroundColorHover = white;
+            BorderColor = #3C3C3C;
+            BorderColorDisabled = #7D7D7D;
+            BorderColorDown = black;
+            BorderColorFocused = #1E1EB4;
+            BorderColorHover = #47FF2E;
+            Borders = (1, 1, 1, 1);
+            TextColor = #3C3C3C;
+            TextColorDisabled = #7D7D7D;
+            TextColorDown = black;
+            TextColorHover = black;
+            Texture = "../textures/character/character-2/down.png" Part(0, 0, 64, 64) Smooth;
+            TextureDisabled = None;
+            TextureDown = None;
+            TextureDownFocused = None;
+            TextureDownHover = None;
+            TextureFocused = None;
+            TextureHover = None;
+        }
+    }
+
+    Button.character3 {
+        MouseCursor = Hand;
+        Position = (540, 380);
+        Size = (150, 150);
+        TextSize = 13;
+
+        Renderer {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorDisabled = #E6E6E6;
+            BackgroundColorDown = #EBEBEB;
+            BackgroundColorHover = white;
+            BorderColor = #3C3C3C;
+            BorderColorDisabled = #7D7D7D;
+            BorderColorDown = black;
+            BorderColorFocused = #1E1EB4;
+            BorderColorHover = #47FF2E;
+            Borders = (1, 1, 1, 1);
+            TextColor = #3C3C3C;
+            TextColorDisabled = #7D7D7D;
+            TextColorDown = black;
+            TextColorHover = black;
+            Texture = "../textures/character/character-3/down.png" Part(0, 0, 64, 64) Smooth;
+            TextureDisabled = None;
+            TextureDown = None;
+            TextureDownFocused = None;
+            TextureDownHover = None;
+            TextureFocused = None;
+            TextureHover = None;
+        }
+    }
+
+    Button.character4 {
+        MouseCursor = Hand;
+        Position = (130, 550);
+        Size = (150, 150);
+        TextSize = 13;
+
+        Renderer {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorDisabled = #E6E6E6;
+            BackgroundColorDown = #EBEBEB;
+            BackgroundColorHover = white;
+            BorderColor = #3C3C3C;
+            BorderColorDisabled = #7D7D7D;
+            BorderColorDown = black;
+            BorderColorFocused = #1E1EB4;
+            BorderColorHover = #47FF2E;
+            Borders = (1, 1, 1, 1);
+            TextColor = #3C3C3C;
+            TextColorDisabled = #7D7D7D;
+            TextColorDown = black;
+            TextColorHover = black;
+            Texture = "../textures/character/character-4/down.png" Part(0, 0, 64, 64) Smooth;
+            TextureDisabled = None;
+            TextureDown = None;
+            TextureDownFocused = None;
+            TextureDownHover = None;
+            TextureFocused = None;
+            TextureHover = None;
+        }
+    }
+
+    Button.character5 {
+        MouseCursor = Hand;
+        Position = (430, 550);
+        Size = (150, 150);
+        TextSize = 13;
+
+        Renderer {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorDisabled = #E6E6E6;
+            BackgroundColorDown = #EBEBEB;
+            BackgroundColorHover = white;
+            BorderColor = #3C3C3C;
+            BorderColorDisabled = #7D7D7D;
+            BorderColorDown = black;
+            BorderColorFocused = #1E1EB4;
+            BorderColorHover = #47FF2E;
+            Borders = (1, 1, 1, 1);
+            TextColor = #3C3C3C;
+            TextColorDisabled = #7D7D7D;
+            TextColorDown = black;
+            TextColorHover = black;
+            Texture = "../textures/character/character-5/down.png" Part(0, 0, 64, 64) Smooth;
+            TextureDisabled = None;
+            TextureDown = None;
+            TextureDownFocused = None;
+            TextureDownHover = None;
+            TextureFocused = None;
+            TextureHover = None;
+        }
+    }
+}
+
+Label.characterLabel {
+    Position = (130, 40);
+    Size = (548, 87);
+    Text = "CHOOSE CHARACTER";
+    TextSize = 40;
+
+    Renderer {
+        BackgroundColor = transparent;
+        BorderColor = #3C3C3C;
+        Borders = (0, 0, 0, 0);
+        Font = "FFFFORWA.TTF";
+        TextColor = #3C3C3C;
+        TextureBackground = None;
+
+        Scrollbar {
+            ArrowBackgroundColor = #F5F5F5;
+            ArrowBackgroundColorHover = white;
+            ArrowColor = #3C3C3C;
+            ArrowColorHover = black;
+            Font = "FFFFORWA.TTF";
+            TextureArrowDown = None;
+            TextureArrowDownHover = None;
+            TextureArrowUp = None;
+            TextureArrowUpHover = None;
+            TextureThumb = None;
+            TextureThumbHover = None;
+            TextureTrack = None;
+            TextureTrackHover = None;
+            ThumbColor = #DCDCDC;
+            ThumbColorHover = #E6E6E6;
+            TrackColor = #F5F5F5;
+        }
+    }
+}
+
+Button.backButton {
+    Position = (290, 680);
+    Size = (220, 60);
+    Text = BACK;
+    TextSize = 20;
+
+    Renderer {
+        BackgroundColor = #7750FF;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = None;
+        BorderColor = None;
+        BorderColorDisabled = None;
+        BorderColorDown = None;
+        BorderColorDownFocused = None;
+        BorderColorDownHover = None;
+        BorderColorFocused = None;
+        BorderColorHover = None;
+        Borders = (0, 0, 0, 0);
+        Font = "FFFFORWA.TTF";
+        TextColor = white;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = #FEDEBF;
+        TextColorDownFocused = None;
+        TextColorDownHover = None;
+        TextColorFocused = None;
+        TextColorHover = None;
+        TextStyle = Bold;
+        Texture = "./buttons/blue-button-state-1.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = None;
+        TextureDownFocused = "./buttons/orange-button-state-3.png" Smooth;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "./buttons/orange-button-state-1.png" Smooth;
+    }
+}

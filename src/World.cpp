@@ -7,6 +7,7 @@
 
 #include "Constants.hpp"
 #include "TexturesSingleton.hpp"
+#include "SettingsSingleton.hpp"
 
 World::World(sf::RenderWindow& window, FontHolder& fonts)
     : mWindow(window),
@@ -203,7 +204,7 @@ void World::buildScene() {
     mSceneLayers[Air]->attachChild(std::move(trafficLightLane9));
     mSceneLayers[Air]->attachChild(std::move(trafficLightLane10));
 
-    std::unique_ptr<Character> character(new Character());
+    std::unique_ptr<Character> character(new Character(SettingsSingleton::getInstance().getCharacterType()));
     character->setPosition(mSpawnPosition);
     mPlayerCharacter = character.get();
     mSceneLayers[Land]->attachChild(std::move(character));

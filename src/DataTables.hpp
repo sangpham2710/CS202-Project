@@ -12,9 +12,12 @@ struct ObstacleData {
 };
 
 struct LaneData {
-    float mSpeed;
     Textures::ID texture;
 };
 
+struct characterData {
+    Textures::ID texture;
+};
 std::vector<ObstacleData> initializeObstacleData();
 std::vector<LaneData> initializeLaneData();
+std::vector<characterData> initializeCharacterData();

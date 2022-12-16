@@ -11,7 +11,6 @@
 #include "ResourceIdentifiers.hpp"
 #include "StateStack.hpp"
 
-
 class Application {
    public:
     Application();

@@ -9,9 +9,13 @@
 #include "TexturesSingleton.hpp"
 #include "Utility.hpp"
 
-Character::Character() : mIsMoving(false), mShowExplosion(true) {
+namespace {
+    const std::vector<characterData> Table = initializeCharacterData();
+}
+
+Character::Character(int type) : mIsMoving(false), mShowExplosion(true), mType(type) {
     mAnimation.setTexture(TexturesSingleton::getInstance().getTextures().get(
-        Textures::CharacterDown));
+        Table[mType * (unsigned)Character::Direction::TypeCount + (unsigned)Character::Direction::CharacterDown].texture));
     mAnimation.setFrameSize(sf::Vector2i(64, 64));
     mAnimation.setNumFrames(4);
     mAnimation.setDuration(sf::seconds(Constants::MOVE_ANIMATION_DURATION));
@@ -94,7 +98,8 @@ void Character::moveUp() {
     this->setVelocity(velocityX / Constants::MOVE_ANIMATION_DURATION,
                       velocityY / Constants::MOVE_ANIMATION_DURATION);
     mAnimation.setTexture(TexturesSingleton::getInstance().getTextures().get(
-        Textures::CharacterUp));
+        Table[mType * (unsigned)Character::Direction::TypeCount + 
+                      (unsigned)Character::Direction::CharacterUp].texture));
 }
 
 void Character::moveDown() {
@@ -106,7 +111,8 @@ void Character::moveDown() {
                       velocityY / Constants::MOVE_ANIMATION_DURATION);
 
     mAnimation.setTexture(TexturesSingleton::getInstance().getTextures().get(
-        Textures::CharacterDown));
+        Table[mType * (unsigned)Character::Direction::TypeCount + 
+                      (unsigned)Character::Direction::CharacterDown].texture));
 }
 
 void Character::moveLeft() {
@@ -117,7 +123,8 @@ void Character::moveLeft() {
     this->setVelocity(velocityX / Constants::MOVE_ANIMATION_DURATION,
                       velocityY / Constants::MOVE_ANIMATION_DURATION);
     mAnimation.setTexture(TexturesSingleton::getInstance().getTextures().get(
-        Textures::CharacterLeft));
+        Table[mType * (unsigned)Character::Direction::TypeCount + 
+                      (unsigned)Character::Direction::CharacterLeft].texture));
 }
 
 void Character::moveRight() {
@@ -128,5 +135,6 @@ void Character::moveRight() {
     this->setVelocity(velocityX / Constants::MOVE_ANIMATION_DURATION,
                       velocityY / Constants::MOVE_ANIMATION_DURATION);
     mAnimation.setTexture(TexturesSingleton::getInstance().getTextures().get(
-        Textures::CharacterRight));
+        Table[mType * (unsigned)Character::Direction::TypeCount + 
+                      (unsigned)Character::Direction::CharacterRight].texture));
 }
