@@ -195,8 +195,8 @@ void World::buildScene() {
     mPlayerCharacter = character.get();
     mSceneLayers[Land]->attachChild(std::move(character));
 
-    std::unique_ptr<TrafficLight> trafficLight(new TrafficLight());
-    mSceneLayers[Air]->attachChild(std::move(trafficLight));
+    /*std::unique_ptr<TrafficLight> trafficLight(new TrafficLight());
+    mSceneLayers[Air]->attachChild(std::move(trafficLight));*/
 }
 
 void World::destroyObstaclesOutsideView() {

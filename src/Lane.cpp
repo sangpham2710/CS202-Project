@@ -74,8 +74,6 @@ void Lane::updateCurrent(sf::Time dt, CommandQueue& commands) {
             Entity* obstical = dynamic_cast<Entity*>(each);
             if (obstical != nullptr) {
                 obstical->setVelocity(mDirection * mSpeed, 0.f);
-                obstical->setVelocity(mDirection * mSpeed, 0.f);
-                obstical->setVelocity(mDirection * mSpeed, 0.f);
             }
         }
     }
@@ -90,7 +88,7 @@ void Lane::generateObstacle(sf::Time dt) {
     if (mSpeed != maxSpeed)
         return;
     int tmp = randomInt(10000);
-    if (tmp >= 10) return;
+    if (tmp >= 1000) return;
 
     auto obstacleType = Obstacle::getRandomObstacleType();
     auto children = this->getChildren();
