@@ -1,61 +1,73 @@
 #include "TrafficLight.hpp"
+
 #include <random>
+
+#include "Constants.hpp"
 #include "DataTables.hpp"
 #include "ResourceHolder.hpp"
 #include "TexturesSingleton.hpp"
 #include "Utility.hpp"
 
 TrafficLight::TrafficLight()
-    : mCurrentState(State::Green), elapsedTime(sf::seconds(0))
-{
+    : mCurrentState(State::Green), elapsedTime(sf::seconds(0)) {
     mSprite.setTexture(TexturesSingleton::getInstance().getTextures().get(
         Textures::GreenLight));
 
-    std::random_device dev;
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> dist13(1, 3); // distribution in range [1, 3]
+    float totalLightDuration = Constants::GREEN_LIGHT_DURATION +
+                               Constants::YELLOW_LIGHT_DURATION +
+                               Constants::RED_LIGHT_DURATION;
 
-    switch (dist13(rng))
-    {
-    case 2:
+    // random a float between 0 and totalLightDuration
+    auto randomFloat = [totalLightDuration]() {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_real_distribution<> dis(0, totalLightDuration);
+        return dis(gen);
+    };
+
+    // random a float between 0 and totalLightDuration
+    auto startingElapsedTime = randomFloat();
+
+    // set the starting state
+    if (startingElapsedTime < Constants::GREEN_LIGHT_DURATION) {
+        mCurrentState = State::Green;
+        elapsedTime = sf::seconds(startingElapsedTime);
+    } else if (startingElapsedTime < Constants::GREEN_LIGHT_DURATION +
+                                         Constants::YELLOW_LIGHT_DURATION) {
         mCurrentState = State::Yellow;
-        break;
-    case 3:
+        elapsedTime =
+            sf::seconds(startingElapsedTime - Constants::GREEN_LIGHT_DURATION);
+        mSprite.setTexture(TexturesSingleton::getInstance().getTextures().get(
+            Textures::YellowLight));
+    } else {
         mCurrentState = State::Red;
-        break;
-    default://green
-        break;
-    }
-
-    switch (dist13(rng))
-    {
-    case 2:
-        elapsedTime = sf::seconds(1);
-        break;
-    case 3:
-        elapsedTime = sf::seconds(2);;
-        break;
-    default://0
-        break;
+        elapsedTime =
+            sf::seconds(startingElapsedTime - Constants::GREEN_LIGHT_DURATION -
+                        Constants::YELLOW_LIGHT_DURATION);
+        mSprite.setTexture(TexturesSingleton::getInstance().getTextures().get(
+            Textures::RedLight));
     }
 }
 
 
 void TrafficLight::updateCurrent(sf::Time dt, CommandQueue& commands) {
     elapsedTime += dt;
-    if (mCurrentState == State::Green && elapsedTime > sf::seconds(3)) {
+    if (mCurrentState == State::Green &&
+        elapsedTime > sf::seconds(Constants::GREEN_LIGHT_DURATION)) {
         elapsedTime = sf::seconds(0);
         mCurrentState = State::Yellow;
         mSprite.setTexture(TexturesSingleton::getInstance().getTextures().get(
             Textures::YellowLight));
     }
-    if (mCurrentState == State::Yellow && elapsedTime > sf::seconds(3)) {
+    if (mCurrentState == State::Yellow &&
+        elapsedTime > sf::seconds(Constants::YELLOW_LIGHT_DURATION)) {
         elapsedTime = sf::seconds(0);
         mCurrentState = State::Red;
         mSprite.setTexture(TexturesSingleton::getInstance().getTextures().get(
             Textures::RedLight));
     }
-    if (mCurrentState == State::Red && elapsedTime > sf::seconds(3)) {
+    if (mCurrentState == State::Red &&
+        elapsedTime > sf::seconds(Constants::RED_LIGHT_DURATION)) {
         elapsedTime = sf::seconds(0);
         mCurrentState = State::Green;
         mSprite.setTexture(TexturesSingleton::getInstance().getTextures().get(
@@ -68,12 +80,6 @@ void TrafficLight::drawCurrent(sf::RenderTarget& target,
     target.draw(mSprite, states);
 }
 
-int TrafficLight::getState()
-{
-    if (mCurrentState == State::Red)
-        return 0;
-    if (mCurrentState == State::Yellow)
-        return 1;
-    if (mCurrentState == State::Green)
-        return 2;
+TrafficLight::State TrafficLight::getState() {
+    return mCurrentState;
 }

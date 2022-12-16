@@ -11,7 +11,7 @@ class TrafficLight : public Entity {
     enum class State { Green, Yellow, Red };
 
     TrafficLight();
-    int getState();//0 red 1 yellow 2 green
+    State getState();  // 0 red 1 yellow 2 green
    private:
     virtual void drawCurrent(sf::RenderTarget& target,
                              sf::RenderStates states) const override;

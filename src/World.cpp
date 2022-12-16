@@ -170,33 +170,43 @@ void World::buildScene() {
     laneNode6->setPosition(0, 6 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode6));
 
-    std::unique_ptr<Lane> laneNode7(
-        new Lane(Lane::Type::RoadAbove, Lane::Right, 100));
+    std::unique_ptr<TrafficLight> trafficLightLane7(new TrafficLight());
+    std::unique_ptr<Lane> laneNode7(new Lane(Lane::Type::RoadAbove, Lane::Right,
+                                             100, trafficLightLane7.get()));
     laneNode7->setPosition(0, 7 * Constants::BLOCK_SIZE);
+    trafficLightLane7->setPosition(0, 7 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode7));
 
-    std::unique_ptr<Lane> laneNode8(
-        new Lane(Lane::Type::RoadMiddle, Lane::Left, 100));
+    std::unique_ptr<TrafficLight> trafficLightLane8(new TrafficLight());
+    std::unique_ptr<Lane> laneNode8(new Lane(Lane::Type::RoadMiddle, Lane::Left,
+                                             100, trafficLightLane8.get()));
     laneNode8->setPosition(0, 8 * Constants::BLOCK_SIZE);
+    trafficLightLane8->setPosition(0, 8 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode8));
 
-    std::unique_ptr<Lane> laneNode9(
-        new Lane(Lane::Type::RoadBelow, Lane::Right, 100));
+    std::unique_ptr<TrafficLight> trafficLightLane9(new TrafficLight());
+    std::unique_ptr<Lane> laneNode9(new Lane(Lane::Type::RoadBelow, Lane::Right,
+                                             100, trafficLightLane9.get()));
     laneNode9->setPosition(0, 9 * Constants::BLOCK_SIZE);
+    trafficLightLane9->setPosition(0, 9 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode9));
 
-    std::unique_ptr<Lane> laneNode10(
-        new Lane(Lane::Type::RoadSingle, Lane::Left, 100));
+    std::unique_ptr<TrafficLight> trafficLightLane10(new TrafficLight());
+    std::unique_ptr<Lane> laneNode10(new Lane(
+        Lane::Type::RoadSingle, Lane::Left, 100, trafficLightLane10.get()));
     laneNode10->setPosition(0, 10 * Constants::BLOCK_SIZE);
+    trafficLightLane10->setPosition(0, 10 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode10));
+
+    mSceneLayers[Air]->attachChild(std::move(trafficLightLane7));
+    mSceneLayers[Air]->attachChild(std::move(trafficLightLane8));
+    mSceneLayers[Air]->attachChild(std::move(trafficLightLane9));
+    mSceneLayers[Air]->attachChild(std::move(trafficLightLane10));
 
     std::unique_ptr<Character> character(new Character());
     character->setPosition(mSpawnPosition);
     mPlayerCharacter = character.get();
     mSceneLayers[Land]->attachChild(std::move(character));
-
-    /*std::unique_ptr<TrafficLight> trafficLight(new TrafficLight());
-    mSceneLayers[Air]->attachChild(std::move(trafficLight));*/
 }
 
 void World::destroyObstaclesOutsideView() {

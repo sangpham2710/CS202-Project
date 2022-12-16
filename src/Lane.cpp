@@ -15,27 +15,22 @@ namespace {
 const std::vector<LaneData> Table = initializeLaneData();
 }
 
-Lane::Lane(Lane::Type type, Lane::Direction direction, float speed)
-    : mType(type), mDirection(direction), mSpeed(speed)
-{
+#include <iostream>
+
+Lane::Lane(Lane::Type type, Lane::Direction direction, float speed,
+           TrafficLight* trafficLight)
+    : mType(type),
+      mDirection(direction),
+      mSpeed(speed),
+      mTrafficLight(trafficLight) {
     mSprite = sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
         Table[type].texture));
-    //
-    maxSpeed = mSpeed;
-    if (mType == RoadAbove || mType == RoadBelow || mType == RoadMiddle || mType == RoadSingle) {
-        hasTrafficLight = 1;
-        laneTrafficLight = new TrafficLight();
-    }
-    else {
-        hasTrafficLight = 0;
-        laneTrafficLight = nullptr;
-    }
-}
 
-Lane::~Lane()
-{
-    if (hasTrafficLight)
-        delete laneTrafficLight;
+    maxSpeed = mSpeed;
+
+    if (mTrafficLight) {
+        updateSpeed();
+    }
 }
 
 void Lane::drawCurrent(sf::RenderTarget& target,
@@ -48,36 +43,32 @@ void Lane::drawCurrent(sf::RenderTarget& target,
         laneSprite.setPosition(i * Constants::BLOCK_SIZE, 0);
         target.draw(laneSprite, states);
     }
-    //
-    if (hasTrafficLight) {
-        target.draw(*laneTrafficLight, states);
-    }
 }
 
 void Lane::updateCurrent(sf::Time dt, CommandQueue& commands) {
     // Generate new obstacles
     generateObstacle(dt);
-    //
-    if (hasTrafficLight) {
-        laneTrafficLight->update(dt, commands);
-        if (laneTrafficLight->getState() == 0) {//red
-            mSpeed = 0;
-        }
-        else if (laneTrafficLight->getState() == 1) {//yellow
-            mSpeed = maxSpeed / 2;
-        }
-        else if (laneTrafficLight->getState() == 2) {//green
-            mSpeed = maxSpeed;
-        }
-        auto children = this->getChildren();
-        for (SceneNode* each : children) {
-            Entity* obstical = dynamic_cast<Entity*>(each);
-            if (obstical != nullptr) {
-                obstical->setVelocity(mDirection * mSpeed, 0.f);
-            }
+
+    if (mTrafficLight) {
+        updateSpeed();
+    }
+}
+
+void Lane::updateSpeed() {
+    if (mTrafficLight->getState() == TrafficLight::State::Red) {
+        mSpeed = 0;
+    } else if (mTrafficLight->getState() == TrafficLight::State::Yellow) {
+        mSpeed = maxSpeed / 2;
+    } else if (mTrafficLight->getState() == TrafficLight::State::Green) {
+        mSpeed = maxSpeed;
+    }
+    auto children = this->getChildren();
+    for (SceneNode* each : children) {
+        Obstacle* obstacle = dynamic_cast<Obstacle*>(each);
+        if (obstacle != nullptr) {
+            obstacle->setVelocity(mDirection * mSpeed, 0.f);
         }
     }
-    
 }
 
 unsigned int Lane::getCategory() const {
@@ -85,10 +76,9 @@ unsigned int Lane::getCategory() const {
 }
 
 void Lane::generateObstacle(sf::Time dt) {
-    if (mSpeed != maxSpeed)
-        return;
+    if (mSpeed != maxSpeed) return;
     int tmp = randomInt(10000);
-    if (tmp >= 1000) return;
+    if (tmp >= 30) return;
 
     auto obstacleType = Obstacle::getRandomObstacleType();
     auto children = this->getChildren();
@@ -96,7 +86,7 @@ void Lane::generateObstacle(sf::Time dt) {
     if (mDirection == Lane::Left) {
         std::unique_ptr<Obstacle> obstacle(
             new Obstacle(obstacleType, Obstacle::Direction::Left));
-        
+
         if (lastObstacle) {
             float end = lastObstacle->getPosition().x +
                         lastObstacle->getBoundingRect().width;
