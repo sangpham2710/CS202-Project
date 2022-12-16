@@ -123,22 +123,12 @@ void World::handleCollisions() {
 }
 
 void World::buildScene() {
-    if (mLevel == nullptr)
-    {
-        mLevel = std::unique_ptr<Level>(new Level(4));
-    }
-    else {
-        mLevel->levelUp();
-    }
-    float speed = mLevel.get()->caculateSpeed();
-    int spawnRate = mLevel.get()->caculateSpawnRate();
 
     for (std::size_t i = 0; i < LayerCount; ++i) {
         SceneNode::Ptr layer(new SceneNode());
         mSceneLayers[i] = layer.get();
         mSceneGraph.attachChild(std::move(layer));
     }
-
     sf::Texture& texture = TexturesSingleton::getInstance().getTextures().get(
         Textures::Background);
     sf::IntRect textureRect(mWorldBounds);
@@ -148,6 +138,53 @@ void World::buildScene() {
         new SpriteNode(texture, textureRect));
     backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
+
+    //level setup start here
+    if (mLevel == nullptr)
+    {
+        mLevel = std::unique_ptr<Level>(new Level(1));
+    }
+    else {
+        mLevel->levelUp();
+    }
+    loadLevel();
+    //level startup end here
+
+    std::unique_ptr<Character> character(new Character());
+    character->setPosition(mSpawnPosition);
+    mPlayerCharacter = character.get();
+    mSceneLayers[Land]->attachChild(std::move(character));
+
+}
+
+void World::destroyObstaclesOutsideView() {
+    Command command;
+    command.category = Category::Obstacle;
+    command.action = derivedAction<Obstacle>([this](Entity& e, sf::Time) {
+        if (!getBattlefieldBounds().intersects(e.getBoundingRect())) {
+            e.destroy();
+        }
+    });
+    mCommandQueue.push(command);
+}
+
+sf::FloatRect World::getViewBounds() const {
+    return sf::FloatRect(mWorldView.getCenter() - mWorldView.getSize() / 2.f,
+                         mWorldView.getSize());
+}
+
+sf::FloatRect World::getBattlefieldBounds() const {
+    // Return view bounds + some area at top, where enemies spawn
+    sf::FloatRect bounds = getViewBounds();
+    bounds.left -= 200;
+    bounds.width += 400;
+    return bounds;
+}
+
+void World::loadLevel()
+{
+    float speed = mLevel.get()->caculateSpeed();
+    int spawnRate = mLevel.get()->caculateSpawnRate();
 
     std::unique_ptr<Lane> laneNode0(
         new Lane(Lane::Type::Grass, Lane::Left, speed));
@@ -214,34 +251,4 @@ void World::buildScene() {
     laneNode10->setPosition(0, 10 * Constants::BLOCK_SIZE);
     laneNode10.get()->setSpawnRate(spawnRate);
     mSceneLayers[Land]->attachChild(std::move(laneNode10));
-
-    std::unique_ptr<Character> character(new Character());
-    character->setPosition(mSpawnPosition);
-    mPlayerCharacter = character.get();
-    mSceneLayers[Land]->attachChild(std::move(character));
-
-}
-
-void World::destroyObstaclesOutsideView() {
-    Command command;
-    command.category = Category::Obstacle;
-    command.action = derivedAction<Obstacle>([this](Entity& e, sf::Time) {
-        if (!getBattlefieldBounds().intersects(e.getBoundingRect())) {
-            e.destroy();
-        }
-    });
-    mCommandQueue.push(command);
-}
-
-sf::FloatRect World::getViewBounds() const {
-    return sf::FloatRect(mWorldView.getCenter() - mWorldView.getSize() / 2.f,
-                         mWorldView.getSize());
-}
-
-sf::FloatRect World::getBattlefieldBounds() const {
-    // Return view bounds + some area at top, where enemies spawn
-    sf::FloatRect bounds = getViewBounds();
-    bounds.left -= 200;
-    bounds.width += 400;
-    return bounds;
 }
