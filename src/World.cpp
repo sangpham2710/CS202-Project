@@ -9,20 +9,24 @@
 #include "TexturesSingleton.hpp"
 
 World::World(sf::RenderWindow& window, FontHolder& fonts)
-    : mWindow(window),
-      mWorldView(window.getDefaultView()),
-      mFonts(fonts),
-      mSceneGraph(),
-      mSceneLayers(),
-      mWorldBounds(0.f, 0.f, mWorldView.getSize().x + 400,
-                   mWorldView.getSize().y),
-      mSpawnPosition(Constants::BLOCK_SIZE * 8 + Constants::BLOCK_SIZE / 2,
-                     Constants::LANE_HEIGHT / 2.f),
-      mViewPosition(mWorldView.getSize().x / 2.f, mWorldView.getSize().y / 2.f),
-      mPlayerCharacter(nullptr) {
+    : 
+    mWindow(window),
+    mWorldView(window.getDefaultView()),
+    mFonts(fonts),
+    mSceneGraph(),
+    mSceneLayers(),
+    mWorldBounds(0.f, 0.f, mWorldView.getSize().x + 400,
+        mWorldView.getSize().y),
+    mSpawnPosition(Constants::BLOCK_SIZE * 8 + Constants::BLOCK_SIZE / 2,
+        Constants::LANE_HEIGHT / 2.f),
+    mViewPosition(mWorldView.getSize().x / 2.f, mWorldView.getSize().y / 2.f),
+    mPlayerCharacter(nullptr),
+    mLevel(nullptr)
+{
     loadTextures();
     buildScene();
     mWorldView.setCenter(mViewPosition);
+
 }
 
 void World::update(sf::Time dt) {
@@ -119,9 +123,15 @@ void World::handleCollisions() {
 }
 
 void World::buildScene() {
-    Level* mLevel = new Level(1);
+    if (mLevel == nullptr)
+    {
+        mLevel = std::unique_ptr<Level>(new Level(1));
+    }
+    else {
+        mLevel->levelUp();
+    }
     float speed=100;
-    mLevel->setSpeed(speed);
+    mLevel.get()->setSpeed(speed);
 
     for (std::size_t i = 0; i < LayerCount; ++i) {
         SceneNode::Ptr layer(new SceneNode());

@@ -57,5 +57,5 @@ class World : private sf::NonCopyable {
     sf::Vector2f mSpawnPosition;
     sf::Vector2f mViewPosition;
     Character* mPlayerCharacter;
-    //std::unique_ptr<Level> mLevel;
+    std::unique_ptr<Level> mLevel;
 };

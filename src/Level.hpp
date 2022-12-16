@@ -1,5 +1,3 @@
-#include "World.hpp"
-
 class Level
 {
 public:
@@ -14,5 +12,5 @@ public:
 private:
 	int level;
 	float percentScale;//max 100
-	//std::vector<std::unique_ptr<Lane>> lanes;
+	
 };
