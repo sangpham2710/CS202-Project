@@ -29,7 +29,7 @@ Panel.characterPanel {
             TextColorDisabled = #7D7D7D;
             TextColorDown = black;
             TextColorHover = black;
-            Texture = "../textures/character/character-1/down.png" Smooth;
+            Texture = "../textures/character/character-1/down.png" Part(0, 0, 64, 64) Smooth;
             TextureDisabled = None;
             TextureDown = None;
             TextureDownFocused = None;
@@ -60,7 +60,7 @@ Panel.characterPanel {
             TextColorDisabled = #7D7D7D;
             TextColorDown = black;
             TextColorHover = black;
-            Texture = "../textures/character/character-2/down.png" Smooth;
+            Texture = "../textures/character/character-2/down.png" Part(0, 0, 64, 64) Smooth;
             TextureDisabled = None;
             TextureDown = None;
             TextureDownFocused = None;
@@ -91,7 +91,7 @@ Panel.characterPanel {
             TextColorDisabled = #7D7D7D;
             TextColorDown = black;
             TextColorHover = black;
-            Texture = "../textures/character/character-3/down.png" Smooth;
+            Texture = "../textures/character/character-3/down.png" Part(0, 0, 64, 64) Smooth;
             TextureDisabled = None;
             TextureDown = None;
             TextureDownFocused = None;
@@ -122,7 +122,7 @@ Panel.characterPanel {
             TextColorDisabled = #7D7D7D;
             TextColorDown = black;
             TextColorHover = black;
-            Texture = "../textures/character/character-4/down.png" Smooth;
+            Texture = "../textures/character/character-4/down.png" Part(0, 0, 64, 64) Smooth;
             TextureDisabled = None;
             TextureDown = None;
             TextureDownFocused = None;
@@ -153,7 +153,7 @@ Panel.characterPanel {
             TextColorDisabled = #7D7D7D;
             TextColorDown = black;
             TextColorHover = black;
-            Texture = "../textures/character/character-5/down.png" Smooth;
+            Texture = "../textures/character/character-5/down.png" Part(0, 0, 64, 64) Smooth;
             TextureDisabled = None;
             TextureDown = None;
             TextureDownFocused = None;

@@ -32,8 +32,6 @@ ChooseCharacterState::ChooseCharacterState(StateStack& stack, Context context)
 
     backButton->onPress([&] { requestStackPop(); });
 
-    
-
     character1->onPress([&] { 
         requestStackPop();
         SettingsSingleton::getInstance().setCharacterType(0);
@@ -61,27 +59,32 @@ ChooseCharacterState::ChooseCharacterState(StateStack& stack, Context context)
     });
     
     int current = SettingsSingleton::getInstance().getCharacterType();
+    tgui::Borders borders(10, 10, 10, 10);
     tgui::Color color(71, 255, 46);
 
     switch (current) {
         case 0: {
-            std::cout << 1 << "\n";
+            character1->getRenderer()->setBorders(borders);
             character1->getRenderer()->setBorderColor(color);
         }
               break;
         case 1: {
+            character2->getRenderer()->setBorders(borders);
             character2->getRenderer()->setBorderColor(color);
         }
               break;
         case 2: {
+            character3->getRenderer()->setBorders(borders);
             character3->getRenderer()->setBorderColor(color);
         }
               break;
         case 3: {
+            character4->getRenderer()->setBorders(borders);
             character4->getRenderer()->setBorderColor(color);
         }
               break;
         case 4: {
+            character5->getRenderer()->setBorders(borders);
             character5->getRenderer()->setBorderColor(color);
         }
               break;
