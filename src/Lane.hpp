@@ -42,6 +42,8 @@ class Lane : public Entity {
     virtual unsigned int getCategory() const override;
 
     void generateObstacle(sf::Time dt);
+    void Lane::generateStandingObstacle(Obstacle::Type obstacleType, 
+                                        std::vector<int>& blocks);
 
     Type mType;
     Direction mDirection;

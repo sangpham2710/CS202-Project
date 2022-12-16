@@ -10,6 +10,9 @@
 #include "ResourceHolder.hpp"
 #include "TexturesSingleton.hpp"
 #include "Utility.hpp"
+#include <algorithm>
+#include <numeric>
+#include <random>
 
 namespace {
 const std::vector<LaneData> Table = initializeLaneData();
@@ -43,9 +46,32 @@ Lane::Lane(Lane::Type type, Lane::Direction direction, float speed)
             typeObstacles.push_back(Obstacle::Type::YellowCar);
         }
             break;
+        case PavementAbove:
+        case PavementBelow: {
+            typeObstacles.push_back(Obstacle::Type::FireHydrant);
+        }
+            break;
+        case Grass: {
+            typeObstacles.push_back(Obstacle::Type::Bush);
+        }
+            break;
         default: {
             typeObstacles.resize(0);
         }
+    }
+
+    if (mType == Lane::PavementAbove ||
+        mType == Lane::PavementBelow ||
+        mType == Lane::Grass) {
+
+        std::vector<int> blocks(16);
+        std::iota(blocks.begin(), blocks.end(), 0);
+        std::random_device rd;
+        std::mt19937 g(rd());
+        std::shuffle(blocks.begin(), blocks.end(), g);
+        blocks.resize(3);
+
+        generateStandingObstacle(typeObstacles[0], blocks);
     }
 }
 
@@ -71,7 +97,10 @@ unsigned int Lane::getCategory() const {
 }
 
 void Lane::generateObstacle(sf::Time dt) {
-    if (typeObstacles.empty()) return;
+    if (typeObstacles.empty() ||
+        mType == Lane::PavementAbove ||
+        mType == Lane::PavementBelow || 
+        mType == Lane::Grass) return;
 
     int tmp = randomInt(1000);
     if (tmp >= 10) return;
@@ -95,7 +124,7 @@ void Lane::generateObstacle(sf::Time dt) {
 
             if (end > Constants::SCREEN_WIDTH) return;
         }
-
+        
         obstacle->setPosition(Constants::SCREEN_WIDTH, mSprite.getPosition().y);
         obstacle->setVelocity(mDirection * mSpeed, 0.f);
         attachChild(std::move(obstacle));
@@ -114,6 +143,18 @@ void Lane::generateObstacle(sf::Time dt) {
                               mSprite.getPosition().y);
         obstacle->setVelocity(mDirection * mSpeed, 0.f);
 
+        attachChild(std::move(obstacle));
+    }
+}
+
+void Lane::generateStandingObstacle(Obstacle::Type obstacleType,
+                                    std::vector<int>& blocks) {
+    mSpeed = 0.0;
+    for (auto x : blocks) {
+        std::unique_ptr<Obstacle> obstacle(
+            new Obstacle(obstacleType, Obstacle::Direction::Left));
+        obstacle->setPosition(x*Constants::BLOCK_SIZE, mSprite.getPosition().y);
+        obstacle->setVelocity(mDirection * mSpeed, 0.f);
         attachChild(std::move(obstacle));
     }
 }

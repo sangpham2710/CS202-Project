@@ -23,6 +23,8 @@ class Obstacle : public Entity {
         WhiteTruck,
         YellowCab,
         YellowCar,
+        Bush,
+        FireHydrant,
         TypeCount
     };
     enum class Direction { Left, Right };

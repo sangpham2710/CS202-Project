@@ -88,6 +88,8 @@ std::vector<ObstacleData> initializeObstacleData() {
          (unsigned)Obstacle::Type::TypeCount]
         .texture = Textures::YellowCarRight;
 
+    data[(unsigned)Obstacle::Type::Bush].texture = Textures::Bush;
+    data[(unsigned)Obstacle::Type::FireHydrant].texture = Textures::FireHydrant;
     return data;
 }
 
