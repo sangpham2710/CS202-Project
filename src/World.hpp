@@ -15,6 +15,7 @@
 #include "ResourceIdentifiers.hpp"
 #include "SceneNode.hpp"
 #include "SpriteNode.hpp"
+#include "Level.hpp"
 
 // Forward declaration
 namespace sf {
@@ -56,4 +57,5 @@ class World : private sf::NonCopyable {
     sf::Vector2f mSpawnPosition;
     sf::Vector2f mViewPosition;
     Character* mPlayerCharacter;
+    //std::unique_ptr<Level> mLevel;
 };

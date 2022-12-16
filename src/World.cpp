@@ -119,6 +119,10 @@ void World::handleCollisions() {
 }
 
 void World::buildScene() {
+    Level* mLevel = new Level(1);
+    float speed=100;
+    mLevel->setSpeed(speed);
+
     for (std::size_t i = 0; i < LayerCount; ++i) {
         SceneNode::Ptr layer(new SceneNode());
         mSceneLayers[i] = layer.get();
@@ -136,57 +140,57 @@ void World::buildScene() {
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
     std::unique_ptr<Lane> laneNode0(
-        new Lane(Lane::Type::Grass, Lane::Left, 100));
+        new Lane(Lane::Type::Grass, Lane::Left, speed));
     laneNode0->setPosition(0, 0 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode0));
 
     std::unique_ptr<Lane> laneNode1(
-        new Lane(Lane::Type::LilyPadAbove, Lane::Right, 100));
+        new Lane(Lane::Type::LilyPadAbove, Lane::Right, speed));
     laneNode1->setPosition(0, 1 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode1));
 
     std::unique_ptr<Lane> laneNode2(
-        new Lane(Lane::Type::LilyPadBelow, Lane::Left, 100));
+        new Lane(Lane::Type::LilyPadBelow, Lane::Left, speed));
     laneNode2->setPosition(0, 2 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode2));
 
     std::unique_ptr<Lane> laneNode3(
-        new Lane(Lane::Type::LilyPadSingle, Lane::Right, 100));
+        new Lane(Lane::Type::LilyPadSingle, Lane::Right, speed));
     laneNode3->setPosition(0, 3 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode3));
 
     std::unique_ptr<Lane> laneNode4(
-        new Lane(Lane::Type::PavementAbove, Lane::Left, 100));
+        new Lane(Lane::Type::PavementAbove, Lane::Left, speed));
     laneNode4->setPosition(0, 4 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode4));
 
     std::unique_ptr<Lane> laneNode5(
-        new Lane(Lane::Type::PavementBelow, Lane::Right, 100));
+        new Lane(Lane::Type::PavementBelow, Lane::Right, speed));
     laneNode5->setPosition(0, 5 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode5));
 
     std::unique_ptr<Lane> laneNode6(
-        new Lane(Lane::Type::Railway, Lane::Left, 100));
+        new Lane(Lane::Type::Railway, Lane::Left, speed));
     laneNode6->setPosition(0, 6 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode6));
 
     std::unique_ptr<Lane> laneNode7(
-        new Lane(Lane::Type::RoadAbove, Lane::Right, 100));
+        new Lane(Lane::Type::RoadAbove, Lane::Right, speed));
     laneNode7->setPosition(0, 7 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode7));
 
     std::unique_ptr<Lane> laneNode8(
-        new Lane(Lane::Type::RoadMiddle, Lane::Left, 100));
+        new Lane(Lane::Type::RoadMiddle, Lane::Left, speed));
     laneNode8->setPosition(0, 8 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode8));
 
     std::unique_ptr<Lane> laneNode9(
-        new Lane(Lane::Type::RoadBelow, Lane::Right, 100));
+        new Lane(Lane::Type::RoadBelow, Lane::Right, speed));
     laneNode9->setPosition(0, 9 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode9));
 
     std::unique_ptr<Lane> laneNode10(
-        new Lane(Lane::Type::RoadSingle, Lane::Left, 100));
+        new Lane(Lane::Type::RoadSingle, Lane::Left, speed));
     laneNode10->setPosition(0, 10 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode10));
 
@@ -194,6 +198,7 @@ void World::buildScene() {
     character->setPosition(mSpawnPosition);
     mPlayerCharacter = character.get();
     mSceneLayers[Land]->attachChild(std::move(character));
+
 }
 
 void World::destroyObstaclesOutsideView() {
