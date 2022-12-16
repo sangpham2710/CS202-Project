@@ -34,6 +34,7 @@ class Lane : public Entity {
     };
 
     Lane(Type type, Direction direction, float speed);
+    void setSpawnRate(int x);
 
    private:
     virtual void drawCurrent(sf::RenderTarget& target,
@@ -47,4 +48,5 @@ class Lane : public Entity {
     Direction mDirection;
     float mSpeed;
     sf::Sprite mSprite;
+    int spawnRate;
 };

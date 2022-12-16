@@ -4,6 +4,8 @@ Level::Level(int x)
 {
 	level = x;
 	percentScale = 50;
+	speed = 100;
+	spawnRate = 10;
 }
 
 void Level::levelUp()
@@ -11,7 +13,12 @@ void Level::levelUp()
 	++level;
 }
 
-void Level::setSpeed(float& speed)
+float Level::caculateSpeed()
 {
-	speed = speed + level * percentScale;
+	return (speed + level * percentScale);
+}
+
+int Level::caculateSpawnRate()
+{
+	return spawnRate + level*20;
 }

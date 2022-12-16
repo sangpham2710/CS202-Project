@@ -6,11 +6,13 @@ public:
 	//~Level();
 	//void saveLevel();
 	//void loadLevel();
-	void setSpeed(float& speed);
-	//void changeSpawnRate();
+	float caculateSpeed();
+	int caculateSpawnRate();
 
 private:
 	int level;
+	int spawnRate;
+	float speed;
 	float percentScale;//max 100
 	
 };

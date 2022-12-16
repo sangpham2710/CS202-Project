@@ -16,7 +16,7 @@ const std::vector<LaneData> Table = initializeLaneData();
 }
 
 Lane::Lane(Lane::Type type, Lane::Direction direction, float speed)
-    : mType(type), mDirection(direction), mSpeed(speed) {
+    : mType(type), mDirection(direction), mSpeed(speed),spawnRate(10) {
     mSprite = sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
         Table[type].texture));
 }
@@ -44,7 +44,7 @@ unsigned int Lane::getCategory() const {
 
 void Lane::generateObstacle(sf::Time dt) {
     int tmp = randomInt(10000);
-    if (tmp >= 10) return;
+    if (tmp >= spawnRate) return;
 
     auto obstacleType = Obstacle::getRandomObstacleType();
     auto children = this->getChildren();
@@ -81,4 +81,9 @@ void Lane::generateObstacle(sf::Time dt) {
 
         attachChild(std::move(obstacle));
     }
+}
+
+void Lane::setSpawnRate(int x)
+{
+    spawnRate = x;
 }

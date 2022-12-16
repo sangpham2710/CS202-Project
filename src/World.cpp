@@ -125,13 +125,13 @@ void World::handleCollisions() {
 void World::buildScene() {
     if (mLevel == nullptr)
     {
-        mLevel = std::unique_ptr<Level>(new Level(1));
+        mLevel = std::unique_ptr<Level>(new Level(4));
     }
     else {
         mLevel->levelUp();
     }
-    float speed=100;
-    mLevel.get()->setSpeed(speed);
+    float speed = mLevel.get()->caculateSpeed();
+    int spawnRate = mLevel.get()->caculateSpawnRate();
 
     for (std::size_t i = 0; i < LayerCount; ++i) {
         SceneNode::Ptr layer(new SceneNode());
@@ -152,56 +152,67 @@ void World::buildScene() {
     std::unique_ptr<Lane> laneNode0(
         new Lane(Lane::Type::Grass, Lane::Left, speed));
     laneNode0->setPosition(0, 0 * Constants::BLOCK_SIZE);
+    laneNode0.get()->setSpawnRate(spawnRate);
     mSceneLayers[Land]->attachChild(std::move(laneNode0));
 
     std::unique_ptr<Lane> laneNode1(
         new Lane(Lane::Type::LilyPadAbove, Lane::Right, speed));
     laneNode1->setPosition(0, 1 * Constants::BLOCK_SIZE);
+    laneNode1.get()->setSpawnRate(spawnRate);
     mSceneLayers[Land]->attachChild(std::move(laneNode1));
 
     std::unique_ptr<Lane> laneNode2(
         new Lane(Lane::Type::LilyPadBelow, Lane::Left, speed));
     laneNode2->setPosition(0, 2 * Constants::BLOCK_SIZE);
+    laneNode2.get()->setSpawnRate(spawnRate);
     mSceneLayers[Land]->attachChild(std::move(laneNode2));
 
     std::unique_ptr<Lane> laneNode3(
         new Lane(Lane::Type::LilyPadSingle, Lane::Right, speed));
     laneNode3->setPosition(0, 3 * Constants::BLOCK_SIZE);
+    laneNode3.get()->setSpawnRate(spawnRate);
     mSceneLayers[Land]->attachChild(std::move(laneNode3));
 
     std::unique_ptr<Lane> laneNode4(
         new Lane(Lane::Type::PavementAbove, Lane::Left, speed));
     laneNode4->setPosition(0, 4 * Constants::BLOCK_SIZE);
+    laneNode4.get()->setSpawnRate(spawnRate);
     mSceneLayers[Land]->attachChild(std::move(laneNode4));
 
     std::unique_ptr<Lane> laneNode5(
         new Lane(Lane::Type::PavementBelow, Lane::Right, speed));
     laneNode5->setPosition(0, 5 * Constants::BLOCK_SIZE);
+    laneNode5.get()->setSpawnRate(spawnRate);
     mSceneLayers[Land]->attachChild(std::move(laneNode5));
 
     std::unique_ptr<Lane> laneNode6(
         new Lane(Lane::Type::Railway, Lane::Left, speed));
     laneNode6->setPosition(0, 6 * Constants::BLOCK_SIZE);
+    laneNode6.get()->setSpawnRate(spawnRate);
     mSceneLayers[Land]->attachChild(std::move(laneNode6));
 
     std::unique_ptr<Lane> laneNode7(
         new Lane(Lane::Type::RoadAbove, Lane::Right, speed));
     laneNode7->setPosition(0, 7 * Constants::BLOCK_SIZE);
+    laneNode7.get()->setSpawnRate(spawnRate);
     mSceneLayers[Land]->attachChild(std::move(laneNode7));
 
     std::unique_ptr<Lane> laneNode8(
         new Lane(Lane::Type::RoadMiddle, Lane::Left, speed));
     laneNode8->setPosition(0, 8 * Constants::BLOCK_SIZE);
+    laneNode8.get()->setSpawnRate(spawnRate);
     mSceneLayers[Land]->attachChild(std::move(laneNode8));
 
     std::unique_ptr<Lane> laneNode9(
         new Lane(Lane::Type::RoadBelow, Lane::Right, speed));
     laneNode9->setPosition(0, 9 * Constants::BLOCK_SIZE);
+    laneNode9.get()->setSpawnRate(spawnRate);
     mSceneLayers[Land]->attachChild(std::move(laneNode9));
 
     std::unique_ptr<Lane> laneNode10(
         new Lane(Lane::Type::RoadSingle, Lane::Left, speed));
     laneNode10->setPosition(0, 10 * Constants::BLOCK_SIZE);
+    laneNode10.get()->setSpawnRate(spawnRate);
     mSceneLayers[Land]->attachChild(std::move(laneNode10));
 
     std::unique_ptr<Character> character(new Character());
