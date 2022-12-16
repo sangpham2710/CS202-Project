@@ -19,6 +19,34 @@ Lane::Lane(Lane::Type type, Lane::Direction direction, float speed)
     : mType(type), mDirection(direction), mSpeed(speed) {
     mSprite = sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
         Table[type].texture));
+
+    switch (mType) {
+        case Railway: {
+            typeObstacles.push_back(Obstacle::Type::BlueBus);
+            typeObstacles.push_back(Obstacle::Type::OrangeBus);
+        }
+            break;
+        case RoadAbove:
+        case RoadMiddle:
+        case RoadBelow: {
+            typeObstacles.push_back(Obstacle::Type::BlueCar);
+            typeObstacles.push_back(Obstacle::Type::GrayCar);
+            typeObstacles.push_back(Obstacle::Type::NewVan);
+            typeObstacles.push_back(Obstacle::Type::OldVan);
+            typeObstacles.push_back(Obstacle::Type::PoliceCar);
+            typeObstacles.push_back(Obstacle::Type::RedCar);
+            typeObstacles.push_back(Obstacle::Type::RedStripedCar);
+            typeObstacles.push_back(Obstacle::Type::RedTruck);
+            typeObstacles.push_back(Obstacle::Type::SchoolBus);
+            typeObstacles.push_back(Obstacle::Type::WhiteTruck);
+            typeObstacles.push_back(Obstacle::Type::YellowCab);
+            typeObstacles.push_back(Obstacle::Type::YellowCar);
+        }
+            break;
+        default: {
+            typeObstacles.resize(0);
+        }
+    }
 }
 
 void Lane::drawCurrent(sf::RenderTarget& target,
@@ -43,10 +71,17 @@ unsigned int Lane::getCategory() const {
 }
 
 void Lane::generateObstacle(sf::Time dt) {
-    int tmp = randomInt(10000);
+    if (typeObstacles.empty()) return;
+
+    int tmp = randomInt(1000);
     if (tmp >= 10) return;
 
     auto obstacleType = Obstacle::getRandomObstacleType();
+    while (std::find(typeObstacles.begin(), typeObstacles.end(), obstacleType)
+        == typeObstacles.end()) {
+        obstacleType = Obstacle::getRandomObstacleType();
+    }
+
     auto children = this->getChildren();
     auto lastObstacle = children.empty() ? nullptr : children.back();
 

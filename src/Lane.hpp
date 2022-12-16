@@ -47,4 +47,5 @@ class Lane : public Entity {
     Direction mDirection;
     float mSpeed;
     sf::Sprite mSprite;
+    std::vector<Obstacle::Type> typeObstacles;
 };
