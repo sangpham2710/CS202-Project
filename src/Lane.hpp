@@ -6,6 +6,7 @@
 #include "Entity.hpp"
 #include "Obstacle.hpp"
 #include "ResourceIdentifiers.hpp"
+#include "TrafficLight.hpp"
 #include "World.hpp"
 
 class Lane : public Entity {
@@ -33,7 +34,8 @@ class Lane : public Entity {
         Right = 1,
     };
 
-    Lane(Type type, Direction direction, float speed);
+    Lane(Type type, Direction direction, float speed,
+         TrafficLight* trafficLight = nullptr);
 
    private:
     virtual void drawCurrent(sf::RenderTarget& target,
@@ -42,9 +44,12 @@ class Lane : public Entity {
     virtual unsigned int getCategory() const override;
 
     void generateObstacle(sf::Time dt);
+    void updateSpeed();
 
     Type mType;
     Direction mDirection;
     float mSpeed;
+    float maxSpeed;
     sf::Sprite mSprite;
+    TrafficLight* mTrafficLight;
 };

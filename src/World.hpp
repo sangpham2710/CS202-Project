@@ -15,6 +15,7 @@
 #include "ResourceIdentifiers.hpp"
 #include "SceneNode.hpp"
 #include "SpriteNode.hpp"
+#include "TrafficLight.hpp"
 
 // Forward declaration
 namespace sf {

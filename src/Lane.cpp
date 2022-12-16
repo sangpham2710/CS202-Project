@@ -15,10 +15,22 @@ namespace {
 const std::vector<LaneData> Table = initializeLaneData();
 }
 
-Lane::Lane(Lane::Type type, Lane::Direction direction, float speed)
-    : mType(type), mDirection(direction), mSpeed(speed) {
+#include <iostream>
+
+Lane::Lane(Lane::Type type, Lane::Direction direction, float speed,
+           TrafficLight* trafficLight)
+    : mType(type),
+      mDirection(direction),
+      mSpeed(speed),
+      mTrafficLight(trafficLight) {
     mSprite = sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
         Table[type].texture));
+
+    maxSpeed = mSpeed;
+
+    if (mTrafficLight) {
+        updateSpeed();
+    }
 }
 
 void Lane::drawCurrent(sf::RenderTarget& target,
@@ -36,6 +48,27 @@ void Lane::drawCurrent(sf::RenderTarget& target,
 void Lane::updateCurrent(sf::Time dt, CommandQueue& commands) {
     // Generate new obstacles
     generateObstacle(dt);
+
+    if (mTrafficLight) {
+        updateSpeed();
+    }
+}
+
+void Lane::updateSpeed() {
+    if (mTrafficLight->getState() == TrafficLight::State::Red) {
+        mSpeed = 0;
+    } else if (mTrafficLight->getState() == TrafficLight::State::Yellow) {
+        mSpeed = maxSpeed / 2;
+    } else if (mTrafficLight->getState() == TrafficLight::State::Green) {
+        mSpeed = maxSpeed;
+    }
+    auto children = this->getChildren();
+    for (SceneNode* each : children) {
+        Obstacle* obstacle = dynamic_cast<Obstacle*>(each);
+        if (obstacle != nullptr) {
+            obstacle->setVelocity(mDirection * mSpeed, 0.f);
+        }
+    }
 }
 
 unsigned int Lane::getCategory() const {
@@ -43,13 +76,13 @@ unsigned int Lane::getCategory() const {
 }
 
 void Lane::generateObstacle(sf::Time dt) {
+    if (mSpeed != maxSpeed) return;
     int tmp = randomInt(10000);
-    if (tmp >= 10) return;
+    if (tmp >= 30) return;
 
     auto obstacleType = Obstacle::getRandomObstacleType();
     auto children = this->getChildren();
     auto lastObstacle = children.empty() ? nullptr : children.back();
-
     if (mDirection == Lane::Left) {
         std::unique_ptr<Obstacle> obstacle(
             new Obstacle(obstacleType, Obstacle::Direction::Left));
@@ -65,7 +98,6 @@ void Lane::generateObstacle(sf::Time dt) {
         obstacle->setVelocity(mDirection * mSpeed, 0.f);
         attachChild(std::move(obstacle));
     }
-
     if (mDirection == Lane::Right) {
         std::unique_ptr<Obstacle> obstacle(
             new Obstacle(obstacleType, Obstacle::Direction::Right));
