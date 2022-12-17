@@ -3,45 +3,45 @@
 TexturesSingleton::TexturesSingleton() : mTextures() {
     mTextures.load(Textures::Background, "./assets/textures/background.png");
     mTextures.load(Textures::Character1Up,
-        "./assets/textures/character/character-1/up.png");
+                   "./assets/textures/character/character-1/up.png");
     mTextures.load(Textures::Character1Down,
-        "./assets/textures/character/character-1/down.png");
+                   "./assets/textures/character/character-1/down.png");
     mTextures.load(Textures::Character1Left,
-        "./assets/textures/character/character-1/left.png");
+                   "./assets/textures/character/character-1/left.png");
     mTextures.load(Textures::Character1Right,
-        "./assets/textures/character/character-1/right.png");
+                   "./assets/textures/character/character-1/right.png");
     mTextures.load(Textures::Character2Up,
-        "./assets/textures/character/character-2/up.png");
+                   "./assets/textures/character/character-2/up.png");
     mTextures.load(Textures::Character2Down,
-        "./assets/textures/character/character-2/down.png");
+                   "./assets/textures/character/character-2/down.png");
     mTextures.load(Textures::Character2Left,
-        "./assets/textures/character/character-2/left.png");
+                   "./assets/textures/character/character-2/left.png");
     mTextures.load(Textures::Character2Right,
-        "./assets/textures/character/character-2/right.png");
+                   "./assets/textures/character/character-2/right.png");
     mTextures.load(Textures::Character3Up,
-        "./assets/textures/character/character-3/up.png");
+                   "./assets/textures/character/character-3/up.png");
     mTextures.load(Textures::Character3Down,
-        "./assets/textures/character/character-3/down.png");
+                   "./assets/textures/character/character-3/down.png");
     mTextures.load(Textures::Character3Left,
-        "./assets/textures/character/character-3/left.png");
+                   "./assets/textures/character/character-3/left.png");
     mTextures.load(Textures::Character3Right,
-        "./assets/textures/character/character-3/right.png");
+                   "./assets/textures/character/character-3/right.png");
     mTextures.load(Textures::Character4Up,
-        "./assets/textures/character/character-4/up.png");
+                   "./assets/textures/character/character-4/up.png");
     mTextures.load(Textures::Character4Down,
-        "./assets/textures/character/character-4/down.png");
+                   "./assets/textures/character/character-4/down.png");
     mTextures.load(Textures::Character4Left,
-        "./assets/textures/character/character-4/left.png");
+                   "./assets/textures/character/character-4/left.png");
     mTextures.load(Textures::Character4Right,
-        "./assets/textures/character/character-4/right.png");
+                   "./assets/textures/character/character-4/right.png");
     mTextures.load(Textures::Character5Up,
-        "./assets/textures/character/character-5/up.png");
+                   "./assets/textures/character/character-5/up.png");
     mTextures.load(Textures::Character5Down,
-        "./assets/textures/character/character-5/down.png");
+                   "./assets/textures/character/character-5/down.png");
     mTextures.load(Textures::Character5Left,
-        "./assets/textures/character/character-5/left.png");
+                   "./assets/textures/character/character-5/left.png");
     mTextures.load(Textures::Character5Right,
-        "./assets/textures/character/character-5/right.png");
+                   "./assets/textures/character/character-5/right.png");
     mTextures.load(Textures::BlueBusLeft,
                    "./assets/textures/vehicles/blue-bus-left.png");
     mTextures.load(Textures::BlueBusRight,
@@ -98,12 +98,16 @@ TexturesSingleton::TexturesSingleton() : mTextures() {
                    "./assets/textures/vehicles/yellow-car-left.png");
     mTextures.load(Textures::YellowCarRight,
                    "./assets/textures/vehicles/yellow-car-right.png");
+    mTextures.load(Textures::Grass, "./assets/textures/lanes/grass.png");
+    mTextures.load(Textures::Railway, "./assets/textures/lanes/railway.png");
+    mTextures.load(Textures::WaterSingle,
+                   "./assets/textures/objects/water-single.png");
+    mTextures.load(Textures::WaterAbove,
+                   "./assets/textures/objects/water-above.png");
+    mTextures.load(Textures::WaterBelow,
+                   "./assets/textures/objects/water-below.png");
     mTextures.load(Textures::RoadSingle,
                    "./assets/textures/lanes/road-single.png");
-    mTextures.load(Textures::GrassLane, "./assets/textures/lanes/grass.png");
-    mTextures.load(Textures::Railway, "./assets/textures/lanes/railway.png");
-    mTextures.load(Textures::River,
-                   "./assets/textures/objects/river-single.png");
     mTextures.load(Textures::RoadAbove,
                    "./assets/textures/lanes/road-above.png");
     mTextures.load(Textures::RoadBelow,
@@ -120,18 +124,16 @@ TexturesSingleton::TexturesSingleton() : mTextures() {
                    "./assets/textures/lanes/lily-pad-below.png");
     mTextures.load(Textures::LilyPadSingle,
                    "./assets/textures/lanes/lily-pad-single.png");
-    mTextures.load(Textures::Bush,
-                   "./assets/textures/objects/bush.png");
+    mTextures.load(Textures::Bush, "./assets/textures/objects/bush.png");
     mTextures.load(Textures::FireHydrant,
                    "./assets/textures/objects/fire-hydrant.png");
     mTextures.load(Textures::Explosion, "./assets/textures/explosion.png");
-    mTextures.load(Textures::GreenLight, 
-                    "./assets/textures/objects/green-light.png");
+    mTextures.load(Textures::GreenLight,
+                   "./assets/textures/objects/green-light.png");
     mTextures.load(Textures::YellowLight,
-                    "./assets/textures/objects/yellow-light.png");
+                   "./assets/textures/objects/yellow-light.png");
     mTextures.load(Textures::RedLight,
-                    "./assets/textures/objects/red-light.png");
-
+                   "./assets/textures/objects/red-light.png");
 }
 
 TexturesSingleton& TexturesSingleton::getInstance() {

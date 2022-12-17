@@ -90,13 +90,16 @@ std::vector<ObstacleData> initializeObstacleData() {
 
     data[(unsigned)Obstacle::Type::Bush].texture = Textures::Bush;
     data[(unsigned)Obstacle::Type::FireHydrant].texture = Textures::FireHydrant;
+    data[(unsigned)Obstacle::Type::WaterSingle].texture = Textures::WaterSingle;
+    data[(unsigned)Obstacle::Type::WaterAbove].texture = Textures::WaterAbove;
+    data[(unsigned)Obstacle::Type::WaterBelow].texture = Textures::WaterBelow;
     return data;
 }
 
 std::vector<LaneData> initializeLaneData() {
     std::vector<LaneData> data((unsigned)Lane::TextureType::TypeCount);
 
-    data[(unsigned)Lane::TextureType::Grass].texture = Textures::GrassLane;
+    data[(unsigned)Lane::TextureType::Grass].texture = Textures::Grass;
 
     data[(unsigned)Lane::TextureType::LilyPadAbove].texture =
         Textures::LilyPadAbove;

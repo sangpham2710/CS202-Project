@@ -143,19 +143,19 @@ void World::buildScene() {
 
     std::unique_ptr<Lane> laneNode1(new Lane(Lane::Type::Static,
                                              Lane::TextureType::LilyPadAbove,
-                                             false, Lane::Right, 100));
+                                             true, Lane::Right, 100));
     laneNode1->setPosition(0, 1 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode1));
 
     std::unique_ptr<Lane> laneNode2(new Lane(Lane::Type::Static,
                                              Lane::TextureType::LilyPadBelow,
-                                             false, Lane::Left, 100));
+                                             true, Lane::Left, 100));
     laneNode2->setPosition(0, 2 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode2));
 
     std::unique_ptr<Lane> laneNode3(new Lane(Lane::Type::Static,
                                              Lane::TextureType::LilyPadSingle,
-                                             false, Lane::Right, 100));
+                                             true, Lane::Right, 100));
     laneNode3->setPosition(0, 3 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode3));
 

@@ -25,6 +25,9 @@ class Obstacle : public Entity {
         YellowCar,
         Bush,
         FireHydrant,
+        WaterSingle,
+        WaterAbove,
+        WaterBelow,
         TypeCount
     };
     enum class Direction { Left, Right };

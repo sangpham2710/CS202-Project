@@ -25,7 +25,7 @@ sf::FloatRect Obstacle::getBoundingRect() const {
 }
 
 void Obstacle::setTextureWrecked() {
-    mSprite.setColor(sf::Color(255, 255, 255, 128));
+    // mSprite.setColor(sf::Color(255, 255, 255, 128));
 }
 
 void Obstacle::drawCurrent(sf::RenderTarget& target,
