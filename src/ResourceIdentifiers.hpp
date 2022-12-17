@@ -69,6 +69,8 @@ enum ID {
     RoadAbove,
     RoadBelow,
     RoadMiddle,
+    Bush,
+    FireHydrant,
     Explosion,
     GreenLight,
     YellowLight,

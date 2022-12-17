@@ -11,8 +11,9 @@
 
 class Lane : public Entity {
    public:
-    // Type
-    enum Type {
+    enum class Type { Static, Dynamic };
+    // TextureType
+    enum class TextureType {
         Grass,
         LilyPadAbove,
         LilyPadBelow,
@@ -34,7 +35,8 @@ class Lane : public Entity {
         Right = 1,
     };
 
-    Lane(Type type, Direction direction, float speed,
+    Lane(Type type, TextureType textureType, bool hasObstacles = true,
+         Direction direction = NoDirection, float speed = 0.0f,
          TrafficLight* trafficLight = nullptr);
 
    private:
@@ -45,11 +47,18 @@ class Lane : public Entity {
 
     void generateObstacle(sf::Time dt);
     void updateSpeed();
+    void generateMovingObstacles(sf::Time dt);
+    void generateStandingObstacles();
+    Obstacle::Type getRandomObstacleType() const;
 
     Type mType;
+    TextureType mTextureType;
+    bool mHasObstacles;
     Direction mDirection;
     float mSpeed;
     float maxSpeed;
     sf::Sprite mSprite;
     TrafficLight* mTrafficLight;
+    static std::map<Lane::TextureType, std::vector<Obstacle::Type>>
+        allowedObstacleTypes;
 };

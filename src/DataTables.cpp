@@ -88,96 +88,110 @@ std::vector<ObstacleData> initializeObstacleData() {
          (unsigned)Obstacle::Type::TypeCount]
         .texture = Textures::YellowCarRight;
 
+    data[(unsigned)Obstacle::Type::Bush].texture = Textures::Bush;
+    data[(unsigned)Obstacle::Type::FireHydrant].texture = Textures::FireHydrant;
     return data;
 }
 
 std::vector<LaneData> initializeLaneData() {
-  std::vector<LaneData> data(Lane::TypeCount);
-  
-  data[Lane::Grass].texture = Textures::GrassLane;
+    std::vector<LaneData> data((unsigned)Lane::TextureType::TypeCount);
 
-  data[Lane::LilyPadAbove].texture = Textures::LilyPadAbove;
+    data[(unsigned)Lane::TextureType::Grass].texture = Textures::GrassLane;
 
-  data[Lane::LilyPadBelow].texture = Textures::LilyPadBelow;
+    data[(unsigned)Lane::TextureType::LilyPadAbove].texture =
+        Textures::LilyPadAbove;
 
-  data[Lane::LilyPadSingle].texture = Textures::LilyPadSingle;
+    data[(unsigned)Lane::TextureType::LilyPadBelow].texture =
+        Textures::LilyPadBelow;
 
-  data[Lane::PavementAbove].texture = Textures::PavementAbove;
+    data[(unsigned)Lane::TextureType::LilyPadSingle].texture =
+        Textures::LilyPadSingle;
 
-  data[Lane::PavementBelow].texture = Textures::PavementBelow;
+    data[(unsigned)Lane::TextureType::PavementAbove].texture =
+        Textures::PavementAbove;
 
-  data[Lane::Railway].texture = Textures::Railway;
+    data[(unsigned)Lane::TextureType::PavementBelow].texture =
+        Textures::PavementBelow;
 
-  data[Lane::RoadAbove].texture = Textures::RoadAbove;
+    data[(unsigned)Lane::TextureType::Railway].texture = Textures::Railway;
 
-  data[Lane::RoadBelow].texture = Textures::RoadBelow;
+    data[(unsigned)Lane::TextureType::RoadAbove].texture = Textures::RoadAbove;
 
-  data[Lane::RoadMiddle].texture = Textures::RoadMiddle;
+    data[(unsigned)Lane::TextureType::RoadBelow].texture = Textures::RoadBelow;
 
-  data[Lane::RoadSingle].texture = Textures::RoadSingle;
-	 
-	return data;
+    data[(unsigned)Lane::TextureType::RoadMiddle].texture =
+        Textures::RoadMiddle;
+
+    data[(unsigned)Lane::TextureType::RoadSingle].texture =
+        Textures::RoadSingle;
+
+    return data;
 }
 
-std::vector<characterData> initializeCharacterData() {
-    std::vector<characterData> data((unsigned)Character::Direction::TypeCount * 5);
+std::vector<CharacterData> initializeCharacterData() {
+    std::vector<CharacterData> data((unsigned)Character::Direction::TypeCount *
+                                    5);
 
-    data[(unsigned)Character::Direction::CharacterUp].texture = Textures::Character1Up;
-    data[(unsigned)Character::Direction::CharacterDown].texture = Textures::Character1Down;
-    data[(unsigned)Character::Direction::CharacterLeft].texture = Textures::Character1Left;
-    data[(unsigned)Character::Direction::CharacterRight].texture = Textures::Character1Right;
-
-    data[(unsigned)Character::Direction::CharacterUp + 
-        (unsigned)Character::Direction::TypeCount].texture 
-        = Textures::Character2Up;
-    data[(unsigned)Character::Direction::CharacterDown +
-        (unsigned)Character::Direction::TypeCount].texture 
-        = Textures::Character2Down;
-    data[(unsigned)Character::Direction::CharacterLeft +
-        (unsigned)Character::Direction::TypeCount].texture 
-        = Textures::Character2Left;
-    data[(unsigned)Character::Direction::CharacterRight +
-        (unsigned)Character::Direction::TypeCount].texture 
-        = Textures::Character2Right;
+    data[(unsigned)Character::Direction::CharacterUp].texture =
+        Textures::Character1Up;
+    data[(unsigned)Character::Direction::CharacterDown].texture =
+        Textures::Character1Down;
+    data[(unsigned)Character::Direction::CharacterLeft].texture =
+        Textures::Character1Left;
+    data[(unsigned)Character::Direction::CharacterRight].texture =
+        Textures::Character1Right;
 
     data[(unsigned)Character::Direction::CharacterUp +
-        (unsigned)Character::Direction::TypeCount * 2].texture
-        = Textures::Character3Up;
+         (unsigned)Character::Direction::TypeCount]
+        .texture = Textures::Character2Up;
     data[(unsigned)Character::Direction::CharacterDown +
-        (unsigned)Character::Direction::TypeCount * 2].texture
-        = Textures::Character3Down;
+         (unsigned)Character::Direction::TypeCount]
+        .texture = Textures::Character2Down;
     data[(unsigned)Character::Direction::CharacterLeft +
-        (unsigned)Character::Direction::TypeCount * 2].texture
-        = Textures::Character3Left;
+         (unsigned)Character::Direction::TypeCount]
+        .texture = Textures::Character2Left;
     data[(unsigned)Character::Direction::CharacterRight +
-        (unsigned)Character::Direction::TypeCount * 2].texture
-        = Textures::Character3Right;
+         (unsigned)Character::Direction::TypeCount]
+        .texture = Textures::Character2Right;
 
     data[(unsigned)Character::Direction::CharacterUp +
-        (unsigned)Character::Direction::TypeCount * 3].texture
-        = Textures::Character4Up;
+         (unsigned)Character::Direction::TypeCount * 2]
+        .texture = Textures::Character3Up;
     data[(unsigned)Character::Direction::CharacterDown +
-        (unsigned)Character::Direction::TypeCount * 3].texture
-        = Textures::Character4Down;
+         (unsigned)Character::Direction::TypeCount * 2]
+        .texture = Textures::Character3Down;
     data[(unsigned)Character::Direction::CharacterLeft +
-        (unsigned)Character::Direction::TypeCount * 3].texture
-        = Textures::Character4Left;
+         (unsigned)Character::Direction::TypeCount * 2]
+        .texture = Textures::Character3Left;
     data[(unsigned)Character::Direction::CharacterRight +
-        (unsigned)Character::Direction::TypeCount * 3].texture
-        = Textures::Character4Right;
+         (unsigned)Character::Direction::TypeCount * 2]
+        .texture = Textures::Character3Right;
 
     data[(unsigned)Character::Direction::CharacterUp +
-        (unsigned)Character::Direction::TypeCount * 4].texture
-        = Textures::Character5Up;
+         (unsigned)Character::Direction::TypeCount * 3]
+        .texture = Textures::Character4Up;
     data[(unsigned)Character::Direction::CharacterDown +
-        (unsigned)Character::Direction::TypeCount * 4].texture
-        = Textures::Character5Down;
+         (unsigned)Character::Direction::TypeCount * 3]
+        .texture = Textures::Character4Down;
     data[(unsigned)Character::Direction::CharacterLeft +
-        (unsigned)Character::Direction::TypeCount * 4].texture
-        = Textures::Character5Left;
+         (unsigned)Character::Direction::TypeCount * 3]
+        .texture = Textures::Character4Left;
     data[(unsigned)Character::Direction::CharacterRight +
-        (unsigned)Character::Direction::TypeCount * 4].texture
-        = Textures::Character5Right;
+         (unsigned)Character::Direction::TypeCount * 3]
+        .texture = Textures::Character4Right;
+
+    data[(unsigned)Character::Direction::CharacterUp +
+         (unsigned)Character::Direction::TypeCount * 4]
+        .texture = Textures::Character5Up;
+    data[(unsigned)Character::Direction::CharacterDown +
+         (unsigned)Character::Direction::TypeCount * 4]
+        .texture = Textures::Character5Down;
+    data[(unsigned)Character::Direction::CharacterLeft +
+         (unsigned)Character::Direction::TypeCount * 4]
+        .texture = Textures::Character5Left;
+    data[(unsigned)Character::Direction::CharacterRight +
+         (unsigned)Character::Direction::TypeCount * 4]
+        .texture = Textures::Character5Right;
 
     return data;
 }

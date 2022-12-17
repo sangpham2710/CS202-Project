@@ -23,14 +23,14 @@ class Obstacle : public Entity {
         WhiteTruck,
         YellowCab,
         YellowCar,
+        Bush,
+        FireHydrant,
         TypeCount
     };
     enum class Direction { Left, Right };
 
     Obstacle(Type type, Direction direction);
     virtual sf::FloatRect getBoundingRect() const override;
-
-    static Obstacle::Type getRandomObstacleType();
 
     void setTextureWrecked();
 

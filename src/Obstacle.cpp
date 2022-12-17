@@ -24,10 +24,6 @@ sf::FloatRect Obstacle::getBoundingRect() const {
     return getWorldTransform().transformRect(mSprite.getGlobalBounds());
 }
 
-Obstacle::Type Obstacle::getRandomObstacleType() {
-    return Obstacle::Type(randomInt((unsigned)Obstacle::Type::TypeCount));
-}
-
 void Obstacle::setTextureWrecked() {
     mSprite.setColor(sf::Color(255, 255, 255, 128));
 }

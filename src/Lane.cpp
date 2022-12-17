@@ -2,7 +2,10 @@
 
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <algorithm>
 #include <iostream>
+#include <numeric>
+#include <random>
 
 #include "CommandQueue.hpp"
 #include "Constants.hpp"
@@ -13,24 +16,102 @@
 
 namespace {
 const std::vector<LaneData> Table = initializeLaneData();
-}
+}  // namespace
 
-#include <iostream>
+std::map<Lane::TextureType, std::vector<Obstacle::Type>>
+    Lane::allowedObstacleTypes = {{Lane::TextureType::Railway,
+                                   {
+                                       Obstacle::Type::BlueBus,
+                                       Obstacle::Type::OrangeBus,
+                                   }},
+                                  {Lane::TextureType::RoadAbove,
+                                   {
+                                       Obstacle::Type::BlueCar,
+                                       Obstacle::Type::GrayCar,
+                                       Obstacle::Type::NewVan,
+                                       Obstacle::Type::OldVan,
+                                       Obstacle::Type::PoliceCar,
+                                       Obstacle::Type::RedCar,
+                                       Obstacle::Type::RedStripedCar,
+                                       Obstacle::Type::RedTruck,
+                                       Obstacle::Type::SchoolBus,
+                                       Obstacle::Type::WhiteTruck,
+                                       Obstacle::Type::YellowCab,
+                                       Obstacle::Type::YellowCar,
+                                   }},
+                                  {Lane::TextureType::RoadMiddle,
+                                   {
+                                       Obstacle::Type::BlueCar,
+                                       Obstacle::Type::GrayCar,
+                                       Obstacle::Type::NewVan,
+                                       Obstacle::Type::OldVan,
+                                       Obstacle::Type::PoliceCar,
+                                       Obstacle::Type::RedCar,
+                                       Obstacle::Type::RedStripedCar,
+                                       Obstacle::Type::RedTruck,
+                                       Obstacle::Type::SchoolBus,
+                                       Obstacle::Type::WhiteTruck,
+                                       Obstacle::Type::YellowCab,
+                                       Obstacle::Type::YellowCar,
+                                   }},
+                                  {Lane::TextureType::RoadBelow,
+                                   {
+                                       Obstacle::Type::BlueCar,
+                                       Obstacle::Type::GrayCar,
+                                       Obstacle::Type::NewVan,
+                                       Obstacle::Type::OldVan,
+                                       Obstacle::Type::PoliceCar,
+                                       Obstacle::Type::RedCar,
+                                       Obstacle::Type::RedStripedCar,
+                                       Obstacle::Type::RedTruck,
+                                       Obstacle::Type::SchoolBus,
+                                       Obstacle::Type::WhiteTruck,
+                                       Obstacle::Type::YellowCab,
+                                       Obstacle::Type::YellowCar,
+                                   }},
+                                  {Lane::TextureType::RoadSingle,
+                                   {
+                                       Obstacle::Type::BlueCar,
+                                       Obstacle::Type::GrayCar,
+                                       Obstacle::Type::NewVan,
+                                       Obstacle::Type::OldVan,
+                                       Obstacle::Type::PoliceCar,
+                                       Obstacle::Type::RedCar,
+                                       Obstacle::Type::RedStripedCar,
+                                       Obstacle::Type::RedTruck,
+                                       Obstacle::Type::SchoolBus,
+                                       Obstacle::Type::WhiteTruck,
+                                       Obstacle::Type::YellowCab,
+                                       Obstacle::Type::YellowCar,
+                                   }},
+                                  {Lane::TextureType::PavementAbove,
+                                   {
+                                       Obstacle::Type::FireHydrant,
+                                   }},
+                                  {Lane::TextureType::PavementBelow,
+                                   {
+                                       Obstacle::Type::FireHydrant,
+                                   }},
+                                  {Lane::TextureType::Grass,
+                                   {
+                                       Obstacle::Type::Bush,
+                                   }}};
 
-Lane::Lane(Lane::Type type, Lane::Direction direction, float speed,
-           TrafficLight* trafficLight)
+Lane::Lane(Lane::Type type, Lane::TextureType textureType, bool hasObstacles,
+           Lane::Direction direction, float speed, TrafficLight* trafficLight)
     : mType(type),
+      mTextureType(textureType),
+      mHasObstacles(hasObstacles),
       mDirection(direction),
       mSpeed(speed),
-      mTrafficLight(trafficLight) {
+      mTrafficLight(trafficLight),
+      maxSpeed(speed) {
     mSprite = sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
-        Table[type].texture));
+        Table[(unsigned)textureType].texture));
+    if (mHasObstacles && mType == Type::Static) generateStandingObstacles();
 
-    maxSpeed = mSpeed;
 
-    if (mTrafficLight) {
-        updateSpeed();
-    }
+    if (mHasObstacles && mType == Type::Dynamic && mTrafficLight) updateSpeed();
 }
 
 void Lane::drawCurrent(sf::RenderTarget& target,
@@ -39,19 +120,16 @@ void Lane::drawCurrent(sf::RenderTarget& target,
 
     for (int i = 0; i < numsOfBlocks; i++) {
         sf::Sprite laneSprite = mSprite;
-
         laneSprite.setPosition(i * Constants::BLOCK_SIZE, 0);
         target.draw(laneSprite, states);
     }
 }
 
 void Lane::updateCurrent(sf::Time dt, CommandQueue& commands) {
+    if (!mHasObstacles) return;
     // Generate new obstacles
-    generateObstacle(dt);
-
-    if (mTrafficLight) {
-        updateSpeed();
-    }
+    if (mType == Type::Dynamic) generateMovingObstacles(dt);
+    if (mType == Type::Dynamic && mTrafficLight) updateSpeed();
 }
 
 void Lane::updateSpeed() {
@@ -62,7 +140,8 @@ void Lane::updateSpeed() {
     } else if (mTrafficLight->getState() == TrafficLight::State::Green) {
         mSpeed = maxSpeed;
     }
-    auto children = this->getChildren();
+
+    auto children = getChildren();
     for (SceneNode* each : children) {
         Obstacle* obstacle = dynamic_cast<Obstacle*>(each);
         if (obstacle != nullptr) {
@@ -75,12 +154,12 @@ unsigned int Lane::getCategory() const {
     return Category::Lane;
 }
 
-void Lane::generateObstacle(sf::Time dt) {
-    if (mSpeed != maxSpeed) return;
-    int tmp = randomInt(10000);
-    if (tmp >= 30) return;
+void Lane::generateMovingObstacles(sf::Time dt) {
+    int tmp = randomInt(1000);
+    if (tmp >= 10) return;
 
-    auto obstacleType = Obstacle::getRandomObstacleType();
+    Obstacle::Type obstacleType = getRandomObstacleType();
+
     auto children = this->getChildren();
     auto lastObstacle = children.empty() ? nullptr : children.back();
     if (mDirection == Lane::Left) {
@@ -113,4 +192,28 @@ void Lane::generateObstacle(sf::Time dt) {
 
         attachChild(std::move(obstacle));
     }
+}
+
+void Lane::generateStandingObstacles() {
+    std::vector<int> blocks(Constants::SCREEN_WIDTH / Constants::BLOCK_SIZE);
+    std::iota(blocks.begin(), blocks.end(), 0);
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(blocks.begin(), blocks.end(), g);
+    blocks.resize(3);
+
+    mSpeed = 0.0;
+    for (auto& x : blocks) {
+        std::unique_ptr<Obstacle> obstacle(
+            new Obstacle(getRandomObstacleType(), Obstacle::Direction::Left));
+        obstacle->setPosition(x * Constants::BLOCK_SIZE,
+                              mSprite.getPosition().y);
+        obstacle->setVelocity(0.0f, 0.0f);
+        attachChild(std::move(obstacle));
+    }
+}
+
+Obstacle::Type Lane::getRandomObstacleType() const {
+    int index = randomInt(allowedObstacleTypes[mTextureType].size());
+    return allowedObstacleTypes[mTextureType][index];
 }

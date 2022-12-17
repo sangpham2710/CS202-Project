@@ -1,11 +1,10 @@
 #pragma once
 
-#include "ResourceIdentifiers.hpp"
 #include <functional>
+#include <map>
 #include <vector>
 
-class Obstacle;
-class Lane;
+#include "ResourceIdentifiers.hpp"
 
 struct ObstacleData {
     Textures::ID texture;
@@ -15,9 +14,10 @@ struct LaneData {
     Textures::ID texture;
 };
 
-struct characterData {
+struct CharacterData {
     Textures::ID texture;
 };
+
 std::vector<ObstacleData> initializeObstacleData();
 std::vector<LaneData> initializeLaneData();
-std::vector<characterData> initializeCharacterData();
+std::vector<CharacterData> initializeCharacterData();

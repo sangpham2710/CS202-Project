@@ -10,7 +10,7 @@
 #include "Utility.hpp"
 
 namespace {
-    const std::vector<characterData> Table = initializeCharacterData();
+    const std::vector<CharacterData> Table = initializeCharacterData();
 }
 
 Character::Character(int type) : mIsMoving(false), mShowExplosion(true), mType(type) {

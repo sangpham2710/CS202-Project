@@ -6,8 +6,8 @@
 #include <limits>
 
 #include "Constants.hpp"
-#include "TexturesSingleton.hpp"
 #include "SettingsSingleton.hpp"
+#include "TexturesSingleton.hpp"
 
 World::World(sf::RenderWindow& window, FontHolder& fonts)
     : mWindow(window),
@@ -136,65 +136,75 @@ void World::buildScene() {
     backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
-    std::unique_ptr<Lane> laneNode0(
-        new Lane(Lane::Type::Grass, Lane::Left, 100));
+    std::unique_ptr<Lane> laneNode0(new Lane(
+        Lane::Type::Dynamic, Lane::TextureType::Grass, false, Lane::Left, 100));
     laneNode0->setPosition(0, 0 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode0));
 
-    std::unique_ptr<Lane> laneNode1(
-        new Lane(Lane::Type::LilyPadAbove, Lane::Right, 100));
+    std::unique_ptr<Lane> laneNode1(new Lane(Lane::Type::Static,
+                                             Lane::TextureType::LilyPadAbove,
+                                             false, Lane::Right, 100));
     laneNode1->setPosition(0, 1 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode1));
 
-    std::unique_ptr<Lane> laneNode2(
-        new Lane(Lane::Type::LilyPadBelow, Lane::Left, 100));
+    std::unique_ptr<Lane> laneNode2(new Lane(Lane::Type::Static,
+                                             Lane::TextureType::LilyPadBelow,
+                                             false, Lane::Left, 100));
     laneNode2->setPosition(0, 2 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode2));
 
-    std::unique_ptr<Lane> laneNode3(
-        new Lane(Lane::Type::LilyPadSingle, Lane::Right, 100));
+    std::unique_ptr<Lane> laneNode3(new Lane(Lane::Type::Static,
+                                             Lane::TextureType::LilyPadSingle,
+                                             false, Lane::Right, 100));
     laneNode3->setPosition(0, 3 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode3));
 
-    std::unique_ptr<Lane> laneNode4(
-        new Lane(Lane::Type::PavementAbove, Lane::Left, 100));
+    std::unique_ptr<Lane> laneNode4(new Lane(Lane::Type::Static,
+                                             Lane::TextureType::PavementAbove,
+                                             true, Lane::Left, 100));
     laneNode4->setPosition(0, 4 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode4));
 
-    std::unique_ptr<Lane> laneNode5(
-        new Lane(Lane::Type::PavementBelow, Lane::Right, 100));
+    std::unique_ptr<Lane> laneNode5(new Lane(Lane::Type::Static,
+                                             Lane::TextureType::PavementBelow,
+                                             true, Lane::Right, 100));
     laneNode5->setPosition(0, 5 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode5));
 
-    std::unique_ptr<Lane> laneNode6(
-        new Lane(Lane::Type::Railway, Lane::Left, 100));
+    std::unique_ptr<Lane> laneNode6(new Lane(Lane::Type::Dynamic,
+                                             Lane::TextureType::Railway, true,
+                                             Lane::Left, 100));
     laneNode6->setPosition(0, 6 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode6));
 
     std::unique_ptr<TrafficLight> trafficLightLane7(new TrafficLight());
-    std::unique_ptr<Lane> laneNode7(new Lane(Lane::Type::RoadAbove, Lane::Right,
-                                             100, trafficLightLane7.get()));
+    std::unique_ptr<Lane> laneNode7(
+        new Lane(Lane::Type::Dynamic, Lane::TextureType::RoadAbove, true,
+                 Lane::Right, 100, trafficLightLane7.get()));
     laneNode7->setPosition(0, 7 * Constants::BLOCK_SIZE);
     trafficLightLane7->setPosition(0, 7 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode7));
 
     std::unique_ptr<TrafficLight> trafficLightLane8(new TrafficLight());
-    std::unique_ptr<Lane> laneNode8(new Lane(Lane::Type::RoadMiddle, Lane::Left,
-                                             100, trafficLightLane8.get()));
+    std::unique_ptr<Lane> laneNode8(
+        new Lane(Lane::Type::Dynamic, Lane::TextureType::RoadMiddle, true,
+                 Lane::Left, 100, trafficLightLane8.get()));
     laneNode8->setPosition(0, 8 * Constants::BLOCK_SIZE);
     trafficLightLane8->setPosition(0, 8 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode8));
 
     std::unique_ptr<TrafficLight> trafficLightLane9(new TrafficLight());
-    std::unique_ptr<Lane> laneNode9(new Lane(Lane::Type::RoadBelow, Lane::Right,
-                                             100, trafficLightLane9.get()));
+    std::unique_ptr<Lane> laneNode9(
+        new Lane(Lane::Type::Dynamic, Lane::TextureType::RoadBelow, true,
+                 Lane::Right, 100, trafficLightLane9.get()));
     laneNode9->setPosition(0, 9 * Constants::BLOCK_SIZE);
     trafficLightLane9->setPosition(0, 9 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode9));
 
     std::unique_ptr<TrafficLight> trafficLightLane10(new TrafficLight());
-    std::unique_ptr<Lane> laneNode10(new Lane(
-        Lane::Type::RoadSingle, Lane::Left, 100, trafficLightLane10.get()));
+    std::unique_ptr<Lane> laneNode10(
+        new Lane(Lane::Type::Dynamic, Lane::TextureType::RoadSingle, true,
+                 Lane::Left, 100, trafficLightLane10.get()));
     laneNode10->setPosition(0, 10 * Constants::BLOCK_SIZE);
     trafficLightLane10->setPosition(0, 10 * Constants::BLOCK_SIZE);
     mSceneLayers[Land]->attachChild(std::move(laneNode10));
@@ -204,7 +214,8 @@ void World::buildScene() {
     mSceneLayers[Air]->attachChild(std::move(trafficLightLane9));
     mSceneLayers[Air]->attachChild(std::move(trafficLightLane10));
 
-    std::unique_ptr<Character> character(new Character(SettingsSingleton::getInstance().getCharacterType()));
+    std::unique_ptr<Character> character(
+        new Character(SettingsSingleton::getInstance().getCharacterType()));
     character->setPosition(mSpawnPosition);
     mPlayerCharacter = character.get();
     mSceneLayers[Land]->attachChild(std::move(character));
