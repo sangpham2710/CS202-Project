@@ -11,6 +11,7 @@
 #include "Command.hpp"
 #include "CommandQueue.hpp"
 #include "Lane.hpp"
+#include "LevelManager.hpp"
 #include "ResourceHolder.hpp"
 #include "ResourceIdentifiers.hpp"
 #include "SceneNode.hpp"
@@ -24,15 +25,16 @@ class RenderWindow;
 
 class World : private sf::NonCopyable {
    public:
+    friend class LevelManager;
     explicit World(sf::RenderWindow& window, FontHolder& fonts);
     void update(sf::Time dt);
     void draw();
 
     CommandQueue& getCommandQueue();
     bool hasAlivePlayer() const;
+    bool hasPlayerReachedEnd() const;
 
    private:
-    void loadTextures();
     void adaptPlayerPosition();
     void handleCollisions();
 
@@ -41,8 +43,10 @@ class World : private sf::NonCopyable {
     sf::FloatRect getViewBounds() const;
     sf::FloatRect getBattlefieldBounds() const;
 
+    void loadLevel();
+
    private:
-    enum Layer { Background, Land, Air, LayerCount };
+    enum Layer { Background, LevelLayer, CharacterLayer, LayerCount };
 
    private:
     sf::RenderWindow& mWindow;
@@ -57,4 +61,7 @@ class World : private sf::NonCopyable {
     sf::Vector2f mSpawnPosition;
     sf::Vector2f mViewPosition;
     Character* mPlayerCharacter;
+    LevelManager mLevelManager;
+
+    int mLevelNumber;
 };

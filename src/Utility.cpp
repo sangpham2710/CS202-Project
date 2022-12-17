@@ -159,10 +159,12 @@ float toRadian(float degree) {
 }
 
 int randomInt(int exclusiveMax) {
-    if (exclusiveMax <= 0) {
-        return -1;
-    }
     std::uniform_int_distribution<> distr(0, exclusiveMax - 1);
+    return distr(RandomEngine);
+}
+
+float randomFloat(float min, float max) {
+    std::uniform_real_distribution<float> distr(min, max);
     return distr(RandomEngine);
 }
 

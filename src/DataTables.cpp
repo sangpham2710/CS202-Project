@@ -1,5 +1,6 @@
 #include "DataTables.hpp"
 
+#include "Character.hpp"
 #include "Lane.hpp"
 #include "Obstacle.hpp"
 

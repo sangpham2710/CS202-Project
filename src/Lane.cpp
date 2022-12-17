@@ -112,19 +112,19 @@ std::map<Lane::TextureType, std::vector<Obstacle::Type>>
 };
 
 Lane::Lane(Lane::Type type, Lane::TextureType textureType, bool hasObstacles,
-           Lane::Direction direction, float speed, TrafficLight* trafficLight)
+           Lane::Direction direction, float speed, int spawnRate,
+           TrafficLight* trafficLight)
     : mType(type),
       mTextureType(textureType),
       mHasObstacles(hasObstacles),
       mDirection(direction),
       mSpeed(speed),
       mTrafficLight(trafficLight),
-      maxSpeed(speed) {
+      maxSpeed(speed),
+      mObstacleSpawnRate(spawnRate) {
     mSprite = sf::Sprite(TexturesSingleton::getInstance().getTextures().get(
         Table[(unsigned)textureType].texture));
     if (mHasObstacles && mType == Type::Static) generateStandingObstacles();
-
-
     if (mHasObstacles && mType == Type::Dynamic && mTrafficLight) updateSpeed();
 }
 
@@ -169,8 +169,8 @@ unsigned int Lane::getCategory() const {
 }
 
 void Lane::generateMovingObstacles(sf::Time dt) {
-    int tmp = randomInt(1000);
-    if (tmp >= 10) return;
+    int tmp = randomInt(10000);
+    if (tmp >= mObstacleSpawnRate) return;
 
     Obstacle::Type obstacleType = getRandomObstacleType();
 

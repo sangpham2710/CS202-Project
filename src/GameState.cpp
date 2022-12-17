@@ -17,6 +17,10 @@ bool GameState::update(sf::Time dt) {
     if (!mWorld.hasAlivePlayer()) {
         mPlayer.setMissionStatus(Player::MissionFailure);
         requestStackPush(States::GameOver);
+    } else if (mWorld.hasPlayerReachedEnd()) {
+        mPlayer.setMissionStatus(Player::MissionSuccess);
+        requestStackPop();
+        requestStackPush(States::Game);
     }
 
     CommandQueue& commands = mWorld.getCommandQueue();

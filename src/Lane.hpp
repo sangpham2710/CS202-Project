@@ -1,13 +1,13 @@
 #pragma once
 
 #include <SFML/Graphics/Sprite.hpp>
+#include <map>
 #include <vector>
 
 #include "Entity.hpp"
 #include "Obstacle.hpp"
 #include "ResourceIdentifiers.hpp"
 #include "TrafficLight.hpp"
-#include "World.hpp"
 
 class Lane : public Entity {
    public:
@@ -37,7 +37,7 @@ class Lane : public Entity {
 
     Lane(Type type, TextureType textureType, bool hasObstacles = true,
          Direction direction = NoDirection, float speed = 0.0f,
-         TrafficLight* trafficLight = nullptr);
+         int spawnRate = 0, TrafficLight* trafficLight = nullptr);
 
    private:
     virtual void drawCurrent(sf::RenderTarget& target,
@@ -45,11 +45,13 @@ class Lane : public Entity {
     virtual void updateCurrent(sf::Time dt, CommandQueue& commands) override;
     virtual unsigned int getCategory() const override;
 
-    void generateObstacle(sf::Time dt);
     void updateSpeed();
     void generateMovingObstacles(sf::Time dt);
     void generateStandingObstacles();
     Obstacle::Type getRandomObstacleType() const;
+
+    static std::map<Lane::TextureType, std::vector<Obstacle::Type>>
+        allowedObstacleTypes;
 
     Type mType;
     TextureType mTextureType;
@@ -59,6 +61,5 @@ class Lane : public Entity {
     float maxSpeed;
     sf::Sprite mSprite;
     TrafficLight* mTrafficLight;
-    static std::map<Lane::TextureType, std::vector<Obstacle::Type>>
-        allowedObstacleTypes;
+    int mObstacleSpawnRate;
 };

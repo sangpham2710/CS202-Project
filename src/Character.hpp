@@ -3,19 +3,19 @@
 #include <SFML/Graphics/Sprite.hpp>
 
 #include "Animation.hpp"
+#include "DataTables.hpp"
 #include "Entity.hpp"
 #include "ResourceIdentifiers.hpp"
-#include "DataTables.hpp"
 
 class Character : public Entity {
    public:
-       enum class Direction {
-           CharacterUp,
-           CharacterDown,
-           CharacterLeft,
-           CharacterRight,
-           TypeCount
-       };
+    enum class Direction {
+        CharacterUp,
+        CharacterDown,
+        CharacterLeft,
+        CharacterRight,
+        TypeCount
+    };
 
    public:
     Character(int type);
