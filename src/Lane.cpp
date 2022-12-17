@@ -31,7 +31,8 @@ Lane::Lane(Lane::Type type, Lane::Direction direction, float speed)
             break;
         case RoadAbove:
         case RoadMiddle:
-        case RoadBelow: {
+        case RoadBelow:
+        case RoadSingle: {
             typeObstacles.push_back(Obstacle::Type::BlueCar);
             typeObstacles.push_back(Obstacle::Type::GrayCar);
             typeObstacles.push_back(Obstacle::Type::NewVan);
@@ -60,11 +61,9 @@ Lane::Lane(Lane::Type type, Lane::Direction direction, float speed)
         }
     }
 
-    if (mType == Lane::PavementAbove ||
-        mType == Lane::PavementBelow ||
-        mType == Lane::Grass) {
+    if (isHavingStandingObstacle()) {
 
-        std::vector<int> blocks(16);
+        std::vector<int> blocks(Constants::SCREEN_WIDTH / Constants::BLOCK_SIZE);
         std::iota(blocks.begin(), blocks.end(), 0);
         std::random_device rd;
         std::mt19937 g(rd());
@@ -88,28 +87,24 @@ void Lane::drawCurrent(sf::RenderTarget& target,
 }
 
 void Lane::updateCurrent(sf::Time dt, CommandQueue& commands) {
+    //check type of lane
+    if (isStaticLane()) return;
+    if (isHavingStandingObstacle()) return;
+
     // Generate new obstacles
-    generateObstacle(dt);
+    generateMovingObstacle(dt);
 }
 
 unsigned int Lane::getCategory() const {
     return Category::Lane;
 }
 
-void Lane::generateObstacle(sf::Time dt) {
-    if (typeObstacles.empty() ||
-        mType == Lane::PavementAbove ||
-        mType == Lane::PavementBelow || 
-        mType == Lane::Grass) return;
-
+void Lane::generateMovingObstacle(sf::Time dt) {
     int tmp = randomInt(1000);
     if (tmp >= 10) return;
 
-    auto obstacleType = Obstacle::getRandomObstacleType();
-    while (std::find(typeObstacles.begin(), typeObstacles.end(), obstacleType)
-        == typeObstacles.end()) {
-        obstacleType = Obstacle::getRandomObstacleType();
-    }
+    int index = randomInt(typeObstacles.size());
+    Obstacle::Type obstacleType = typeObstacles[index];
 
     auto children = this->getChildren();
     auto lastObstacle = children.empty() ? nullptr : children.back();
@@ -157,4 +152,22 @@ void Lane::generateStandingObstacle(Obstacle::Type obstacleType,
         obstacle->setVelocity(mDirection * mSpeed, 0.f);
         attachChild(std::move(obstacle));
     }
+}
+
+bool Lane::isStaticLane() const{
+    if (mType == Lane::Type::LilyPadAbove ||
+        mType == Lane::Type::LilyPadBelow ||
+        mType == Lane::Type::LilyPadSingle) {
+        return true;
+    }
+    return false;
+}
+
+bool Lane::isHavingStandingObstacle() const {
+    if (mType == Lane::PavementAbove ||
+        mType == Lane::PavementBelow ||
+        mType == Lane::Grass) {
+        return true;
+    }
+    return false;
 }

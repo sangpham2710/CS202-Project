@@ -41,9 +41,11 @@ class Lane : public Entity {
     virtual void updateCurrent(sf::Time dt, CommandQueue& commands) override;
     virtual unsigned int getCategory() const override;
 
-    void generateObstacle(sf::Time dt);
+    void generateMovingObstacle(sf::Time dt);
     void Lane::generateStandingObstacle(Obstacle::Type obstacleType, 
                                         std::vector<int>& blocks);
+    bool isStaticLane() const;
+    bool isHavingStandingObstacle() const;
 
     Type mType;
     Direction mDirection;
