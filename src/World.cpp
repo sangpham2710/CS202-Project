@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <random>
 
 #include "Constants.hpp"
 #include "TexturesSingleton.hpp"
@@ -186,13 +187,7 @@ void World::loadLevel()
     float speed = mLevel.get()->caculateSpeed();
     int spawnRate = mLevel.get()->caculateSpawnRate();
 
-    std::unique_ptr<Lane> laneNode0(
-        new Lane(Lane::Type::Grass, Lane::Left, speed));
-    laneNode0->setPosition(0, 0 * Constants::BLOCK_SIZE);
-    laneNode0.get()->setSpawnRate(spawnRate);
-    mSceneLayers[Land]->attachChild(std::move(laneNode0));
-
-    std::unique_ptr<Lane> laneNode1(
+    /*std::unique_ptr<Lane> laneNode1(
         new Lane(Lane::Type::LilyPadAbove, Lane::Right, speed));
     laneNode1->setPosition(0, 1 * Constants::BLOCK_SIZE);
     laneNode1.get()->setSpawnRate(spawnRate);
@@ -250,5 +245,190 @@ void World::loadLevel()
         new Lane(Lane::Type::RoadSingle, Lane::Left, speed));
     laneNode10->setPosition(0, 10 * Constants::BLOCK_SIZE);
     laneNode10.get()->setSpawnRate(spawnRate);
-    mSceneLayers[Land]->attachChild(std::move(laneNode10));
+    mSceneLayers[Land]->attachChild(std::move(laneNode10));*/
+
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> dist(1, 11);
+    std::uniform_int_distribution<std::mt19937::result_type> clmm(0, 1);
+    /*for (int i = 0;i <= 10;++i)
+    {
+        int theChosenOne = dist(rng);
+        if (theChosenOne <= 4) {
+            Lane::Type tem;
+            switch (theChosenOne)
+            {
+            case 1:
+                tem = Lane::Grass;
+                break;
+            case 2:
+                tem = Lane::LilyPadSingle;
+                break;
+            case 3:
+                tem = Lane::Railway;
+                break;
+            case 4:
+                tem = Lane::RoadSingle;
+                break;
+            default:
+                break;
+            }
+            std::unique_ptr<Lane> laneNode(new Lane(tem, Lane::Left, speed));
+            laneNode->setPosition(0, i * Constants::BLOCK_SIZE);
+            laneNode.get()->setSpawnRate(spawnRate);
+            mSceneLayers[Land]->attachChild(std::move(laneNode));
+        }
+        else if (theChosenOne >= 5 && theChosenOne <= 7 && i <= 9) {
+            Lane::Type temA, temB;
+            switch (theChosenOne)
+            {
+            case 5:
+                temA = Lane::LilyPadAbove;
+                temB = Lane::LilyPadBelow;
+                break;
+            case 6:
+                temA = Lane::PavementAbove;
+                temB = Lane::PavementBelow;
+                break;
+            case 7:
+                temA = Lane::RoadAbove;
+                temB = Lane::RoadBelow;
+                break;
+            default:
+                break;
+            }
+            std::unique_ptr<Lane> laneNodeA(
+                new Lane(temA, Lane::Right, speed));
+            laneNodeA->setPosition(0, i * Constants::BLOCK_SIZE);
+            laneNodeA.get()->setSpawnRate(spawnRate);
+            mSceneLayers[Land]->attachChild(std::move(laneNodeA));
+            ++i;
+            std::unique_ptr<Lane> laneNodeB(
+                new Lane(temB, Lane::Left, speed));
+            laneNodeB->setPosition(0, i * Constants::BLOCK_SIZE);
+            laneNodeB.get()->setSpawnRate(spawnRate);
+            mSceneLayers[Land]->attachChild(std::move(laneNodeB));
+        }
+        else if (theChosenOne == 8 && i <= 8) {
+            Lane::Type temA, temB, temC;
+            switch (theChosenOne)
+            {
+            case 8:
+                temA = Lane::RoadAbove;
+                temB = Lane::RoadMiddle;
+                temC = Lane::RoadBelow;
+                break;
+            default:
+                break;
+            }
+            std::unique_ptr<Lane> laneNodeA(
+                new Lane(temA, Lane::Right, speed));
+            laneNodeA->setPosition(0, i * Constants::BLOCK_SIZE);
+            laneNodeA.get()->setSpawnRate(spawnRate);
+            mSceneLayers[Land]->attachChild(std::move(laneNodeA));
+            ++i;
+            std::unique_ptr<Lane> laneNodeB(
+                new Lane(temB, Lane::Left, speed));
+            laneNodeB->setPosition(0, i * Constants::BLOCK_SIZE);
+            laneNodeB.get()->setSpawnRate(spawnRate);
+            mSceneLayers[Land]->attachChild(std::move(laneNodeB));
+            ++i;
+            std::unique_ptr<Lane> laneNodeC(
+                new Lane(temC, Lane::Left, speed));
+            laneNodeC->setPosition(0, i * Constants::BLOCK_SIZE);
+            laneNodeC.get()->setSpawnRate(spawnRate);
+            mSceneLayers[Land]->attachChild(std::move(laneNodeC));
+        }
+        else {
+            --i;
+        }
+    }*/
+
+    int current = dist(rng),last;
+    for (int i = 0;i < 11;++i)
+    {
+        std::cout << current << "\n";
+        last = current;
+        Lane::Type tem;
+        switch (current)
+        {
+        case 1:
+            tem = Lane::Grass;
+            break;
+        case 2:
+            tem = Lane::LilyPadSingle;
+            break;
+        case 3:
+            tem = Lane::Railway;
+            break;
+        case 4:
+            tem = Lane::RoadSingle;
+            break;
+        case 5:
+            tem = Lane::LilyPadAbove;
+            break;
+        case 6:
+            tem = Lane::PavementAbove;
+            break;
+        case 7:
+            tem = Lane::RoadAbove;
+            break;
+        case 8:
+            tem = Lane::LilyPadBelow;
+            break;
+        case 9:
+            tem = Lane::PavementBelow;
+            break;
+        case 10:
+            tem = Lane::RoadMiddle;
+            break;
+        case 11:
+            tem = Lane::RoadBelow;
+            break;
+        default:
+            break;
+        }
+
+        Lane::Direction dt;
+        if (clmm(rng) == 0) {
+            dt = Lane::Left;
+        }
+        else {
+            dt = Lane::Right;
+        }
+        std::unique_ptr<Lane> laneNodeA(new Lane(tem, dt, speed));
+        laneNodeA->setPosition(0, i * Constants::BLOCK_SIZE);
+        laneNodeA.get()->setSpawnRate(spawnRate);
+        mSceneLayers[Land]->attachChild(std::move(laneNodeA));
+
+        
+        if (last == 5) {
+            current = 8;
+        }
+        else if (last == 6) {
+            current = 9;
+        }
+        else if (last == 10) {
+            current = 11;
+        }
+        else if (last == 7) {
+            if (i <= 8) {
+                if (clmm(rng) == 0) { current = 10; }
+                else { current = 11; }
+            }
+            else { current = 11; }
+        }
+        else{
+            while (current == last || 
+                current >= 8 || 
+                (i >= 10 && current >= 5)||
+                (i>=9&&current==7)||
+                (last==9&&current==6)||
+                (last==11&&current==7)||
+                ((last==2||last==8)&&(current==5||current==2))
+                ) {
+                current = dist(rng);
+            }
+        }
+    }
 }
