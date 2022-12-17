@@ -200,10 +200,15 @@ void World::loadLevel() {
   std::map<int, std::vector<Lane::Type>> listLane;
   generateListLane(listLane);
   int currentState;
+  int lastState = -1;
   Lane::Direction dt;
   int laneCount = 0;
   while (laneCount < 11) {
     currentState = randomInt(listLane.size());
+    while (currentState == lastState) {
+      currentState = randomInt(listLane.size());
+    }
+    lastState = currentState;
     int direction = randomInt(2);
     if (direction == 0)
       dt = Lane::Direction::Left;
