@@ -14,76 +14,75 @@ std::map<Lane::TextureType, std::vector<Lane::TextureType>>
     LevelManager::mNextLaneTypes = {
         {Lane::TextureType::Grass,
          {
-             Lane::TextureType::LilyPadAbove,
+             Lane::TextureType::LilyPadBelow,
              Lane::TextureType::LilyPadSingle,
-             Lane::TextureType::PavementAbove,
+             Lane::TextureType::PavementBelow,
              Lane::TextureType::Railway,
-             Lane::TextureType::RoadAbove,
+             Lane::TextureType::RoadBelow,
              Lane::TextureType::RoadSingle,
          }},
         {Lane::TextureType::LilyPadAbove,
          {
-             Lane::TextureType::LilyPadBelow,
+             Lane::TextureType::PavementBelow,
+             Lane::TextureType::Railway,
+             Lane::TextureType::RoadBelow,
+             Lane::TextureType::RoadSingle,
          }},
         {Lane::TextureType::LilyPadBelow,
          {
-             Lane::TextureType::PavementAbove,
-             Lane::TextureType::Railway,
-             Lane::TextureType::RoadAbove,
-             Lane::TextureType::RoadSingle,
+             Lane::TextureType::LilyPadAbove,
          }},
         {Lane::TextureType::LilyPadSingle,
          {
-             Lane::TextureType::PavementAbove,
+             Lane::TextureType::PavementBelow,
              Lane::TextureType::Railway,
-             Lane::TextureType::RoadAbove,
+             Lane::TextureType::RoadBelow,
              Lane::TextureType::RoadSingle,
          }},
         {Lane::TextureType::PavementAbove,
          {
-             Lane::TextureType::PavementBelow,
+             Lane::TextureType::LilyPadBelow,
+             Lane::TextureType::LilyPadSingle,
+             Lane::TextureType::Railway,
+             Lane::TextureType::RoadBelow,
+             Lane::TextureType::RoadSingle,
          }},
         {Lane::TextureType::PavementBelow,
          {
-             Lane::TextureType::LilyPadAbove,
-             Lane::TextureType::LilyPadSingle,
-             Lane::TextureType::Railway,
-             Lane::TextureType::RoadAbove,
-             Lane::TextureType::RoadSingle,
+             Lane::TextureType::PavementAbove,
          }},
         {Lane::TextureType::Railway,
          {
-             Lane::TextureType::LilyPadAbove,
+             Lane::TextureType::LilyPadBelow,
              Lane::TextureType::LilyPadSingle,
-             Lane::TextureType::PavementAbove,
+             Lane::TextureType::PavementBelow,
              Lane::TextureType::Railway,
-             Lane::TextureType::RoadAbove,
+             Lane::TextureType::RoadBelow,
              Lane::TextureType::RoadSingle,
          }},
         {Lane::TextureType::RoadAbove,
          {
-             Lane::TextureType::RoadBelow,
-             Lane::TextureType::RoadMiddle,
+             Lane::TextureType::LilyPadBelow,
+             Lane::TextureType::LilyPadSingle,
+             Lane::TextureType::PavementBelow,
+             Lane::TextureType::Railway,
          }},
         {Lane::TextureType::RoadBelow,
          {
-             Lane::TextureType::LilyPadAbove,
-             Lane::TextureType::LilyPadSingle,
-             Lane::TextureType::PavementAbove,
-             Lane::TextureType::Railway,
              Lane::TextureType::RoadAbove,
-             Lane::TextureType::RoadSingle,
+             Lane::TextureType::RoadMiddle,
+
          }},
         {Lane::TextureType::RoadMiddle,
          {
-             Lane::TextureType::RoadBelow,
+             Lane::TextureType::RoadAbove,
              Lane::TextureType::RoadMiddle,
          }},
         {Lane::TextureType::RoadSingle,
          {
-             Lane::TextureType::LilyPadAbove,
+             Lane::TextureType::LilyPadBelow,
              Lane::TextureType::LilyPadSingle,
-             Lane::TextureType::PavementAbove,
+             Lane::TextureType::PavementBelow,
              Lane::TextureType::Railway,
          }},
 };
@@ -107,8 +106,7 @@ LevelManager::LevelManager() : LevelManager(nullptr) {
 
 LevelManager::LevelManager(SceneNode* levelNode)
     : mLevelNode(levelNode),
-      mMinObstacleSpeed(50.0f),
-      mMaxObstacleSpeed(150.f),
+      mObstacleSpeed(100.f),
       mMinSpawnRate(10),
       mMaxSpawnRate(30),
       mSpeedScale(0.1f) {
@@ -130,16 +128,17 @@ void LevelManager::generateLevel(int levelNumber) {
 
         Lane::Direction laneDirection =
             randomInt(2) == 0 ? Lane::Direction::Left : Lane::Direction::Right;
-        float laneSpeed = randomFloat(mMinObstacleSpeed, mMaxObstacleSpeed);
+        float laneSpeed = getLaneSpeed(laneTextureType);
         int laneSpawnRate =
             mMinSpawnRate + randomInt(mMaxSpawnRate - mMinSpawnRate + 1);
+        int lanePositionY = (11 - laneID) * Constants::BLOCK_SIZE;
 
         if (mIsStaticLane[currentType]) {
             // create static lane
             std::unique_ptr<Lane> lane(new Lane(laneType, laneTextureType,
                                                 hasObstacle, laneDirection,
                                                 laneSpeed, laneSpawnRate));
-            lane->setPosition(0, laneID * Constants::BLOCK_SIZE);
+            lane->setPosition(0, lanePositionY);
             mLevelLayers[LaneLayer]->attachChild(std::move(lane));
 
         } else {
@@ -147,11 +146,11 @@ void LevelManager::generateLevel(int levelNumber) {
 
             if (randomInt(100) < 70) {
                 std::unique_ptr<TrafficLight> trafficLight(new TrafficLight());
-                trafficLight->setPosition(0, laneID * Constants::BLOCK_SIZE);
+                trafficLight->setPosition(0, lanePositionY);
                 std::unique_ptr<Lane> lane(new Lane(
                     laneType, laneTextureType, hasObstacle, laneDirection,
                     laneSpeed, laneSpawnRate, trafficLight.get()));
-                lane->setPosition(0, laneID * Constants::BLOCK_SIZE);
+                lane->setPosition(0, lanePositionY);
 
                 mLevelLayers[LaneLayer]->attachChild(std::move(lane));
                 mLevelLayers[TrafficLightLayer]->attachChild(
@@ -161,7 +160,7 @@ void LevelManager::generateLevel(int levelNumber) {
                 std::unique_ptr<Lane> lane(new Lane(laneType, laneTextureType,
                                                     hasObstacle, laneDirection,
                                                     laneSpeed, laneSpawnRate));
-                lane->setPosition(0, laneID * Constants::BLOCK_SIZE);
+                lane->setPosition(0, lanePositionY);
 
                 mLevelLayers[LaneLayer]->attachChild(std::move(lane));
             }
@@ -177,8 +176,7 @@ void LevelManager::generateLevel(int levelNumber) {
 }
 
 void LevelManager::prepareLevel(int levelNumber) {
-    mMinObstacleSpeed = calcLevelMinObstacleSpeed(levelNumber);
-    mMaxObstacleSpeed = calcLevelMaxObstacleSpeed(levelNumber);
+    mObstacleSpeed = calcLevelObstacleSpeed(levelNumber);
     mMinSpawnRate = calcLevelMinObstacleSpawnRate(levelNumber);
     mMaxSpawnRate = calcLevelMaxObstacleSpawnRate(levelNumber);
 
@@ -201,18 +199,31 @@ void LevelManager::saveLevel(const std::string& filename) const {
 void LevelManager::loadLevel(const std::string& filename) {
 }
 
-float LevelManager::calcLevelMinObstacleSpeed(int levelNumber) const {
-    return mMinObstacleSpeed + (levelNumber * mSpeedScale);
+float LevelManager::calcLevelObstacleSpeed(int levelNumber) const {
+    return mObstacleSpeed + (levelNumber * mSpeedScale);
 }
 
-float LevelManager::calcLevelMaxObstacleSpeed(int levelNumber) const {
-    return mMaxObstacleSpeed + (levelNumber * mSpeedScale);
+float LevelManager::getLaneSpeed(Lane::TextureType laneTextureType) const {
+    switch (laneTextureType) {
+        case Lane::TextureType::Railway:
+            return mObstacleSpeed * 8.0f;
+        case Lane::TextureType::RoadAbove:
+            return mObstacleSpeed * randomFloat(1.0f, 1.5f);
+        case Lane::TextureType::RoadBelow:
+            return mObstacleSpeed * randomFloat(1.0f, 1.5f);
+        case Lane::TextureType::RoadMiddle:
+            return mObstacleSpeed * randomFloat(1.0f, 1.5f);
+        case Lane::TextureType::RoadSingle:
+            return mObstacleSpeed * randomFloat(1.0f, 1.5f);
+        default:
+            return mObstacleSpeed;
+    }
 }
 
 int LevelManager::calcLevelMinObstacleSpawnRate(int levelNumber) const {
-    return mMinSpawnRate + (levelNumber * 2);
+    return mMinSpawnRate + (levelNumber * 5);
 }
 
 int LevelManager::calcLevelMaxObstacleSpawnRate(int levelNumber) const {
-    return mMaxSpawnRate + (levelNumber * 2);
+    return mMaxSpawnRate + (levelNumber * 5);
 }

@@ -214,7 +214,15 @@ void Lane::generateStandingObstacles() {
     std::random_device rd;
     std::mt19937 g(rd());
     std::shuffle(blocks.begin(), blocks.end(), g);
-    blocks.resize(3);
+    auto numObstacles = mTextureType == TextureType::LilyPadAbove ||
+                                mTextureType == TextureType::LilyPadBelow ||
+                                mTextureType == TextureType::LilyPadSingle
+                            ? randomInt(8) + 1
+                        : mTextureType == TextureType::PavementAbove ||
+                                mTextureType == TextureType::PavementBelow
+                            ? randomInt(2) + 1
+                            : randomInt(3) + 1;
+    blocks.resize(numObstacles);
 
     mSpeed = 0.0;
     for (auto& x : blocks) {

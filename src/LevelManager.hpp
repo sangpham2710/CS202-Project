@@ -19,10 +19,10 @@ class LevelManager {
     void saveLevel(const std::string& filename) const;
     void loadLevel(const std::string& filename);
     void prepareLevel(int levelNumber);
-    float calcLevelMinObstacleSpeed(int levelNumber) const;
-    float calcLevelMaxObstacleSpeed(int levelNumber) const;
+    float calcLevelObstacleSpeed(int levelNumber) const;
     int calcLevelMinObstacleSpawnRate(int levelNumber) const;
     int calcLevelMaxObstacleSpawnRate(int levelNumber) const;
+    float getLaneSpeed(Lane::TextureType laneTextureType) const;
 
    private:
     static std::map<Lane::TextureType, std::vector<Lane::TextureType>>
@@ -34,8 +34,7 @@ class LevelManager {
     SceneNode* mLevelNode;
     std::array<SceneNode*, LayerCount> mLevelLayers;
 
-    float mMinObstacleSpeed;
-    float mMaxObstacleSpeed;
+    float mObstacleSpeed;
 
     int mMinSpawnRate;
     int mMaxSpawnRate;

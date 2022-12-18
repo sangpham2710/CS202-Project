@@ -10,6 +10,8 @@ class SettingsSingleton {
     static SettingsSingleton& getInstance();
     void setCharacterType(int type);
     int getCharacterType();
+    void setCurrentLevelNumber(int level);
+    int getCurrentLevelNumber();
 
     SettingsSingleton(SettingsSingleton const&) = delete;
     void operator=(SettingsSingleton const&) = delete;
@@ -17,5 +19,6 @@ class SettingsSingleton {
    private:
     SettingsSingleton();
 
-    int characterType = 0;
+    int mCharacterType;
+    int mCurrentLevelNumber;
 };

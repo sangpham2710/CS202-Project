@@ -1,6 +1,7 @@
 #include "SettingsSingleton.hpp"
 
-SettingsSingleton::SettingsSingleton() : characterType(0) {
+SettingsSingleton::SettingsSingleton()
+    : mCharacterType(0), mCurrentLevelNumber(1) {
 }
 
 SettingsSingleton& SettingsSingleton::getInstance() {
@@ -9,9 +10,17 @@ SettingsSingleton& SettingsSingleton::getInstance() {
 }
 
 void SettingsSingleton::setCharacterType(int type) {
-    characterType = type;
+    mCharacterType = type;
 }
 
 int SettingsSingleton::getCharacterType() {
-    return characterType;
+    return mCharacterType;
+}
+
+void SettingsSingleton::setCurrentLevelNumber(int level) {
+    mCurrentLevelNumber = level;
+}
+
+int SettingsSingleton::getCurrentLevelNumber() {
+    return mCurrentLevelNumber;
 }

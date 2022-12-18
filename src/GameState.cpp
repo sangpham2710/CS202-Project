@@ -1,5 +1,7 @@
 #include "GameState.hpp"
 
+#include "SettingsSingleton.hpp"
+
 GameState::GameState(StateStack& stack, Context context)
     : State(stack, context),
       mWorld(*context.window, *context.fonts),
@@ -19,6 +21,8 @@ bool GameState::update(sf::Time dt) {
         requestStackPush(States::GameOver);
     } else if (mWorld.hasPlayerReachedEnd()) {
         mPlayer.setMissionStatus(Player::MissionSuccess);
+        SettingsSingleton::getInstance().setCurrentLevelNumber(
+            SettingsSingleton::getInstance().getCurrentLevelNumber() + 1);
         requestStackPop();
         requestStackPush(States::Game);
     }

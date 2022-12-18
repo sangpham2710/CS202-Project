@@ -21,11 +21,11 @@ World::World(sf::RenderWindow& window, FontHolder& fonts)
       mSceneLayers(),
       mWorldBounds(0.f, 0.f, mWorldView.getSize().x + 400,
                    mWorldView.getSize().y),
-      mSpawnPosition(Constants::BLOCK_SIZE * 8 + Constants::BLOCK_SIZE / 2,
-                     Constants::LANE_HEIGHT / 2.f),
+      mSpawnPosition(
+          Constants::BLOCK_SIZE * 8 + Constants::BLOCK_SIZE / 2,
+          Constants::LANE_HEIGHT * 11 + Constants::LANE_HEIGHT / 2.f),
       mViewPosition(mWorldView.getSize().x / 2.f, mWorldView.getSize().y / 2.f),
-      mPlayerCharacter(nullptr),
-      mLevelNumber(1) {
+      mPlayerCharacter(nullptr) {
     buildScene();
     mWorldView.setCenter(mViewPosition);
 }
@@ -55,8 +55,7 @@ bool World::hasAlivePlayer() const {
 }
 
 bool World::hasPlayerReachedEnd() const {
-    return mPlayerCharacter->getPosition().y >=
-           Constants::LANE_HEIGHT * (Constants::NUM_LANES - 1);
+    return mPlayerCharacter->getPosition().y <= Constants::LANE_HEIGHT;
 }
 
 void World::adaptPlayerPosition() {
@@ -141,7 +140,8 @@ void World::buildScene() {
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
     mLevelManager.setLevelNode(mSceneLayers[LevelLayer]);
-    mLevelManager.generateLevel(mLevelNumber);
+    mLevelManager.generateLevel(
+        SettingsSingleton::getInstance().getCurrentLevelNumber());
 
     std::unique_ptr<Character> character(
         new Character(SettingsSingleton::getInstance().getCharacterType()));
