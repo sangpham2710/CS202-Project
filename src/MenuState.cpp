@@ -17,6 +17,7 @@ MenuState::MenuState(StateStack& stack, Context context)
     playBtn->onPress([&] {
         requestStackPop();
         requestStackPush(States::Game);
+        requestStackPush(States::LevelUp);
     });
     alignCenter(playBtn, window);
 
