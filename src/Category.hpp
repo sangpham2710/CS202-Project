@@ -8,5 +8,6 @@ enum Type {
     PlayerCharacter = 1 << 1,
     Obstacle = 1 << 2,
     Pickup = 1 << 3,
+    SoundEffect = 1 << 4,
 };
 }
