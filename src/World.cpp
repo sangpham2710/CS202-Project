@@ -12,6 +12,8 @@
 #include "TexturesSingleton.hpp"
 #include "Utility.hpp"
 
+
+
 World::World(sf::RenderWindow& window, FontHolder& fonts)
     : mWindow(window),
       mWorldView(window.getDefaultView()),
@@ -136,7 +138,7 @@ void World::buildScene() {
 
   // level setup start here
   if (mLevel == nullptr) {
-    mLevel = std::unique_ptr<Level>(new Level(1));
+    mLevel = std::unique_ptr<Level>(new Level(5));
   } else {
     mLevel->levelUp();
   }
@@ -173,143 +175,79 @@ sf::FloatRect World::getBattlefieldBounds() const {
   return bounds;
 }
 
-void generateListLane(std::map<int, std::vector<Lane::Type>>& listLane) {
-  listLane[0].push_back(Lane::Type::Grass);
-  listLane[1].push_back(Lane::Type::LilyPadSingle);
-  listLane[2].push_back(Lane::Type::Railway);
-  listLane[3].push_back(Lane::Type::RoadSingle);
+void generateListLane(std::map<Lane::Type, std::vector<Lane::Type>>& listLane) {
+  listLane[Lane::Type::Grass] = {Lane::Type::LilyPadAbove,
+                                 Lane::Type::PavementAbove, Lane::Type::Railway,
+                                 Lane::Type::RoadAbove, Lane::Type::RoadSingle};
 
-  listLane[4].push_back(Lane::Type::LilyPadAbove);
-  listLane[4].push_back(Lane::Type::LilyPadBelow);
+  listLane[Lane::Type::LilyPadAbove] = {Lane::Type::LilyPadBelow};
 
-  listLane[5].push_back(Lane::Type::PavementAbove);
-  listLane[5].push_back(Lane::Type::PavementBelow);
+  listLane[Lane::Type::LilyPadBelow] = {
+      Lane::Type::Grass, Lane::Type::PavementAbove, Lane::Type::Railway,
+      Lane::Type::RoadAbove, Lane::Type::RoadSingle};
 
-  listLane[6].push_back(Lane::Type::RoadAbove);
-  listLane[6].push_back(Lane::Type::RoadMiddle);
-  listLane[6].push_back(Lane::Type::RoadBelow);
+  listLane[Lane::Type::LilyPadSingle] = {
+      Lane::Type::Grass, Lane::Type::PavementAbove, Lane::Type::Railway,
+      Lane::Type::RoadAbove, Lane::Type::RoadSingle};
 
-  listLane[7].push_back(Lane::Type::RoadAbove);
-  listLane[7].push_back(Lane::Type::RoadBelow);
+  listLane[Lane::Type::PavementAbove] = {Lane::Type::PavementBelow};
 
+  listLane[Lane::Type::PavementBelow] = {
+      Lane::Type::Grass,   Lane::Type::LilyPadAbove, Lane::Type::LilyPadSingle,
+      Lane::Type::Railway, Lane::Type::RoadAbove,    Lane::Type::RoadSingle};
+  listLane[Lane::Type::Railway] = {
+      Lane::Type::Grass,         Lane::Type::LilyPadAbove,
+      Lane::Type::LilyPadSingle, Lane::Type::PavementAbove,
+      Lane::Type::RoadAbove,     Lane::Type::RoadSingle};
+
+  listLane[Lane::Type::RoadAbove] = {Lane::Type::RoadMiddle,
+                                     Lane::Type::RoadBelow};
+
+  listLane[Lane::Type::RoadMiddle] = {Lane::Type::RoadBelow,
+                                      Lane::Type::RoadMiddle};
+
+  listLane[Lane::Type::RoadBelow] = {
+      Lane::Type::Grass, Lane::Type::LilyPadAbove, Lane::Type::LilyPadSingle,
+      Lane::Type::PavementAbove, Lane::Type::Railway};
+
+  listLane[Lane::Type::RoadSingle] = {
+      Lane::Type::Grass, Lane::Type::LilyPadAbove, Lane::Type::LilyPadSingle,
+      Lane::Type::PavementAbove, Lane::Type::Railway};
 }
+
+void getRandomNextState(
+    Lane::Type& currentState, Lane::Direction& dt,
+    std::map<Lane::Type, std::vector<Lane::Type>>& listLane) {
+  int randomNextState = randomInt(listLane[currentState].size());
+  int randomDirection = randomInt(2);
+  if (randomDirection == 0)
+    dt = Lane::Direction::Left;
+  else
+    dt = Lane::Direction::Right;
+  currentState = listLane[currentState][randomNextState];
+}
+
+
 void World::loadLevel() {
   float speed = mLevel.get()->caculateSpeed();
   int spawnRate = mLevel.get()->caculateSpawnRate();
 
-  std::map<int, std::vector<Lane::Type>> listLane;
+  std::map<Lane::Type, std::vector<Lane::Type>> listLane;
   generateListLane(listLane);
-  int currentState;
-  int lastState = -1;
+
+  Lane::Type currentState = Lane::Type::Grass ;
+  int numLane = 12;
   Lane::Direction dt;
-  int laneCount = 0;
-  while (laneCount < 11) {
-    currentState = randomInt(listLane.size());
-    while (currentState == lastState) {
-      currentState = randomInt(listLane.size());
-    }
-    lastState = currentState;
-    int direction = randomInt(2);
-    if (direction == 0)
-      dt = Lane::Direction::Left;
-    else
-      dt = Lane::Direction::Right;
-    for (int i = 0; i < listLane[currentState].size(); i++) {
-      std::unique_ptr<Lane> laneNodeA(
-          new Lane(listLane[currentState][i], dt, speed));
-      laneNodeA->setPosition(0, laneCount * Constants::BLOCK_SIZE);
-      laneNodeA.get()->setSpawnRate(spawnRate);
-      mSceneLayers[Land]->attachChild(std::move(laneNodeA));
-      ++laneCount;
-      if (laneCount >= 11) break;
-    }
-  }
-
-
-
-  /*std::random_device dev;
-  std::mt19937 rng(dev());
-  std::uniform_int_distribution<std::mt19937::result_type> dist(1, 11);
-  std::uniform_int_distribution<std::mt19937::result_type> clmm(0, 1);
-
-  int current = dist(rng), last;
-  for (int i = 0; i < 11; ++i) {
-    std::cout << current << "\n";
-    last = current;
-    Lane::Type tem;
-    switch (current) {
-      case 1:
-        tem = Lane::Grass;
-        break;
-      case 2:
-        tem = Lane::LilyPadSingle;
-        break;
-      case 3:
-        tem = Lane::Railway;
-        break;
-      case 4:
-        tem = Lane::RoadSingle;
-        break;
-      case 5:
-        tem = Lane::LilyPadAbove;
-        break;
-      case 6:
-        tem = Lane::PavementAbove;
-        break;
-      case 7:
-        tem = Lane::RoadAbove;
-        break;
-      case 8:
-        tem = Lane::LilyPadBelow;
-        break;
-      case 9:
-        tem = Lane::PavementBelow;
-        break;
-      case 10:
-        tem = Lane::RoadMiddle;
-        break;
-      case 11:
-        tem = Lane::RoadBelow;
-        break;
-      default:
-        break;
-    }
-
-    Lane::Direction dt;
-    if (clmm(rng) == 0) {
-      dt = Lane::Left;
-    } else {
-      dt = Lane::Right;
-    }
-
-    std::unique_ptr<Lane> laneNodeA(new Lane(tem, dt, speed));
+  getRandomNextState(currentState, dt, listLane);
+  
+  for (int i = 0; i < numLane; i++) {
+    std::unique_ptr<Lane> laneNodeA(
+        new Lane(currentState, dt, speed));
     laneNodeA->setPosition(0, i * Constants::BLOCK_SIZE);
     laneNodeA.get()->setSpawnRate(spawnRate);
     mSceneLayers[Land]->attachChild(std::move(laneNodeA));
-
-    if (last == 5) {
-      current = 8;
-    } else if (last == 6) {
-      current = 9;
-    } else if (last == 10) {
-      current = 11;
-    } else if (last == 7) {
-      if (i <= 8) {
-        if (clmm(rng) == 0) {
-          current = 10;
-        } else {
-          current = 11;
-        }
-      } else {
-        current = 11;
-      }
-    } else {
-      while (current == last || current >= 8 || (i >= 10 && current >= 5) ||
-             (i >= 9 && current == 7) || (last == 9 && current == 6) ||
-             (last == 11 && current == 7) ||
-             ((last == 2 || last == 8) && (current == 5 || current == 2))) {
-        current = dist(rng);
-      }
-    }
-  }*/
+    getRandomNextState(currentState, dt, listLane);
+  }
 }
+
+
