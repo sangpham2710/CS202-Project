@@ -1,5 +1,6 @@
 #include "GameOverState.hpp"
 
+#include "SettingsSingleton.hpp"
 #include "Utility.hpp"
 
 GameOverState::GameOverState(StateStack& stack, Context context)
@@ -8,8 +9,9 @@ GameOverState::GameOverState(StateStack& stack, Context context)
     gui->loadWidgetsFromFile("./assets/gui/game-over-state.txt");
 
     auto gameOverLabel = gui->get<tgui::Label>("gameOverLabel");
-
     alignCenter(gameOverLabel, window);
+
+    SettingsSingleton::getInstance().setCurrentLevelNumber(1);
 }
 void GameOverState::draw() {
     gui->draw();

@@ -27,6 +27,7 @@ bool GameState::update(sf::Time dt) {
             SettingsSingleton::getInstance().getCurrentLevelNumber() + 1);
         requestStackPop();
         requestStackPush(States::Game);
+        requestStackPush(States::LevelUp);
     }
 
     CommandQueue& commands = mWorld.getCommandQueue();

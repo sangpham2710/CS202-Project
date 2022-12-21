@@ -7,6 +7,8 @@
 #include "MenuState.hpp"
 #include "PauseState.hpp"
 #include "SettingsState.hpp"
+#include "ChooseCharacterState.hpp"
+#include "LevelUpState.hpp"
 #include "State.hpp"
 #include "StateIdentifiers.hpp"
 #include "TitleState.hpp"
@@ -74,4 +76,5 @@ void Application::registerStates() {
     mStateStack.registerState<SettingsState>(States::Settings);
     mStateStack.registerState<GameOverState>(States::GameOver);
     mStateStack.registerState<ChooseCharacterState>(States::ChooseCharacter);
+    mStateStack.registerState<levelUpState>(States::LevelUp);
 }

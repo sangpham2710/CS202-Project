@@ -33,8 +33,7 @@ bool TitleState::update(sf::Time dt) {
             isIncreasing = false;
             titlelabel->setInheritedOpacity(1.0);
         }
-    }
-    else {
+    } else {
         currentOpacity -= (float)dt.asSeconds();
         titlelabel->setInheritedOpacity(currentOpacity);
         if (currentOpacity < 0) {
@@ -49,6 +48,11 @@ bool TitleState::handleEvent(const sf::Event& event) {
     gui->handleEvent(event);
     // If mouse button pressed, trigger the next screen
     if (event.type == sf::Event::MouseButtonPressed) {
+        requestStackPop();
+        requestStackPush(States::Menu);
+    }
+    // If any key is pressed, trigger the next screen
+    if (event.type == sf::Event::KeyPressed) {
         requestStackPop();
         requestStackPush(States::Menu);
     }
