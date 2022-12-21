@@ -18,7 +18,7 @@ class Character : public Entity {
     };
 
    public:
-    Character(int type);
+    Character(unsigned type);
     virtual unsigned int getCategory() const override;
     virtual sf::FloatRect getBoundingRect() const override;
     virtual bool isMarkedForRemoval() const override;
@@ -29,6 +29,7 @@ class Character : public Entity {
     bool isMoving() const;
     void setTextureWrecked();
     void setExplosionPosition(sf::Vector2f position);
+    void playLocalSound(CommandQueue& commands, SoundEffect::ID effect);
 
    private:
     virtual void drawCurrent(sf::RenderTarget& target,
@@ -40,6 +41,6 @@ class Character : public Entity {
     Animation mExplosion;
     bool mIsMoving;
     bool mShowExplosion;
-
-    int mType;
+    bool mPlayedExplosionSound;
+    unsigned mType;
 };

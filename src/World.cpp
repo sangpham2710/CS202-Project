@@ -10,13 +10,15 @@
 
 #include "Constants.hpp"
 #include "SettingsSingleton.hpp"
+#include "SoundNode.hpp"
 #include "TexturesSingleton.hpp"
 #include "Utility.hpp"
 
-World::World(sf::RenderWindow& window, FontHolder& fonts)
+World::World(sf::RenderWindow& window, FontHolder& fonts, SoundPlayer& sounds)
     : mWindow(window),
       mWorldView(window.getDefaultView()),
       mFonts(fonts),
+      mSounds(sounds),
       mSceneGraph(),
       mSceneLayers(),
       mWorldBounds(0.f, 0.f, mWorldView.getSize().x + 400,
@@ -148,6 +150,9 @@ void World::buildScene() {
     character->setPosition(mSpawnPosition);
     mPlayerCharacter = character.get();
     mSceneLayers[CharacterLayer]->attachChild(std::move(character));
+
+    std::unique_ptr<SoundNode> soundNode(new SoundNode(mSounds));
+    mSceneGraph.attachChild(std::move(soundNode));
 }
 
 void World::destroyObstaclesOutsideView() {

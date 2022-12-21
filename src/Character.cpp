@@ -6,6 +6,7 @@
 #include "CommandQueue.hpp"
 #include "Constants.hpp"
 #include "ResourceHolder.hpp"
+#include "SoundNode.hpp"
 #include "TexturesSingleton.hpp"
 #include "Utility.hpp"
 
@@ -13,8 +14,11 @@ namespace {
 const std::vector<CharacterData> Table = initializeCharacterData();
 }
 
-Character::Character(int type)
-    : mIsMoving(false), mShowExplosion(true), mType(type) {
+Character::Character(unsigned type)
+    : mIsMoving(false),
+      mShowExplosion(true),
+      mType(type),
+      mPlayedExplosionSound(false) {
     mAnimation.setTexture(TexturesSingleton::getInstance().getTextures().get(
         Table[mType * (unsigned)Character::Direction::TypeCount +
               (unsigned)Character::Direction::CharacterUp]
@@ -64,6 +68,10 @@ void Character::drawCurrent(sf::RenderTarget& target,
 void Character::updateCurrent(sf::Time dt, CommandQueue& commands) {
     if (isDestroyed()) {
         mExplosion.update(dt);
+        if (!mPlayedExplosionSound) {
+            playLocalSound(commands, SoundEffect::Explosion);
+            mPlayedExplosionSound = true;
+        }
         return;
     }
     if (mIsMoving) mAnimation.update(dt);
@@ -144,4 +152,17 @@ void Character::moveRight() {
         Table[mType * (unsigned)Character::Direction::TypeCount +
               (unsigned)Character::Direction::CharacterRight]
             .texture));
+}
+
+void Character::playLocalSound(CommandQueue& commands, SoundEffect::ID effect) {
+    sf::Vector2f worldPosition = getWorldPosition();
+
+    Command command;
+    command.category = Category::SoundEffect;
+    command.action = derivedAction<SoundNode>(
+        [effect, worldPosition](SoundNode& node, sf::Time) {
+            node.playSound(effect, worldPosition);
+        });
+
+    commands.push(command);
 }

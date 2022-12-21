@@ -15,6 +15,8 @@ class RenderWindow;
 }
 class StateStack;
 class Player;
+class MusicPlayer;
+class SoundPlayer;
 
 class State {
    public:
@@ -22,12 +24,15 @@ class State {
 
     struct Context {
         Context(sf::RenderWindow& window, TextureHolder& textures,
-                FontHolder& fonts, Player& player);
+                FontHolder& fonts, Player& player, MusicPlayer& music,
+                SoundPlayer& sounds);
 
         sf::RenderWindow* window;
         TextureHolder* textures;
         FontHolder* fonts;
         Player* player;
+        MusicPlayer* music;
+        SoundPlayer* sounds;
     };
 
 

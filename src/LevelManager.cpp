@@ -27,6 +27,7 @@ std::map<Lane::TextureType, std::vector<Lane::TextureType>>
              Lane::TextureType::Railway,
              Lane::TextureType::RoadBelow,
              Lane::TextureType::RoadSingle,
+             Lane::TextureType::Grass,
          }},
         {Lane::TextureType::LilyPadBelow,
          {
@@ -38,6 +39,7 @@ std::map<Lane::TextureType, std::vector<Lane::TextureType>>
              Lane::TextureType::Railway,
              Lane::TextureType::RoadBelow,
              Lane::TextureType::RoadSingle,
+             Lane::TextureType::Grass,
          }},
         {Lane::TextureType::PavementAbove,
          {
@@ -50,6 +52,7 @@ std::map<Lane::TextureType, std::vector<Lane::TextureType>>
         {Lane::TextureType::PavementBelow,
          {
              Lane::TextureType::PavementAbove,
+             Lane::TextureType::Grass,
          }},
         {Lane::TextureType::Railway,
          {
@@ -59,6 +62,7 @@ std::map<Lane::TextureType, std::vector<Lane::TextureType>>
              Lane::TextureType::Railway,
              Lane::TextureType::RoadBelow,
              Lane::TextureType::RoadSingle,
+             Lane::TextureType::Grass,
          }},
         {Lane::TextureType::RoadAbove,
          {
@@ -66,6 +70,7 @@ std::map<Lane::TextureType, std::vector<Lane::TextureType>>
              Lane::TextureType::LilyPadSingle,
              Lane::TextureType::PavementBelow,
              Lane::TextureType::Railway,
+             Lane::TextureType::Grass,
          }},
         {Lane::TextureType::RoadBelow,
          {

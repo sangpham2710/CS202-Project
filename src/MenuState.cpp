@@ -1,5 +1,6 @@
 #include "MenuState.hpp"
 
+#include "MusicPlayer.hpp"
 #include "Utility.hpp"
 
 MenuState::MenuState(StateStack& stack, Context context)
@@ -25,6 +26,8 @@ MenuState::MenuState(StateStack& stack, Context context)
 
     exitBtn->onPress([&] { requestStackPop(); });
     alignCenter(exitBtn, window);
+
+    context.music->play(Music::MenuTheme);
 }
 
 void MenuState::draw() {

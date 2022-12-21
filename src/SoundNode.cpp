@@ -1,6 +1,6 @@
-#include <Book/SoundNode.hpp>
-#include <Book/SoundPlayer.hpp>
+#include "SoundNode.hpp"
 
+#include "SoundPlayer.hpp"
 
 SoundNode::SoundNode(SoundPlayer& player) : SceneNode(), mSounds(player) {
 }

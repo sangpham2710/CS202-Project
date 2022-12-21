@@ -1,12 +1,12 @@
 #include "Application.hpp"
 
+#include "ChooseCharacterState.hpp"
 #include "Constants.hpp"
 #include "GameOverState.hpp"
 #include "GameState.hpp"
 #include "MenuState.hpp"
 #include "PauseState.hpp"
 #include "SettingsState.hpp"
-#include "ChooseCharacterState.hpp"
 #include "State.hpp"
 #include "StateIdentifiers.hpp"
 #include "TitleState.hpp"
@@ -19,12 +19,16 @@ Application::Application()
               "Crossing Road", sf::Style::Close),
       mTextures(),
       mFonts(),
+      mMusic(),
+      mSounds(),
       mPlayer(),
-      mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer)) {
+      mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, mMusic,
+                                 mSounds)) {
     mWindow.setKeyRepeatEnabled(true);
 
     registerStates();
     mStateStack.pushState(States::Title);
+    mMusic.setVolume(25.f);
 }
 
 void Application::run() {

@@ -15,6 +15,7 @@
 #include "ResourceHolder.hpp"
 #include "ResourceIdentifiers.hpp"
 #include "SceneNode.hpp"
+#include "SoundPlayer.hpp"
 #include "SpriteNode.hpp"
 #include "TrafficLight.hpp"
 
@@ -26,7 +27,7 @@ class RenderWindow;
 class World : private sf::NonCopyable {
    public:
     friend class LevelManager;
-    explicit World(sf::RenderWindow& window, FontHolder& fonts);
+    World(sf::RenderWindow& window, FontHolder& fonts, SoundPlayer& sounds);
     void update(sf::Time dt);
     void draw();
 
@@ -52,6 +53,7 @@ class World : private sf::NonCopyable {
     sf::RenderWindow& mWindow;
     sf::View mWorldView;
     FontHolder& mFonts;
+    SoundPlayer& mSounds;
 
     SceneNode mSceneGraph;
     std::array<SceneNode*, LayerCount> mSceneLayers;

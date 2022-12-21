@@ -6,9 +6,11 @@
 #include <TGUI/Backend/SFML-Graphics.hpp>
 #include <TGUI/Core.hpp>
 
+#include "MusicPlayer.hpp"
 #include "Player.hpp"
 #include "ResourceHolder.hpp"
 #include "ResourceIdentifiers.hpp"
+#include "SoundPlayer.hpp"
 #include "StateStack.hpp"
 
 class Application {
@@ -30,6 +32,9 @@ class Application {
     sf::RenderWindow mWindow;
     TextureHolder mTextures;
     FontHolder mFonts;
+    MusicPlayer mMusic;
+    SoundPlayer mSounds;
+
     Player mPlayer;
 
     StateStack mStateStack;
