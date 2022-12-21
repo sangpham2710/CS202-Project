@@ -2,8 +2,8 @@
 
 
 MusicPlayer::MusicPlayer() : mMusic(), mFilenames(), mVolume(100.f) {
-    mFilenames[Music::MenuTheme] = "./assets/music/music.wav";
-    mFilenames[Music::MissionTheme] = "./assets/music/music.wav";
+    mFilenames[Music::MenuTheme] = "./assets/music/menu_game.mp3";
+    mFilenames[Music::MissionTheme] = "./assets/music/in_game.mp3";
 }
 
 void MusicPlayer::play(Music::ID theme) {
