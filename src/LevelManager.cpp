@@ -161,8 +161,9 @@ void LevelManager::generateLevel(int levelNumber) {
                                                     hasObstacle, laneDirection,
                                                     laneSpeed, laneSpawnRate));
                 lane->setPosition(0, lanePositionY);
-
+                
                 mLevelLayers[LaneLayer]->attachChild(std::move(lane));
+
             }
         }
 
@@ -173,6 +174,8 @@ void LevelManager::generateLevel(int levelNumber) {
                 nextTypes->second[randomInt(nextTypes->second.size())];
         }
     }
+
+    saveLevel("test.txt");
 }
 
 void LevelManager::prepareLevel(int levelNumber) {
@@ -194,9 +197,74 @@ void LevelManager::prepareLevel(int levelNumber) {
 }
 
 void LevelManager::saveLevel(const std::string& filename) const {
+    std::ofstream fout(filename);
+    for (int laneID = 0;laneID < 12;++laneID) {
+        Lane* lane = dynamic_cast<Lane*>(mLevelLayers[LaneLayer]->getChildren()[laneID]);
+        if (lane) {
+            //Lane Type
+            fout << int(lane->getLaneType()) << "\n";
+            //Lane Texture Type
+            fout << int(lane->getTextureType()) << "\n";
+            //has Obstacle
+            fout << int(lane->hasObstacles()) << "\n";
+            //Direction
+            fout << int(lane->getDirection()) << "\n";
+            //mSpeed
+            fout << float(lane->getSpeed()) << "\n";
+            //mSpawnRate
+            fout << int(lane->getSpawnRate()) << "\n";
+            //has Traffic Light
+            fout << int(lane->hasTrafficLight()) << "\n";
+        }
+    } 
+    fout.close();
 }
 
 void LevelManager::loadLevel(const std::string& filename) {
+    std::ifstream fin(filename);
+    int iLaneType, iTextureType, iHasObstacles, iDirection, iSpawnRate, iHasTrafficLight;
+    float fSpeed;
+    for (int laneID = 0; laneID < 12; ++laneID) {
+        fin >> iLaneType >> iTextureType >> iHasObstacles >> iDirection >> fSpeed >> iSpawnRate >> iHasTrafficLight;
+        Lane::Type laneType = Lane::Type(iLaneType);
+        Lane::TextureType laneTextureType = Lane::TextureType(iTextureType);
+        Lane::Direction laneDirection = Lane::Direction(iDirection);
+        int lanePositionY = (11 - laneID) * Constants::BLOCK_SIZE;
+
+        if (iLaneType==0) {
+            // create static lane
+            std::unique_ptr<Lane> lane(new Lane(laneType, laneTextureType,
+                iHasObstacles, laneDirection,
+                fSpeed, iSpawnRate));
+            lane->setPosition(0, lanePositionY);
+            mLevelLayers[LaneLayer]->attachChild(std::move(lane));
+        }
+        else {
+            // create dynamic lane
+            if (iHasTrafficLight) {//has Traffic Light
+                std::unique_ptr<TrafficLight> trafficLight(new TrafficLight());
+                trafficLight->setPosition(0, lanePositionY);
+                std::unique_ptr<Lane> lane(new Lane(
+                    laneType, laneTextureType, iHasObstacles, laneDirection,
+                    fSpeed, iSpawnRate, trafficLight.get()));
+                lane->setPosition(0, lanePositionY);
+
+                mLevelLayers[LaneLayer]->attachChild(std::move(lane));
+                mLevelLayers[TrafficLightLayer]->attachChild(
+                    std::move(trafficLight));
+
+            }
+            else {
+                std::unique_ptr<Lane> lane(new Lane(laneType, laneTextureType,
+                    iHasObstacles, laneDirection,
+                    fSpeed, iSpawnRate));
+                lane->setPosition(0, lanePositionY);
+
+                mLevelLayers[LaneLayer]->attachChild(std::move(lane));
+
+            }
+    }
+    fin.close();
 }
 
 float LevelManager::calcLevelObstacleSpeed(int levelNumber) const {

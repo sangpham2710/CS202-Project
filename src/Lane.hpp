@@ -39,6 +39,14 @@ class Lane : public Entity {
          Direction direction = NoDirection, float speed = 0.0f,
          int spawnRate = 0, TrafficLight* trafficLight = nullptr);
 
+    Lane::Type getLaneType();
+    Lane::TextureType getTextureType();
+    bool hasObstacles();
+    Lane::Direction getDirection();
+    float getSpeed();
+    int getSpawnRate();
+    bool hasTrafficLight();
+
    private:
     virtual void drawCurrent(sf::RenderTarget& target,
                              sf::RenderStates states) const override;

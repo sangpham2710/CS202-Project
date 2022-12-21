@@ -239,3 +239,35 @@ Obstacle::Type Lane::getRandomObstacleType() const {
     int index = randomInt(allowedObstacleTypes[mTextureType].size());
     return allowedObstacleTypes[mTextureType][index];
 }
+
+Lane::Type Lane::getLaneType() {
+    return mType;
+}
+
+Lane::TextureType Lane::getTextureType() {
+    return mTextureType;
+}
+
+bool Lane::hasObstacles() {
+    if (mHasObstacles) 
+        return 1;
+    return 0;
+}
+
+Lane::Direction Lane::getDirection() {
+    return mDirection;
+}
+
+float Lane::getSpeed() {
+    return maxSpeed;
+}
+
+int Lane::getSpawnRate() {
+    return mObstacleSpawnRate;
+}
+
+bool Lane::hasTrafficLight() {
+    if (mTrafficLight != nullptr)
+        return 1;
+    return 0;
+}
