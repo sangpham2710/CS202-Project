@@ -1,5 +1,4 @@
 Panel.characterPanel {
-    Position = (20, -170);
     Size = (1024, 768);
 
     Renderer {
@@ -10,7 +9,7 @@ Panel.characterPanel {
 
     Button.character1 {
         MouseCursor = Hand;
-        Position = (40, 380);
+        Position = (210, 200);
         Size = (150, 150);
         TextSize = 13;
 
@@ -41,7 +40,7 @@ Panel.characterPanel {
 
     Button.character2 {
         MouseCursor = Hand;
-        Position = (270, 380);
+        Position = (450, 200);
         Size = (150, 150);
         TextSize = 13;
 
@@ -72,7 +71,7 @@ Panel.characterPanel {
 
     Button.character3 {
         MouseCursor = Hand;
-        Position = (540, 380);
+        Position = (690, 200);
         Size = (150, 150);
         TextSize = 13;
 
@@ -103,7 +102,7 @@ Panel.characterPanel {
 
     Button.character4 {
         MouseCursor = Hand;
-        Position = (130, 550);
+        Position = (320, 410);
         Size = (150, 150);
         TextSize = 13;
 
@@ -134,7 +133,7 @@ Panel.characterPanel {
 
     Button.character5 {
         MouseCursor = Hand;
-        Position = (430, 550);
+        Position = (570, 410);
         Size = (150, 150);
         TextSize = 13;
 
@@ -165,7 +164,7 @@ Panel.characterPanel {
 }
 
 Label.characterLabel {
-    Position = (130, 40);
+    Position = (250, 60);
     Size = (548, 87);
     Text = "CHOOSE CHARACTER";
     TextSize = 40;
@@ -200,7 +199,7 @@ Label.characterLabel {
 }
 
 Button.backButton {
-    Position = (290, 680);
+    Position = (410, 650);
     Size = (220, 60);
     Text = BACK;
     TextSize = 20;

@@ -112,9 +112,9 @@ LevelManager::LevelManager() : LevelManager(nullptr) {
 LevelManager::LevelManager(SceneNode* levelNode)
     : mLevelNode(levelNode),
       mObstacleSpeed(100.f),
-      mMinSpawnRate(10),
-      mMaxSpawnRate(30),
-      mSpeedScale(0.1f) {
+      mMinSpawnRate(30),
+      mMaxSpawnRate(50),
+      mSpeedScale(10.0f) {
 }
 
 void LevelManager::setLevelNode(SceneNode* levelNode) {
@@ -226,9 +226,9 @@ float LevelManager::getLaneSpeed(Lane::TextureType laneTextureType) const {
 }
 
 int LevelManager::calcLevelMinObstacleSpawnRate(int levelNumber) const {
-    return mMinSpawnRate + (levelNumber * 5);
+    return mMinSpawnRate + (levelNumber * 10);
 }
 
 int LevelManager::calcLevelMaxObstacleSpawnRate(int levelNumber) const {
-    return mMaxSpawnRate + (levelNumber * 5);
+    return mMaxSpawnRate + (levelNumber * 10);
 }

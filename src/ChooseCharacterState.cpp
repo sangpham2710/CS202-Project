@@ -1,7 +1,5 @@
 #include "ChooseCharacterState.hpp"
 
-#include <iostream>
-
 #include "Utility.hpp"
 ChooseCharacterState::ChooseCharacterState(StateStack& stack, Context context)
     : State(stack, context) {
@@ -18,22 +16,6 @@ ChooseCharacterState::ChooseCharacterState(StateStack& stack, Context context)
 
     alignCenter(characterLabel, window);
     alignCenter(backButton, window);
-    alignCenter(character2, window);
-
-    character2->setPosition(character2->getPosition().x - 20,
-                            character2->getPosition().y);
-    character1->setPosition(character2->getPosition().x - 250,
-                            character2->getPosition().y);
-    character3->setPosition(character2->getPosition().x + 250,
-                            character2->getPosition().y);
-
-    alignCenter(character4, window);
-    alignCenter(character5, window);
-
-    character4->setPosition(character4->getPosition().x - 150,
-                            character4->getPosition().y);
-    character5->setPosition(character5->getPosition().x + 110,
-                            character5->getPosition().y);
 
     backButton->onPress([&] { requestStackPop(); });
 
