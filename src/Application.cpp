@@ -76,5 +76,5 @@ void Application::registerStates() {
     mStateStack.registerState<SettingsState>(States::Settings);
     mStateStack.registerState<GameOverState>(States::GameOver);
     mStateStack.registerState<ChooseCharacterState>(States::ChooseCharacter);
-    mStateStack.registerState<levelUpState>(States::LevelUp);
+    mStateStack.registerState<LevelUpState>(States::LevelUp);
 }

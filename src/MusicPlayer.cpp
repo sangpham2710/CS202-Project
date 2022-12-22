@@ -1,9 +1,11 @@
 #include "MusicPlayer.hpp"
 
 
-MusicPlayer::MusicPlayer() : mMusic(), mFilenames(), mVolume(100.f) {
-    mFilenames[Music::MenuTheme] = "./assets/music/menu_game.mp3";
-    mFilenames[Music::MissionTheme] = "./assets/music/in_game.mp3";
+MusicPlayer::MusicPlayer() : mMusic(), mFilenames(), mVolume(0) {
+    mFilenames[Music::MenuTheme] = "./assets/music/menu-theme.mp3";
+    mFilenames[Music::MissionTheme] = "./assets/music/mission-theme.mp3";
+    mFilenames[Music::GameOverTheme] = "./assets/music/game-over-theme.mp3";
+    mFilenames[Music::LevelUpTheme] = "./assets/music/level-up-theme.mp3";
 }
 
 void MusicPlayer::play(Music::ID theme) {

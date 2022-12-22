@@ -5,9 +5,9 @@
 
 #include "State.hpp"
 
-class levelUpState : public State {
+class LevelUpState : public State {
     public:
-        levelUpState(StateStack& stack, Context context);
+        LevelUpState(StateStack& stack, Context context);
 
         virtual void draw() override;
         virtual bool update(sf::Time dt) override;

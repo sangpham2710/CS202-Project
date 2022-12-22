@@ -16,6 +16,10 @@ const float MinDistance3D =
 
 SoundPlayer::SoundPlayer() : mSoundBuffers(), mSounds() {
     mSoundBuffers.load(SoundEffect::Explosion, "./assets/sounds/explosion.wav");
+    // mSoundBuffers.load(SoundEffect::ButtonClick,
+    //    "./assets/sounds/button-click.wav");
+    mSoundBuffers.load(SoundEffect::ButtonHover,
+                       "./assets/sounds/button-click.wav");
 
     // Listener points towards the screen (default in SFML)
     sf::Listener::setDirection(0.f, 0.f, -1.f);

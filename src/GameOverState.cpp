@@ -1,5 +1,6 @@
 #include "GameOverState.hpp"
 
+#include "MusicPlayer.hpp"
 #include "SettingsSingleton.hpp"
 #include "Utility.hpp"
 
@@ -12,6 +13,8 @@ GameOverState::GameOverState(StateStack& stack, Context context)
     alignCenter(gameOverLabel, window);
 
     SettingsSingleton::getInstance().setCurrentLevelNumber(1);
+
+    context.music->play(Music::GameOverTheme);
 }
 void GameOverState::draw() {
     gui->draw();
@@ -19,7 +22,7 @@ void GameOverState::draw() {
 
 bool GameOverState::update(sf::Time dt) {
     mElapsedTime += dt;
-    if (mElapsedTime > sf::seconds(3)) {
+    if (mElapsedTime > sf::seconds(2)) {
         requestStateClear();
         requestStackPush(States::Menu);
     }

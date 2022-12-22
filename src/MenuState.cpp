@@ -1,10 +1,14 @@
 #include "MenuState.hpp"
 
+#include <iostream>
+
+#include "Constants.hpp"
 #include "MusicPlayer.hpp"
+#include "SoundNode.hpp"
 #include "Utility.hpp"
 
 MenuState::MenuState(StateStack& stack, Context context)
-    : State(stack, context) {
+    : State(stack, context), mSceneGraph(), mCommandQueue() {
     sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/menu-state.txt");
 
@@ -12,6 +16,25 @@ MenuState::MenuState(StateStack& stack, Context context)
     auto playBtn = gui->get<tgui::Button>("playButton");
     auto settingsBtn = gui->get<tgui::Button>("settingsButton");
     auto exitBtn = gui->get<tgui::Button>("exitButton");
+
+    std::unique_ptr<SoundNode> soundNode(new SoundNode(*getContext().sounds));
+    mSceneGraph.attachChild(std::move(soundNode));
+
+    auto playBtnHoverSound = [&] {
+        Command command;
+        command.category = Category::SoundEffect;
+        command.action =
+            derivedAction<SoundNode>([&](SoundNode& node, sf::Time) {
+                node.playSound(SoundEffect::ButtonHover,
+                               {0.5 * Constants::SCREEN_WIDTH,
+                                0.5 * Constants::SCREEN_HEIGHT});
+            });
+        mCommandQueue.push(command);
+    };
+
+    playBtn->onMouseEnter(playBtnHoverSound);
+    settingsBtn->onMouseEnter(playBtnHoverSound);
+    exitBtn->onMouseEnter(playBtnHoverSound);
 
     alignCenter(menuLabel, window);
 
@@ -36,6 +59,9 @@ void MenuState::draw() {
 }
 
 bool MenuState::update(sf::Time dt) {
+    while (!mCommandQueue.isEmpty()) {
+        mSceneGraph.onCommand(mCommandQueue.pop(), dt);
+    }
     return true;
 }
 
