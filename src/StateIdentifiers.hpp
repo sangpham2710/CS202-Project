@@ -1,5 +1,5 @@
 #pragma once
 
 namespace States {
-enum ID { None, Title, Menu, Game, Loading, Pause, Settings, GameOver, ChooseCharacter, LevelUp, VolumeSettings };
+enum ID { None, Title, Menu, Game, Loading, Pause, Settings, GameOver, ChooseCharacter, LevelUp};
 }
