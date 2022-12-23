@@ -14,6 +14,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 
     auto menuLabel = gui->get<tgui::Label>("menuLabel");
     auto playBtn = gui->get<tgui::Button>("playButton");
+    auto loadBtn = gui->get<tgui::Button>("loadButton");
     auto settingsBtn = gui->get<tgui::Button>("settingsButton");
     auto exitBtn = gui->get<tgui::Button>("exitButton");
 
@@ -44,6 +45,11 @@ MenuState::MenuState(StateStack& stack, Context context)
         requestStackPush(States::LevelUp);
     });
     alignCenter(playBtn, window);
+
+    loadBtn->onPress([&] {
+        requestStackPop();
+    });
+    alignCenter(loadBtn, window);
 
     settingsBtn->onPress([&] { requestStackPush(States::Settings); });
     alignCenter(settingsBtn, window);

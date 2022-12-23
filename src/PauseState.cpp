@@ -10,16 +10,20 @@ PauseState::PauseState(StateStack& stack, Context context)
 
     auto pauseLabel = gui->get<tgui::Label>("pauseLabel");
     auto continueBtn = gui->get<tgui::Button>("continueButton");
+    auto saveBtn = gui->get<tgui::Button>("saveButton");
     auto settingsBtn = gui->get<tgui::Button>("settingsButton");
     auto backToMenuBtn = gui->get<tgui::Button>("backToMenuButton");
 
     alignCenter(pauseLabel, window);
     alignCenter(continueBtn, window);
+    alignCenter(saveBtn, window);
     alignCenter(settingsBtn, window);
     alignCenter(backToMenuBtn, window);
 
     continueBtn->onPress([&] { requestStackPop(); });
+    saveBtn->onPress([&] { requestStackPush(States::Menu); });
     settingsBtn->onPress([&] { requestStackPush(States::Settings); });
+
     backToMenuBtn->onPress([&] {
         requestStateClear();
         requestStackPush(States::Menu);
