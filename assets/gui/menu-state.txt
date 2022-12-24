@@ -1,0 +1,202 @@
+Panel.Panel1 {
+    Size = (1024, 768);
+
+    Renderer {
+        BackgroundColor = white;
+        BorderColor = black;
+        TextureBackground = "./background/menu-state.png" Smooth;
+    }
+}
+
+Button.playButton {
+    Position = (410, 280);
+    Size = (200, 60);
+    Text = PLAY;
+    TextSize = 20;
+
+    Renderer {
+        BackgroundColor = #7750FF;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = None;
+        BorderColor = None;
+        BorderColorDisabled = None;
+        BorderColorDown = None;
+        BorderColorDownFocused = None;
+        BorderColorDownHover = None;
+        BorderColorFocused = None;
+        BorderColorHover = None;
+        Borders = (0, 0, 0, 0);
+        Font = "FFFFORWA.TTF";
+        TextColor = white;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = #FEDEBF;
+        TextColorDownFocused = None;
+        TextColorDownHover = None;
+        TextColorFocused = None;
+        TextColorHover = None;
+        TextStyle = Bold;
+        Texture = "./buttons/blue-button-state-1.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = None;
+        TextureDownFocused = "./buttons/orange-button-state-3.png" Smooth;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "./buttons/orange-button-state-1.png" Smooth;
+    }
+}
+
+Button.loadButton {
+    Position = (410, 360);
+    Size = (200, 60);
+    Text = "LOAD GAME";
+    TextSize = 20;
+
+    Renderer {
+        BackgroundColor = #7750FF;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = None;
+        BorderColor = None;
+        BorderColorDisabled = None;
+        BorderColorDown = None;
+        BorderColorDownFocused = None;
+        BorderColorDownHover = None;
+        BorderColorFocused = None;
+        BorderColorHover = None;
+        Borders = (0, 0, 0, 0);
+        Font = "FFFFORWA.TTF";
+        TextColor = white;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = #FEDEBF;
+        TextColorDownFocused = None;
+        TextColorDownHover = None;
+        TextColorFocused = None;
+        TextColorHover = None;
+        TextStyle = Bold;
+        Texture = "./buttons/blue-button-state-1.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = None;
+        TextureDownFocused = "./buttons/orange-button-state-3.png" Smooth;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "./buttons/orange-button-state-1.png" Smooth;
+    }
+}
+
+Label.menuLabel {
+    AutoSize = true;
+    HorizontalAlignment = Center;
+    Position = (70, 20);
+    ScrollbarPolicy = Never;
+    Size = (883, 170);
+    Text = "CROSSING ROAD";
+    TextSize = 80;
+    VerticalAlignment = Center;
+
+    Renderer {
+        BackgroundColor = transparent;
+        BorderColor = #3C3C3C;
+        Borders = (0, 0, 0, 0);
+        Font = "FFFFORWA.TTF";
+        TextColor = white;
+        TextOutlineColor = black;
+        TextOutlineThickness = 2;
+        TextStyle = Bold;
+        TextureBackground = None;
+
+        Scrollbar {
+            ArrowBackgroundColor = #F5F5F5;
+            ArrowBackgroundColorHover = white;
+            ArrowColor = #3C3C3C;
+            ArrowColorHover = black;
+            TextureArrowDown = None;
+            TextureArrowDownHover = None;
+            TextureArrowUp = None;
+            TextureArrowUpHover = None;
+            TextureThumb = None;
+            TextureThumbHover = None;
+            TextureTrack = None;
+            TextureTrackHover = None;
+            ThumbColor = #DCDCDC;
+            ThumbColorHover = #E6E6E6;
+            TrackColor = #F5F5F5;
+        }
+    }
+}
+
+Button.settingsButton {
+    Position = (410, 440);
+    Size = (200, 60);
+    Text = SETTINGS;
+    TextSize = 20;
+
+    Renderer {
+        BackgroundColor = #7750FF;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = None;
+        BorderColor = None;
+        BorderColorDisabled = None;
+        BorderColorDown = None;
+        BorderColorDownFocused = None;
+        BorderColorDownHover = None;
+        BorderColorFocused = None;
+        BorderColorHover = None;
+        Borders = (0, 0, 0, 0);
+        Font = "FFFFORWA.TTF";
+        TextColor = white;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = #FEDEBF;
+        TextColorDownFocused = None;
+        TextColorDownHover = None;
+        TextColorFocused = None;
+        TextColorHover = None;
+        TextStyle = Bold;
+        Texture = "./buttons/blue-button-state-1.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = None;
+        TextureDownFocused = "./buttons/orange-button-state-3.png" Smooth;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "./buttons/orange-button-state-1.png" Smooth;
+    }
+}
+
+Button.exitButton {
+    Position = (410, 520);
+    Size = (200, 60);
+    Text = EXIT;
+    TextSize = 20;
+
+    Renderer {
+        BackgroundColor = #7750FF;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = None;
+        BorderColor = None;
+        BorderColorDisabled = None;
+        BorderColorDown = None;
+        BorderColorDownFocused = None;
+        BorderColorDownHover = None;
+        BorderColorFocused = None;
+        BorderColorHover = None;
+        Borders = (0, 0, 0, 0);
+        Font = "FFFFORWA.TTF";
+        TextColor = white;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = #FEDEBF;
+        TextColorDownFocused = None;
+        TextColorDownHover = None;
+        TextColorFocused = None;
+        TextColorHover = None;
+        TextStyle = Bold;
+        Texture = "./buttons/blue-button-state-1.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = None;
+        TextureDownFocused = "./buttons/orange-button-state-3.png" Smooth;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "./buttons/orange-button-state-1.png" Smooth;
+    }
+}
