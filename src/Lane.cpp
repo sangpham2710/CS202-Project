@@ -3,7 +3,6 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <algorithm>
-#include <iostream>
 #include <numeric>
 #include <random>
 

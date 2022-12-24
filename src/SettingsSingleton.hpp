@@ -2,8 +2,10 @@
 
 #include <SFML/Graphics/Texture.hpp>
 
+#include "MusicPlayer.hpp"
 #include "ResourceHolder.hpp"
 #include "ResourceIdentifiers.hpp"
+#include "SoundPlayer.hpp"
 
 class SettingsSingleton {
    public:
@@ -16,6 +18,8 @@ class SettingsSingleton {
     float getMusicVolume();
     void setSoundVolume(float volume);
     float getSoundVolume();
+    void setSoundPlayer(SoundPlayer* soundPlayer);
+    void setMusicPlayer(MusicPlayer* musicPlayer);
 
     SettingsSingleton(SettingsSingleton const&) = delete;
     void operator=(SettingsSingleton const&) = delete;
@@ -27,4 +31,6 @@ class SettingsSingleton {
     int mCurrentLevelNumber;
     float mMusicVolume;
     float mSoundVolume;
+    SoundPlayer* mSoundPlayer;
+    MusicPlayer* mMusicPlayer;
 };

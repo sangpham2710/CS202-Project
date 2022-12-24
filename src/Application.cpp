@@ -29,8 +29,9 @@ Application::Application()
 
     registerStates();
     mStateStack.pushState(States::Title);
-    mMusic.setVolume(SettingsSingleton::getInstance().getMusicVolume());
-    mSounds.setVolume(SettingsSingleton::getInstance().getSoundVolume());
+
+    SettingsSingleton::getInstance().setSoundPlayer(&mSounds);
+    SettingsSingleton::getInstance().setMusicPlayer(&mMusic);
 }
 
 void Application::run() {

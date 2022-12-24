@@ -1,10 +1,12 @@
 #include "SettingsState.hpp"
-#include "SettingsSingleton.hpp"
 
+#include "Constants.hpp"
+#include "SettingsSingleton.hpp"
+#include "SoundNode.hpp"
 #include "Utility.hpp"
 
 SettingsState::SettingsState(StateStack& stack, Context context)
-    : State(stack, context) {
+    : State(stack, context), mSceneGraph(), mCommandQueue() {
     sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/settings-state.txt");
 
@@ -13,49 +15,67 @@ SettingsState::SettingsState(StateStack& stack, Context context)
     auto musicLabel = gui->get<tgui::Label>("musicLabel");
     auto soundSlider = gui->get<tgui::Slider>("soundSlider");
     auto musicSlider = gui->get<tgui::Slider>("musicSlider");
+    auto soundGroup = gui->get<tgui::Group>("soundGroup");
+    auto musicGroup = gui->get<tgui::Group>("musicGroup");
     auto characterButton = gui->get<tgui::Button>("characterButton");
     auto backButton = gui->get<tgui::Button>("backButton");
 
     alignCenter(settingsLabel, window);
-    alignCenter(soundLabel, window);
-    alignCenter(musicLabel, window);
-    alignCenter(soundSlider, window);
-    alignCenter(musicSlider, window);
+    alignCenter(soundGroup, window);
+    alignCenter(musicGroup, window);
     alignCenter(characterButton, window);
     alignCenter(backButton, window);
 
-    soundLabel->setPosition(soundLabel->getPosition().x - 400, soundLabel->getPosition().y);
-    soundSlider->setPosition(soundSlider->getPosition().x - 200, soundSlider->getPosition().y);
-    musicLabel->setPosition(musicLabel->getPosition().x + 100, musicLabel->getPosition().y);
-    musicSlider->setPosition(musicSlider->getPosition().x + 300, musicSlider->getPosition().y);
+    std::unique_ptr<SoundNode> soundNode(new SoundNode(*getContext().sounds));
+    mSceneGraph.attachChild(std::move(soundNode));
 
-    characterButton->onPress([&] {
-        requestStackPush(States::ChooseCharacter);
-    });
+    auto playBtnHoverSound = [&] {
+        Command command;
+        command.category = Category::SoundEffect;
+        command.action =
+            derivedAction<SoundNode>([&](SoundNode& node, sf::Time) {
+                node.playSound(SoundEffect::ButtonHover,
+                               {0.5 * Constants::SCREEN_WIDTH,
+                                0.5 * Constants::SCREEN_HEIGHT});
+            });
+        mCommandQueue.push(command);
+    };
+
+    characterButton->onMouseEnter(playBtnHoverSound);
+    backButton->onMouseEnter(playBtnHoverSound);
+
+    characterButton->onPress(
+        [&] { requestStackPush(States::ChooseCharacter); });
 
     backButton->onPress([&] { requestStackPop(); });
 
-    soundSlider->setMaximum(25);
     soundSlider->setMinimum(0);
-    soundSlider->setValue(SettingsSingleton::getInstance().getSoundVolume());
+    soundSlider->setMaximum(100);
 
-    musicSlider->setMaximum(25);
     musicSlider->setMinimum(0);
+    musicSlider->setMaximum(100);
+
+    soundSlider->setValue(SettingsSingleton::getInstance().getSoundVolume());
     musicSlider->setValue(SettingsSingleton::getInstance().getMusicVolume());
 
     soundSlider->onValueChange([&] {
-        SettingsSingleton::getInstance().setSoundVolume(soundSlider->getValue());
+        float value = gui->get<tgui::Slider>("soundSlider")->getValue();
+        SettingsSingleton::getInstance().setSoundVolume(value);
     });
+
     musicSlider->onValueChange([&] {
-        SettingsSingleton::getInstance().setMusicVolume(musicSlider->getValue());
+        float value = gui->get<tgui::Slider>("musicSlider")->getValue();
+        SettingsSingleton::getInstance().setMusicVolume(value);
     });
 }
-
 void SettingsState::draw() {
     gui->draw();
 }
 
 bool SettingsState::update(sf::Time dt) {
+    while (!mCommandQueue.isEmpty()) {
+        mSceneGraph.onCommand(mCommandQueue.pop(), dt);
+    }
     return true;
 }
 

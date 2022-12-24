@@ -1,7 +1,5 @@
 #include "TitleState.hpp"
 
-#include <iostream>
-
 #include "Utility.hpp"
 
 TitleState::TitleState(StateStack& stack, Context context)

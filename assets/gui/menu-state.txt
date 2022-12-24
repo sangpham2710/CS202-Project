@@ -9,7 +9,7 @@ Panel.Panel1 {
 }
 
 Button.playButton {
-    Position = (410, 270);
+    Position = (410, 280);
     Size = (200, 60);
     Text = PLAY;
     TextSize = 20;
@@ -49,7 +49,7 @@ Button.playButton {
 Button.loadButton {
     Position = (410, 360);
     Size = (200, 60);
-    Text = LOAD GAME;
+    Text = "LOAD GAME";
     TextSize = 20;
 
     Renderer {
@@ -87,11 +87,11 @@ Button.loadButton {
 Label.menuLabel {
     AutoSize = true;
     HorizontalAlignment = Center;
-    Position = (200, 80);
+    Position = (70, 20);
     ScrollbarPolicy = Never;
-    Size = (670.2, 129);
+    Size = (883, 170);
     Text = "CROSSING ROAD";
-    TextSize = 60;
+    TextSize = 80;
     VerticalAlignment = Center;
 
     Renderer {

@@ -1,8 +1,11 @@
 #include "ChooseCharacterState.hpp"
 
+#include "Constants.hpp"
+#include "SoundNode.hpp"
 #include "Utility.hpp"
+
 ChooseCharacterState::ChooseCharacterState(StateStack& stack, Context context)
-    : State(stack, context) {
+    : State(stack, context), mSceneGraph(), mCommandQueue() {
     sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/choose-character-state.txt");
 
@@ -16,6 +19,24 @@ ChooseCharacterState::ChooseCharacterState(StateStack& stack, Context context)
 
     alignCenter(characterLabel, window);
     alignCenter(backButton, window);
+
+    std::unique_ptr<SoundNode> soundNode(new SoundNode(*getContext().sounds));
+    mSceneGraph.attachChild(std::move(soundNode));
+
+    auto playBtnHoverSound = [&] {
+        Command command;
+        command.category = Category::SoundEffect;
+        command.action =
+            derivedAction<SoundNode>([&](SoundNode& node, sf::Time) {
+                node.playSound(SoundEffect::ButtonHover,
+                               {0.5 * Constants::SCREEN_WIDTH,
+                                0.5 * Constants::SCREEN_HEIGHT});
+            });
+        mCommandQueue.push(command);
+    };
+
+    backButton->onMouseEnter(playBtnHoverSound);
+
 
     backButton->onPress([&] { requestStackPop(); });
 
@@ -78,6 +99,9 @@ void ChooseCharacterState::draw() {
 }
 
 bool ChooseCharacterState::update(sf::Time dt) {
+    while (!mCommandQueue.isEmpty()) {
+        mSceneGraph.onCommand(mCommandQueue.pop(), dt);
+    }
     return true;
 }
 

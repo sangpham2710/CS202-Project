@@ -1,7 +1,5 @@
 #include "MenuState.hpp"
 
-#include <iostream>
-
 #include "Constants.hpp"
 #include "MusicPlayer.hpp"
 #include "SoundNode.hpp"
@@ -34,6 +32,7 @@ MenuState::MenuState(StateStack& stack, Context context)
     };
 
     playBtn->onMouseEnter(playBtnHoverSound);
+    loadBtn->onMouseEnter(playBtnHoverSound);
     settingsBtn->onMouseEnter(playBtnHoverSound);
     exitBtn->onMouseEnter(playBtnHoverSound);
 
@@ -46,9 +45,7 @@ MenuState::MenuState(StateStack& stack, Context context)
     });
     alignCenter(playBtn, window);
 
-    loadBtn->onPress([&] {
-        requestStackPop();
-    });
+    loadBtn->onPress([&] { requestStackPop(); });
     alignCenter(loadBtn, window);
 
     settingsBtn->onPress([&] { requestStackPush(States::Settings); });

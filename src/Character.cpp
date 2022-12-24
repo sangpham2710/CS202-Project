@@ -161,7 +161,8 @@ void Character::playLocalSound(CommandQueue& commands, SoundEffect::ID effect) {
     command.category = Category::SoundEffect;
     command.action = derivedAction<SoundNode>(
         [effect, worldPosition](SoundNode& node, sf::Time) {
-            node.playSound(effect, worldPosition);
+            node.playSound(effect, {0.5 * Constants::SCREEN_WIDTH,
+                                    0.5 * Constants::SCREEN_HEIGHT});
         });
 
     commands.push(command);

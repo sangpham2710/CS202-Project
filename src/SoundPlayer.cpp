@@ -19,7 +19,8 @@ SoundPlayer::SoundPlayer()
     : mSoundBuffers(),
       mSounds(),
       mVolume(SettingsSingleton::getInstance().getSoundVolume()) {
-    mSoundBuffers.load(SoundEffect::Explosion, "./assets/sounds/explosion.wav");
+    mSoundBuffers.load(SoundEffect::Explosion,
+                       "./assets/sounds/explosion-2.wav");
     // mSoundBuffers.load(SoundEffect::ButtonClick,
     //    "./assets/sounds/button-click.wav");
     mSoundBuffers.load(SoundEffect::ButtonHover,
