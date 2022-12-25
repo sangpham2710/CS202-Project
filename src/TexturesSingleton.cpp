@@ -115,7 +115,7 @@ TexturesSingleton::TexturesSingleton() : mTextures() {
     mTextures.load(Textures::RoadMiddle,
                    "./assets/textures/lanes/road-middle.png");
     mTextures.load(Textures::PavementAbove,
-                   "./assets/textures/lanes/pavement-above.png");
+                   "./assets/textures/lanes/covered-pavement-above.png");
     mTextures.load(Textures::PavementBelow,
                    "./assets/textures/lanes/pavement-below.png");
     mTextures.load(Textures::LilyPadAbove,
@@ -124,7 +124,7 @@ TexturesSingleton::TexturesSingleton() : mTextures() {
                    "./assets/textures/lanes/lily-pad-below.png");
     mTextures.load(Textures::LilyPadSingle,
                    "./assets/textures/lanes/lily-pad-single.png");
-    mTextures.load(Textures::Bush, "./assets/textures/objects/spike.png");
+    mTextures.load(Textures::Bush, "./assets/textures/objects/uncovered-drain-cover.png");
     mTextures.load(Textures::FireHydrant,
                    "./assets/textures/objects/fire-hydrant.png");
     mTextures.load(Textures::Explosion, "./assets/textures/explosion.png");
