@@ -1,7 +1,10 @@
 #include "LoadGameState.hpp"
 
+#include "Constants.hpp"
+#include "MusicPlayer.hpp"
+#include "SoundNode.hpp"
 #include "Utility.hpp"
-#include <iostream>
+
 LoadGameState::LoadGameState(StateStack& stack, Context context)
     : State(stack, context) {
     sf::RenderWindow& window = *getContext().window;
@@ -13,6 +16,24 @@ LoadGameState::LoadGameState(StateStack& stack, Context context)
     auto statusLabel = gui->get<tgui::Label>("statusLabel");
     auto loadButton = gui->get<tgui::Button>("loadButton");
     auto backButton = gui->get<tgui::Button>("backButton");
+
+    std::unique_ptr<SoundNode> soundNode(new SoundNode(*getContext().sounds));
+    mSceneGraph.attachChild(std::move(soundNode));
+
+    auto playBtnHoverSound = [&] {
+        Command command;
+        command.category = Category::SoundEffect;
+        command.action =
+            derivedAction<SoundNode>([&](SoundNode& node, sf::Time) {
+            node.playSound(SoundEffect::ButtonHover,
+                { 0.5 * Constants::SCREEN_WIDTH,
+                 0.5 * Constants::SCREEN_HEIGHT });
+                });
+        mCommandQueue.push(command);
+    };
+
+    loadButton->onMouseEnter(playBtnHoverSound);
+    backButton->onMouseEnter(playBtnHoverSound);
 
     alignCenter(loadGameLabel, window);
     alignCenter(inputLabel, window);
