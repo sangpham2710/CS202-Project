@@ -45,7 +45,7 @@ MenuState::MenuState(StateStack& stack, Context context)
     });
     alignCenter(playBtn, window);
 
-    loadBtn->onPress([&] { requestStackPop(); });
+    loadBtn->onPress([&] { requestStackPush(States::LoadGame);});
     alignCenter(loadBtn, window);
 
     settingsBtn->onPress([&] { requestStackPush(States::Settings); });
