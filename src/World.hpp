@@ -64,4 +64,5 @@ class World : private sf::NonCopyable {
     sf::Vector2f mViewPosition;
     Character* mPlayerCharacter;
     LevelManager mLevelManager;
+    bool mIsLevelLoaded;
 };

@@ -27,7 +27,9 @@ World::World(sf::RenderWindow& window, FontHolder& fonts, SoundPlayer& sounds)
           Constants::BLOCK_SIZE * 8 + Constants::BLOCK_SIZE / 2,
           Constants::LANE_HEIGHT * 11 + Constants::LANE_HEIGHT / 2.f),
       mViewPosition(mWorldView.getSize().x / 2.f, mWorldView.getSize().y / 2.f),
-      mPlayerCharacter(nullptr) {
+      mPlayerCharacter(nullptr),
+      mLevelManager(),
+      mCommandQueue() {
     buildScene();
     mWorldView.setCenter(mViewPosition);
 }
@@ -142,6 +144,14 @@ void World::buildScene() {
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
     mLevelManager.setLevelNode(mSceneLayers[LevelLayer]);
+
+    if (SettingsSingleton::getInstance().getIsLevelLoaded()) {
+        mLevelManager.loadLevel(
+            SettingsSingleton::getInstance().getLoadingLevelFilename());
+    } else {
+        mLevelManager.generateLevel(
+            SettingsSingleton::getInstance().getCurrentLevelNumber());
+    }
     mLevelManager.generateLevel(
         SettingsSingleton::getInstance().getCurrentLevelNumber());
 

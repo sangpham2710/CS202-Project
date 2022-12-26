@@ -12,8 +12,6 @@ GameOverState::GameOverState(StateStack& stack, Context context)
     auto gameOverLabel = gui->get<tgui::Label>("gameOverLabel");
     alignCenter(gameOverLabel, window);
 
-    SettingsSingleton::getInstance().setCurrentLevelNumber(1);
-
     context.music->play(Music::GameOverTheme);
 }
 void GameOverState::draw() {

@@ -16,7 +16,7 @@ void SettingsSingleton::setCharacterType(int type) {
     mCharacterType = type;
 }
 
-int SettingsSingleton::getCharacterType() {
+int SettingsSingleton::getCharacterType() const {
     return mCharacterType;
 }
 
@@ -24,7 +24,7 @@ void SettingsSingleton::setCurrentLevelNumber(int level) {
     mCurrentLevelNumber = level;
 }
 
-int SettingsSingleton::getCurrentLevelNumber() {
+int SettingsSingleton::getCurrentLevelNumber() const {
     return mCurrentLevelNumber;
 }
 
@@ -38,7 +38,7 @@ void SettingsSingleton::setMusicVolume(float volume) {
     mMusicPlayer->setVolume(mMusicVolume);
 }
 
-float SettingsSingleton::getMusicVolume() {
+float SettingsSingleton::getMusicVolume() const {
     return mMusicVolume;
 }
 
@@ -52,7 +52,7 @@ void SettingsSingleton::setSoundVolume(float volume) {
     mSoundPlayer->setVolume(mSoundVolume);
 }
 
-float SettingsSingleton::getSoundVolume() {
+float SettingsSingleton::getSoundVolume() const {
     return mSoundVolume;
 }
 
@@ -64,4 +64,20 @@ void SettingsSingleton::setSoundPlayer(SoundPlayer* soundPlayer) {
 void SettingsSingleton::setMusicPlayer(MusicPlayer* musicPlayer) {
     mMusicPlayer = musicPlayer;
     mMusicPlayer->setVolume(mMusicVolume);
+}
+
+void SettingsSingleton::setIsLevelLoaded(bool isLoaded) {
+    mIsLevelLoaded = isLoaded;
+}
+
+bool SettingsSingleton::getIsLevelLoaded() const {
+    return mIsLevelLoaded;
+}
+
+void SettingsSingleton::setLoadingLevelFilename(const std::string& filename) {
+    mLoadingLevelFilename = filename;
+}
+
+std::string SettingsSingleton::getLoadingLevelFilename() const {
+    return mLoadingLevelFilename;
 }

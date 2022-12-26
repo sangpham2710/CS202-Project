@@ -11,15 +11,19 @@ class SettingsSingleton {
    public:
     static SettingsSingleton& getInstance();
     void setCharacterType(int type);
-    int getCharacterType();
+    int getCharacterType() const;
     void setCurrentLevelNumber(int level);
-    int getCurrentLevelNumber();
+    int getCurrentLevelNumber() const;
     void setMusicVolume(float volume);
-    float getMusicVolume();
+    float getMusicVolume() const;
     void setSoundVolume(float volume);
-    float getSoundVolume();
+    float getSoundVolume() const;
     void setSoundPlayer(SoundPlayer* soundPlayer);
     void setMusicPlayer(MusicPlayer* musicPlayer);
+    void setIsLevelLoaded(bool isLoaded);
+    bool getIsLevelLoaded() const;
+    void setLoadingLevelFilename(const std::string& filename);
+    std::string getLoadingLevelFilename() const;
 
     SettingsSingleton(SettingsSingleton const&) = delete;
     void operator=(SettingsSingleton const&) = delete;
@@ -33,4 +37,6 @@ class SettingsSingleton {
     float mSoundVolume;
     SoundPlayer* mSoundPlayer;
     MusicPlayer* mMusicPlayer;
+    bool mIsLevelLoaded;
+    std::string mLoadingLevelFilename;
 };

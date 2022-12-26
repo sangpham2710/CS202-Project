@@ -2,6 +2,7 @@
 
 #include "Constants.hpp"
 #include "MusicPlayer.hpp"
+#include "SettingsSingleton.hpp"
 #include "SoundNode.hpp"
 #include "Utility.hpp"
 
@@ -40,12 +41,17 @@ MenuState::MenuState(StateStack& stack, Context context)
 
     playBtn->onPress([&] {
         requestStackPop();
+        SettingsSingleton::getInstance().setIsLevelLoaded(false);
+        SettingsSingleton::getInstance().setCurrentLevelNumber(1);
         requestStackPush(States::Game);
         requestStackPush(States::LevelUp);
     });
     alignCenter(playBtn, window);
 
-    loadBtn->onPress([&] { requestStackPop(); });
+    loadBtn->onPress([&] {
+        requestStackPop();
+        // requestStackPush(States::LoadGame);
+    });
     alignCenter(loadBtn, window);
 
     settingsBtn->onPress([&] { requestStackPush(States::Settings); });
