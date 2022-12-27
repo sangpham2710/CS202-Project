@@ -9,13 +9,13 @@ ChooseCharacterState::ChooseCharacterState(StateStack& stack, Context context)
     sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/choose-character-state.txt");
 
-    auto characterLabel = gui->get<tgui::Label>("characterLabel");
-    auto character1 = gui->get<tgui::Button>("character1");
-    auto character2 = gui->get<tgui::Button>("character2");
-    auto character3 = gui->get<tgui::Button>("character3");
-    auto character4 = gui->get<tgui::Button>("character4");
-    auto character5 = gui->get<tgui::Button>("character5");
-    auto backButton = gui->get<tgui::Button>("backButton");
+#define characterLabel gui->get<tgui::Label>("characterLabel")
+#define character1 gui->get<tgui::Button>("character1")
+#define character2 gui->get<tgui::Button>("character2")
+#define character3 gui->get<tgui::Button>("character3")
+#define character4 gui->get<tgui::Button>("character4")
+#define character5 gui->get<tgui::Button>("character5")
+#define backButton gui->get<tgui::Button>("backButton")
 
     alignCenter(characterLabel, window);
     alignCenter(backButton, window);
@@ -23,7 +23,7 @@ ChooseCharacterState::ChooseCharacterState(StateStack& stack, Context context)
     std::unique_ptr<SoundNode> soundNode(new SoundNode(*getContext().sounds));
     mSceneGraph.attachChild(std::move(soundNode));
 
-    auto playBtnHoverSound = [&] {
+    auto playButtonHoverSound = [&] {
         Command command;
         command.category = Category::SoundEffect;
         command.action =
@@ -35,7 +35,7 @@ ChooseCharacterState::ChooseCharacterState(StateStack& stack, Context context)
         mCommandQueue.push(command);
     };
 
-    backButton->onMouseEnter(playBtnHoverSound);
+    backButton->onMouseEnter(playButtonHoverSound);
 
 
     backButton->onPress([&] { requestStackPop(); });
@@ -92,6 +92,14 @@ ChooseCharacterState::ChooseCharacterState(StateStack& stack, Context context)
             character5->getRenderer()->setBorderColor(color);
         } break;
     }
+
+#undef characterLabel
+#undef character1
+#undef character2
+#undef character3
+#undef character4
+#undef character5
+#undef backButton
 }
 
 void ChooseCharacterState::draw() {

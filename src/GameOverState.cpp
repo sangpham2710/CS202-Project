@@ -9,10 +9,11 @@ GameOverState::GameOverState(StateStack& stack, Context context)
     sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/game-over-state.txt");
 
-    auto gameOverLabel = gui->get<tgui::Label>("gameOverLabel");
+#define gameOverLabel gui->get<tgui::Label>("gameOverLabel")
     alignCenter(gameOverLabel, window);
 
     context.music->play(Music::GameOverTheme);
+#undef gameOverLabel
 }
 void GameOverState::draw() {
     gui->draw();

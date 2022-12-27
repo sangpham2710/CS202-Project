@@ -8,7 +8,7 @@ LevelUpState::LevelUpState(StateStack& stack, Context context)
     : State(stack, context) {
     sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/level-up-state.txt");
-    auto levelLabel = gui->get<tgui::Label>("levelLabel");
+#define levelLabel gui->get<tgui::Label>("levelLabel")
     std::string currentLevel = std::to_string(
         SettingsSingleton::getInstance().getCurrentLevelNumber());
     levelLabel->setText("LEVEL " + currentLevel);
@@ -16,6 +16,7 @@ LevelUpState::LevelUpState(StateStack& stack, Context context)
     alignCenter(levelLabel, window);
 
     context.music->play(Music::LevelUpTheme);
+#undef levelLabel
 }
 void LevelUpState::draw() {
     gui->draw();
