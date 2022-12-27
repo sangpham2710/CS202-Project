@@ -10,16 +10,16 @@ SettingsState::SettingsState(StateStack& stack, Context context)
     sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/settings-state.txt");
 
-    auto settingsLabel = gui->get<tgui::Label>("settingsLabel");
-    auto soundLabel = gui->get<tgui::Label>("soundLabel");
-    auto musicLabel = gui->get<tgui::Label>("musicLabel");
-    auto soundSlider = gui->get<tgui::Slider>("soundSlider");
-    auto musicSlider = gui->get<tgui::Slider>("musicSlider");
-    auto soundGroup = gui->get<tgui::Group>("soundGroup");
-    auto musicGroup = gui->get<tgui::Group>("musicGroup");
-    auto characterButton = gui->get<tgui::Button>("characterButton");
-    auto backButton = gui->get<tgui::Button>("backButton");
-
+#define settingsLabel gui->get<tgui::Label>("settingsLabel")
+#define soundLabel gui->get<tgui::Label>("soundLabel")
+#define musicLabel gui->get<tgui::Label>("musicLabel")
+#define soundSlider gui->get<tgui::Slider>("soundSlider")
+#define musicSlider gui->get<tgui::Slider>("musicSlider")
+#define soundGroup gui->get<tgui::Group>("soundGroup")
+#define musicGroup gui->get<tgui::Group>("musicGroup")
+#define characterButton gui->get<tgui::Button>("characterButton")
+#define backButton gui->get<tgui::Button>("backButton")
+    
     alignCenter(settingsLabel, window);
     alignCenter(soundGroup, window);
     alignCenter(musicGroup, window);
@@ -29,7 +29,7 @@ SettingsState::SettingsState(StateStack& stack, Context context)
     std::unique_ptr<SoundNode> soundNode(new SoundNode(*getContext().sounds));
     mSceneGraph.attachChild(std::move(soundNode));
 
-    auto playBtnHoverSound = [&] {
+    auto playButtonHoverSound = [&] {
         Command command;
         command.category = Category::SoundEffect;
         command.action =
@@ -41,8 +41,8 @@ SettingsState::SettingsState(StateStack& stack, Context context)
         mCommandQueue.push(command);
     };
 
-    characterButton->onMouseEnter(playBtnHoverSound);
-    backButton->onMouseEnter(playBtnHoverSound);
+    characterButton->onMouseEnter(playButtonHoverSound);
+    backButton->onMouseEnter(playButtonHoverSound);
 
     characterButton->onPress(
         [&] { requestStackPush(States::ChooseCharacter); });
@@ -67,6 +67,15 @@ SettingsState::SettingsState(StateStack& stack, Context context)
         float value = gui->get<tgui::Slider>("musicSlider")->getValue();
         SettingsSingleton::getInstance().setMusicVolume(value);
     });
+#undef settingsLabel
+#undef soundLabel
+#undef musicLabel
+#undef soundSlider
+#undef musicSlider
+#undef soundGroup
+#undef musicGroup
+#undef characterButton
+#undef backButton
 }
 void SettingsState::draw() {
     gui->draw();

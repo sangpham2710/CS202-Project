@@ -2,6 +2,7 @@
 
 #include "Constants.hpp"
 #include "MusicPlayer.hpp"
+#include "SettingsSingleton.hpp"
 #include "SoundNode.hpp"
 #include "Utility.hpp"
 
@@ -10,16 +11,17 @@ MenuState::MenuState(StateStack& stack, Context context)
     sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/menu-state.txt");
 
-    auto menuLabel = gui->get<tgui::Label>("menuLabel");
-    auto playBtn = gui->get<tgui::Button>("playButton");
-    auto loadBtn = gui->get<tgui::Button>("loadButton");
-    auto settingsBtn = gui->get<tgui::Button>("settingsButton");
-    auto exitBtn = gui->get<tgui::Button>("exitButton");
+
+#define menuLabel gui->get<tgui::Label>("menuLabel")
+#define playButton gui->get<tgui::Button>("playButton")
+#define loadButton gui->get<tgui::Button>("loadButton")
+#define settingsButton gui->get<tgui::Button>("settingsButton")
+#define exitButton gui->get<tgui::Button>("exitButton")
 
     std::unique_ptr<SoundNode> soundNode(new SoundNode(*getContext().sounds));
     mSceneGraph.attachChild(std::move(soundNode));
 
-    auto playBtnHoverSound = [&] {
+    auto playButtonHoverSound = [&] {
         Command command;
         command.category = Category::SoundEffect;
         command.action =
@@ -31,30 +33,39 @@ MenuState::MenuState(StateStack& stack, Context context)
         mCommandQueue.push(command);
     };
 
-    playBtn->onMouseEnter(playBtnHoverSound);
-    loadBtn->onMouseEnter(playBtnHoverSound);
-    settingsBtn->onMouseEnter(playBtnHoverSound);
-    exitBtn->onMouseEnter(playBtnHoverSound);
+    playButton->onMouseEnter(playButtonHoverSound);
+    loadButton->onMouseEnter(playButtonHoverSound);
+    settingsButton->onMouseEnter(playButtonHoverSound);
+    exitButton->onMouseEnter(playButtonHoverSound);
 
     alignCenter(menuLabel, window);
 
-    playBtn->onPress([&] {
+    playButton->onPress([&] {
         requestStackPop();
+        SettingsSingleton::getInstance().setIsLevelLoaded(false);
+        SettingsSingleton::getInstance().setCurrentLevelNumber(1);
         requestStackPush(States::Game);
         requestStackPush(States::LevelUp);
     });
-    alignCenter(playBtn, window);
+    alignCenter(playButton, window);
 
-    loadBtn->onPress([&] { requestStackPop(); });
-    alignCenter(loadBtn, window);
+    loadButton->onPress([&] { requestStackPush(States::LoadGame); });
 
-    settingsBtn->onPress([&] { requestStackPush(States::Settings); });
-    alignCenter(settingsBtn, window);
+    alignCenter(loadButton, window);
 
-    exitBtn->onPress([&] { requestStackPop(); });
-    alignCenter(exitBtn, window);
+    settingsButton->onPress([&] { requestStackPush(States::Settings); });
+    alignCenter(settingsButton, window);
+
+    exitButton->onPress([&] { requestStackPop(); });
+    alignCenter(exitButton, window);
 
     context.music->play(Music::MenuTheme);
+
+#undef menuLabel
+#undef playButton
+#undef loadButton
+#undef settingsButton
+#undef exitButton
 }
 
 void MenuState::draw() {

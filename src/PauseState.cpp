@@ -1,7 +1,7 @@
-
 #include "PauseState.hpp"
 
 #include "Constants.hpp"
+#include "SettingsSingleton.hpp"
 #include "SoundNode.hpp"
 #include "Utility.hpp"
 
@@ -10,22 +10,22 @@ PauseState::PauseState(StateStack& stack, Context context)
     sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/pause-state.txt");
 
-    auto pauseLabel = gui->get<tgui::Label>("pauseLabel");
-    auto continueBtn = gui->get<tgui::Button>("continueButton");
-    auto saveBtn = gui->get<tgui::Button>("saveButton");
-    auto settingsBtn = gui->get<tgui::Button>("settingsButton");
-    auto backToMenuBtn = gui->get<tgui::Button>("backToMenuButton");
+#define pauseLabel gui->get<tgui::Label>("pauseLabel")
+#define continueButton gui->get<tgui::Button>("continueButton")
+#define saveButton gui->get<tgui::Button>("saveButton")
+#define settingsButton gui->get<tgui::Button>("settingsButton")
+#define backToMenuButton gui->get<tgui::Button>("backToMenuButton")
 
     alignCenter(pauseLabel, window);
-    alignCenter(continueBtn, window);
-    alignCenter(saveBtn, window);
-    alignCenter(settingsBtn, window);
-    alignCenter(backToMenuBtn, window);
+    alignCenter(continueButton, window);
+    alignCenter(saveButton, window);
+    alignCenter(settingsButton, window);
+    alignCenter(backToMenuButton, window);
 
     std::unique_ptr<SoundNode> soundNode(new SoundNode(*getContext().sounds));
     mSceneGraph.attachChild(std::move(soundNode));
 
-    auto playBtnHoverSound = [&] {
+    auto playButtonHoverSound = [&] {
         Command command;
         command.category = Category::SoundEffect;
         command.action =
@@ -37,20 +37,29 @@ PauseState::PauseState(StateStack& stack, Context context)
         mCommandQueue.push(command);
     };
 
-    continueBtn->onMouseEnter(playBtnHoverSound);
-    saveBtn->onMouseEnter(playBtnHoverSound);
-    settingsBtn->onMouseEnter(playBtnHoverSound);
-    backToMenuBtn->onMouseEnter(playBtnHoverSound);
+    continueButton->onMouseEnter(playButtonHoverSound);
+    saveButton->onMouseEnter(playButtonHoverSound);
+    settingsButton->onMouseEnter(playButtonHoverSound);
+    backToMenuButton->onMouseEnter(playButtonHoverSound);
 
 
-    continueBtn->onPress([&] { requestStackPop(); });
-    saveBtn->onPress([&] { requestStackPush(States::Menu); });
-    settingsBtn->onPress([&] { requestStackPush(States::Settings); });
+    continueButton->onPress([&] { requestStackPop(); });
+    saveButton->onPress([&] {
+        SettingsSingleton::getInstance().setIsLevelSaving(true);
+        requestStackPop();
+    });
+    settingsButton->onPress([&] { requestStackPush(States::Settings); });
 
-    backToMenuBtn->onPress([&] {
+    backToMenuButton->onPress([&] {
         requestStateClear();
         requestStackPush(States::Menu);
     });
+
+#undef pauseLabel
+#undef continueButton
+#undef saveButton
+#undef settingsButton
+#undef backToMenuButton
 }
 
 void PauseState::draw() {
