@@ -24,6 +24,8 @@ class SettingsSingleton {
     bool getIsLevelLoaded() const;
     void setLoadingLevelFilename(const std::string& filename);
     std::string getLoadingLevelFilename() const;
+    void setIsLevelSaving(bool isSaving);
+    bool getIsLevelSaving() const;
 
     SettingsSingleton(SettingsSingleton const&) = delete;
     void operator=(SettingsSingleton const&) = delete;
@@ -39,4 +41,5 @@ class SettingsSingleton {
     MusicPlayer* mMusicPlayer;
     bool mIsLevelLoaded;
     std::string mLoadingLevelFilename;
+    bool mIsLevelSaving;
 };

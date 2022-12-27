@@ -1,6 +1,7 @@
 #include "PauseState.hpp"
 
 #include "Constants.hpp"
+#include "SettingsSingleton.hpp"
 #include "SoundNode.hpp"
 #include "Utility.hpp"
 
@@ -43,7 +44,10 @@ PauseState::PauseState(StateStack& stack, Context context)
 
 
     continueButton->onPress([&] { requestStackPop(); });
-    saveButton->onPress([&] { requestStackPush(States::Menu); });
+    saveButton->onPress([&] {
+        SettingsSingleton::getInstance().setIsLevelSaving(true);
+        requestStackPop();
+    });
     settingsButton->onPress([&] { requestStackPush(States::Settings); });
 
     backToMenuButton->onPress([&] {

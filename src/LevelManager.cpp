@@ -1,5 +1,6 @@
 #include "LevelManager.hpp"
 
+#include <filesystem>
 #include <fstream>
 #include <memory>
 #include <sstream>
@@ -198,7 +199,20 @@ void LevelManager::prepareLevel(int levelNumber) {
     }
 }
 
-void LevelManager::saveLevel(const std::string& filename) const {
+void LevelManager::saveLevel() const {
+    // if folder saves does not exist, create it
+    if (!std::filesystem::exists("saves")) {
+        std::filesystem::create_directory("saves");
+    }
+
+    std::string filename;
+    // Make filename from current timestamp
+    std::time_t t = std::time(nullptr);
+    std::tm tm = *std::localtime(&t);
+    std::ostringstream oss;
+    oss << std::put_time(&tm, "%Y-%m-%d_%H-%M-%S");
+    filename = "saves/" + oss.str() + ".txt";
+
     std::ofstream ofs(filename);
     if (!ofs) {
         throw std::runtime_error("Could not open file " + filename);

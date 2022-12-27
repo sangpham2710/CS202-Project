@@ -4,7 +4,12 @@ SettingsSingleton::SettingsSingleton()
     : mCharacterType(0),
       mCurrentLevelNumber(1),
       mMusicVolume(10.f),
-      mSoundVolume(10.f) {
+      mSoundVolume(10.f),
+      mSoundPlayer(nullptr),
+      mMusicPlayer(nullptr),
+      mIsLevelLoaded(false),
+      mLoadingLevelFilename(""),
+      mIsLevelSaving(false) {
 }
 
 SettingsSingleton& SettingsSingleton::getInstance() {
@@ -80,4 +85,12 @@ void SettingsSingleton::setLoadingLevelFilename(const std::string& filename) {
 
 std::string SettingsSingleton::getLoadingLevelFilename() const {
     return mLoadingLevelFilename;
+}
+
+void SettingsSingleton::setIsLevelSaving(bool isSaving) {
+    mIsLevelSaving = isSaving;
+}
+
+bool SettingsSingleton::getIsLevelSaving() const {
+    return mIsLevelSaving;
 }

@@ -43,6 +43,10 @@ void World::update(sf::Time dt) {
     mSceneGraph.removeWrecks();
     mSceneGraph.update(dt, mCommandQueue);
     adaptPlayerPosition();
+    if (SettingsSingleton::getInstance().getIsLevelSaving()) {
+        mLevelManager.saveLevel();
+        SettingsSingleton::getInstance().setIsLevelSaving(false);
+    }
 }
 
 void World::draw() {
@@ -148,12 +152,11 @@ void World::buildScene() {
     if (SettingsSingleton::getInstance().getIsLevelLoaded()) {
         mLevelManager.loadLevel(
             SettingsSingleton::getInstance().getLoadingLevelFilename());
+        SettingsSingleton::getInstance().setIsLevelLoaded(false);
     } else {
         mLevelManager.generateLevel(
             SettingsSingleton::getInstance().getCurrentLevelNumber());
     }
-    mLevelManager.generateLevel(
-        SettingsSingleton::getInstance().getCurrentLevelNumber());
 
     std::unique_ptr<Character> character(
         new Character(SettingsSingleton::getInstance().getCharacterType()));
