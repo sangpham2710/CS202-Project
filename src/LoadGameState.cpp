@@ -17,6 +17,7 @@ LoadGameState::LoadGameState(StateStack& stack, Context context)
 #define inputLabel gui->get<tgui::Label>("inputLabel")
 #define inputBox gui->get<tgui::EditBox>("inputBox")
 #define statusLabel gui->get<tgui::Label>("statusLabel")
+#define loadGroup gui->get<tgui::Group>("loadGroup")
 #define loadButton gui->get<tgui::Button>("loadButton")
 #define chooseButton gui->get<tgui::Button>("chooseButton")
 #define backButton gui->get<tgui::Button>("backButton")
@@ -42,12 +43,12 @@ LoadGameState::LoadGameState(StateStack& stack, Context context)
     alignCenter(loadGameLabel, window);
     alignCenter(inputLabel, window);
     alignCenter(inputBox, window);
-    alignCenter(loadButton, window);
+    alignCenter(loadGroup, window);
     alignCenter(backButton, window);
 
     statusLabel->setInheritedOpacity(0.0);
     loadButton->onPress([&] {
-
+        statusLabel->setInheritedOpacity(1.0);
     });
 
     chooseButton->onPress([&] {

@@ -19,7 +19,7 @@ SettingsState::SettingsState(StateStack& stack, Context context)
 #define musicGroup gui->get<tgui::Group>("musicGroup")
 #define characterButton gui->get<tgui::Button>("characterButton")
 #define backButton gui->get<tgui::Button>("backButton")
-
+    
     alignCenter(settingsLabel, window);
     alignCenter(soundGroup, window);
     alignCenter(musicGroup, window);
