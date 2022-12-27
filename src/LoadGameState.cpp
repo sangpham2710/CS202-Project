@@ -47,7 +47,13 @@ LoadGameState::LoadGameState(StateStack& stack, Context context)
 
     statusLabel->setInheritedOpacity(0.0);
     loadButton->onPress([&] {
-
+        requestStackPop();
+        requestStackPop();
+        SettingsSingleton::getInstance().setIsLevelLoaded(true);
+        SettingsSingleton::getInstance().setLoadingLevelFilename(
+            inputBox->getText().toStdString());
+        requestStackPush(States::Game);
+        requestStackPush(States::LevelUp);
     });
 
     chooseButton->onPress([&] {
