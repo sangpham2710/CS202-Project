@@ -44,8 +44,6 @@ class World : private sf::NonCopyable {
     sf::FloatRect getViewBounds() const;
     sf::FloatRect getBattlefieldBounds() const;
 
-    void loadLevel();
-
    private:
     enum Layer { Background, LevelLayer, CharacterLayer, LayerCount };
 

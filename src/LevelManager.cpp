@@ -5,6 +5,7 @@
 #include <sstream>
 
 #include "Constants.hpp"
+#include "SettingsSingleton.hpp"
 #include "TexturesSingleton.hpp"
 #include "TrafficLight.hpp"
 #include "Utility.hpp"
@@ -198,9 +199,96 @@ void LevelManager::prepareLevel(int levelNumber) {
 }
 
 void LevelManager::saveLevel(const std::string& filename) const {
+    std::ofstream ofs(filename);
+    if (!ofs) {
+        throw std::runtime_error("Could not open file " + filename);
+    }
+
+    ofs << SettingsSingleton::getInstance().getCurrentLevelNumber() << '\n';
+    for (auto& child : mLevelLayers[LaneLayer]->getChildren()) {
+        if (child->getCategory() == Category::Lane) {
+            Lane* lane = static_cast<Lane*>(child);
+            // Save all fields of lane
+            ofs << static_cast<int>(lane->mType) << ' '
+                << static_cast<int>(lane->mTextureType) << ' '
+                << static_cast<int>(lane->mHasObstacles) << ' '
+                << static_cast<int>(lane->mDirection) << ' ' << lane->mSpeed
+                << ' ' << lane->mObstacleSpawnRate << ' '
+                << (lane->mTrafficLight != nullptr) << '\n';
+        }
+    }
+
+    ofs.close();
 }
 
 void LevelManager::loadLevel(const std::string& filename) {
+    std::ifstream ifs(filename);
+    if (!ifs) {
+        throw std::runtime_error("Could not open file " + filename);
+    }
+
+    int levelNumber;
+    ifs >> levelNumber;
+    SettingsSingleton::getInstance().setCurrentLevelNumber(levelNumber);
+    prepareLevel(levelNumber);
+
+    while (!ifs.eof()) {
+        int laneType, laneTextureType, hasObstacle, laneDirection;
+        float laneSpeed;
+        int laneSpawnRate;
+        bool hasTrafficLight;
+
+        ifs >> laneType >> laneTextureType >> hasObstacle >> laneDirection >>
+            laneSpeed >> laneSpawnRate >> hasTrafficLight;
+
+        if (ifs.eof()) {
+            break;
+        }
+
+        int lanePositionY =
+            (11 - mLevelLayers[LaneLayer]->getChildren().size()) *
+            Constants::BLOCK_SIZE;
+
+        if (laneType == static_cast<int>(Lane::Type::Static)) {
+            // create static lane
+            std::unique_ptr<Lane> lane(new Lane(
+                static_cast<Lane::Type>(laneType),
+                static_cast<Lane::TextureType>(laneTextureType), hasObstacle,
+                static_cast<Lane::Direction>(laneDirection), laneSpeed,
+                laneSpawnRate));
+            lane->setPosition(0, lanePositionY);
+            mLevelLayers[LaneLayer]->attachChild(std::move(lane));
+
+        } else {
+            // create dynamic lane
+            if (hasTrafficLight) {
+                std::unique_ptr<TrafficLight> trafficLight(new TrafficLight());
+                trafficLight->setPosition(0, lanePositionY);
+                std::unique_ptr<Lane> lane(new Lane(
+                    static_cast<Lane::Type>(laneType),
+                    static_cast<Lane::TextureType>(laneTextureType),
+                    hasObstacle, static_cast<Lane::Direction>(laneDirection),
+                    laneSpeed, laneSpawnRate, trafficLight.get()));
+                lane->setPosition(0, lanePositionY);
+
+                mLevelLayers[LaneLayer]->attachChild(std::move(lane));
+                mLevelLayers[TrafficLightLayer]->attachChild(
+                    std::move(trafficLight));
+
+            } else {
+                std::unique_ptr<Lane> lane(new Lane(
+                    static_cast<Lane::Type>(laneType),
+                    static_cast<Lane::TextureType>(laneTextureType),
+                    hasObstacle, static_cast<Lane::Direction>(laneDirection),
+                    laneSpeed, laneSpawnRate));
+                lane->setPosition(0, lanePositionY);
+
+                mLevelLayers[LaneLayer]->attachChild(std::move(lane));
+            }
+        }
+    }
+
+    ifs.close();
 }
 
 float LevelManager::calcLevelObstacleSpeed(int levelNumber) const {

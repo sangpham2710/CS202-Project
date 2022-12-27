@@ -11,6 +11,7 @@
 
 class Lane : public Entity {
    public:
+    friend class LevelManager;
     enum class Type { Static, Dynamic };
     // TextureType
     enum class TextureType {
@@ -53,13 +54,14 @@ class Lane : public Entity {
     static std::map<Lane::TextureType, std::vector<Obstacle::Type>>
         allowedObstacleTypes;
 
+    sf::Sprite mSprite;
+    float mSpeed;
+
     Type mType;
     TextureType mTextureType;
     bool mHasObstacles;
     Direction mDirection;
-    float mSpeed;
     float maxSpeed;
-    sf::Sprite mSprite;
-    TrafficLight* mTrafficLight;
     int mObstacleSpawnRate;
+    TrafficLight* mTrafficLight;
 };
