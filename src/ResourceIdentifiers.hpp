@@ -91,8 +91,6 @@ enum ID {
     Explosion,
     ButtonHover,
     ButtonClick,
-    LevelUp,
-    GameOver,
 };
 }
 
@@ -100,6 +98,8 @@ namespace Music {
 enum ID {
     MenuTheme,
     MissionTheme,
+    LevelUpTheme,
+    GameOverTheme,
 };
 }
 

@@ -3,6 +3,9 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
 
+#include "Command.hpp"
+#include "CommandQueue.hpp"
+#include "SceneNode.hpp"
 #include "State.hpp"
 
 class MenuState : public State {
@@ -14,4 +17,6 @@ class MenuState : public State {
     virtual bool handleEvent(const sf::Event& event) override;
 
    private:
+    SceneNode mSceneGraph;
+    CommandQueue mCommandQueue;
 };

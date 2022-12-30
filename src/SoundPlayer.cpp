@@ -3,6 +3,7 @@
 #include <SFML/Audio/Listener.hpp>
 #include <cmath>
 
+#include "SettingsSingleton.hpp"
 
 namespace {
 // Sound coordinate system, point of view of a player in front of the screen:
@@ -14,8 +15,16 @@ const float MinDistance3D =
     std::sqrt(MinDistance2D * MinDistance2D + ListenerZ * ListenerZ);
 }  // namespace
 
-SoundPlayer::SoundPlayer() : mSoundBuffers(), mSounds() {
-    mSoundBuffers.load(SoundEffect::Explosion, "./assets/sounds/explosion.wav");
+SoundPlayer::SoundPlayer()
+    : mSoundBuffers(),
+      mSounds(),
+      mVolume(SettingsSingleton::getInstance().getSoundVolume()) {
+    mSoundBuffers.load(SoundEffect::Explosion,
+                       "./assets/sounds/explosion-2.wav");
+    // mSoundBuffers.load(SoundEffect::ButtonClick,
+    //    "./assets/sounds/button-click.wav");
+    mSoundBuffers.load(SoundEffect::ButtonHover,
+                       "./assets/sounds/button-click.wav");
 
     // Listener points towards the screen (default in SFML)
     sf::Listener::setDirection(0.f, 0.f, -1.f);
@@ -33,6 +42,7 @@ void SoundPlayer::play(SoundEffect::ID effect, sf::Vector2f position) {
     sound.setPosition(position.x, -position.y, 0.f);
     sound.setAttenuation(Attenuation);
     sound.setMinDistance(MinDistance3D);
+    sound.setVolume(mVolume);
 
     sound.play();
 }
@@ -49,4 +59,8 @@ void SoundPlayer::setListenerPosition(sf::Vector2f position) {
 sf::Vector2f SoundPlayer::getListenerPosition() const {
     sf::Vector3f position = sf::Listener::getPosition();
     return sf::Vector2f(position.x, -position.y);
+}
+
+void SoundPlayer::setVolume(float volume) {
+    mVolume = volume;
 }

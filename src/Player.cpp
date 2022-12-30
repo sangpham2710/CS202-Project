@@ -10,7 +10,7 @@
 
 using namespace std::placeholders;
 
-Player::Player() : mCurrentMissionStatus(MissionRunning) {
+Player::Player() {
     // Set initial key bindings
     mKeyBinding[sf::Keyboard::Left] = MoveLeft;
     mKeyBinding[sf::Keyboard::Right] = MoveRight;
@@ -65,14 +65,6 @@ sf::Keyboard::Key Player::getAssignedKey(Action action) const {
     return sf::Keyboard::Unknown;
 }
 
-void Player::setMissionStatus(MissionStatus status) {
-    mCurrentMissionStatus = status;
-}
-
-Player::MissionStatus Player::getMissionStatus() const {
-    return mCurrentMissionStatus;
-}
-
 void Player::initializeActions() {
     mActionBinding[MoveLeft].action = derivedAction<Character>(
         [this](Character& c, sf::Time dt) { c.moveLeft(); });
@@ -93,9 +85,8 @@ bool Player::isRealtimeAction(Action action) {
         case MoveUp:
         case MoveDown:
         case MoveRight:
-            return false;
-
-        default:
             return true;
+        default:
+            return false;
     }
 }

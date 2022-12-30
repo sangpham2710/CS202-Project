@@ -4,11 +4,11 @@
 #include "Constants.hpp"
 #include "GameOverState.hpp"
 #include "GameState.hpp"
+#include "LevelUpState.hpp"
 #include "MenuState.hpp"
 #include "PauseState.hpp"
 #include "SettingsState.hpp"
-#include "ChooseCharacterState.hpp"
-#include "LevelUpState.hpp"
+#include "LoadGameState.hpp"
 #include "State.hpp"
 #include "StateIdentifiers.hpp"
 #include "TitleState.hpp"
@@ -30,7 +30,9 @@ Application::Application()
 
     registerStates();
     mStateStack.pushState(States::Title);
-    mMusic.setVolume(25.f);
+
+    SettingsSingleton::getInstance().setSoundPlayer(&mSounds);
+    SettingsSingleton::getInstance().setMusicPlayer(&mMusic);
 }
 
 void Application::run() {
@@ -76,5 +78,6 @@ void Application::registerStates() {
     mStateStack.registerState<SettingsState>(States::Settings);
     mStateStack.registerState<GameOverState>(States::GameOver);
     mStateStack.registerState<ChooseCharacterState>(States::ChooseCharacter);
-    mStateStack.registerState<levelUpState>(States::LevelUp);
+    mStateStack.registerState<LevelUpState>(States::LevelUp);
+    mStateStack.registerState<LoadGameState>(States::LoadGame);
 }

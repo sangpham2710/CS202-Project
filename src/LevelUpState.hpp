@@ -5,14 +5,14 @@
 
 #include "State.hpp"
 
-class levelUpState : public State {
-    public:
-        levelUpState(StateStack& stack, Context context);
+class LevelUpState : public State {
+   public:
+    LevelUpState(StateStack& stack, Context context);
 
-        virtual void draw() override;
-        virtual bool update(sf::Time dt) override;
-        virtual bool handleEvent(const sf::Event& event) override;
+    virtual void draw() override;
+    virtual bool update(sf::Time dt) override;
+    virtual bool handleEvent(const sf::Event& event) override;
 
-    private:
-        sf::Time mElapsedTime;
+   private:
+    sf::Time mElapsedTime;
 };

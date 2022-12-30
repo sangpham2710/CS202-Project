@@ -3,6 +3,9 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
 
+#include "Command.hpp"
+#include "CommandQueue.hpp"
+#include "SceneNode.hpp"
 #include "State.hpp"
 
 class PauseState : public State {
@@ -14,6 +17,6 @@ class PauseState : public State {
     virtual bool handleEvent(const sf::Event& event) override;
 
    private:
-    sf::Sprite mBackgroundSprite;
-    sf::Text mPausedText;
+    SceneNode mSceneGraph;
+    CommandQueue mCommandQueue;
 };
