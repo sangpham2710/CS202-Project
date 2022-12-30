@@ -1,0 +1,260 @@
+Panel.Panel1 {
+    Size = (1024, 768);
+
+    Renderer {
+        BackgroundColor = white;
+        BorderColor = black;
+        TextureBackground = None;
+    }
+}
+
+Button.characterButton {
+    Position = (410, 430);
+    Size = (220, 60);
+    Text = CHARACTERS;
+    TextSize = 20;
+
+    Renderer {
+        BackgroundColor = #7750FF;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = None;
+        BorderColor = None;
+        BorderColorDisabled = None;
+        BorderColorDown = None;
+        BorderColorDownFocused = None;
+        BorderColorDownHover = None;
+        BorderColorFocused = None;
+        BorderColorHover = None;
+        Borders = (0, 0, 0, 0);
+        Font = "FFFFORWA.TTF";
+        TextColor = white;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = #FEDEBF;
+        TextColorDownFocused = None;
+        TextColorDownHover = None;
+        TextColorFocused = None;
+        TextColorHover = None;
+        TextStyle = Bold;
+        Texture = "./buttons/blue-button-state-1.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = None;
+        TextureDownFocused = "./buttons/orange-button-state-3.png" Smooth;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "./buttons/orange-button-state-1.png" Smooth;
+    }
+}
+
+Button.backButton {
+    Position = (410, 520);
+    Size = (220, 60);
+    Text = BACK;
+    TextSize = 20;
+
+    Renderer {
+        BackgroundColor = #7750FF;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = None;
+        BorderColor = None;
+        BorderColorDisabled = None;
+        BorderColorDown = None;
+        BorderColorDownFocused = None;
+        BorderColorDownHover = None;
+        BorderColorFocused = None;
+        BorderColorHover = None;
+        Borders = (0, 0, 0, 0);
+        Font = "FFFFORWA.TTF";
+        TextColor = white;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = #FEDEBF;
+        TextColorDownFocused = None;
+        TextColorDownHover = None;
+        TextColorFocused = None;
+        TextColorHover = None;
+        TextStyle = Bold;
+        Texture = "./buttons/blue-button-state-1.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = None;
+        TextureDownFocused = "./buttons/orange-button-state-3.png" Smooth;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "./buttons/orange-button-state-1.png" Smooth;
+    }
+}
+
+Label.settingsLabel {
+    AutoSize = true;
+    HorizontalAlignment = Center;
+    Position = (380, 130);
+    ScrollbarPolicy = Never;
+    Size = (279, 85);
+    Text = SETTINGS;
+    TextSize = 40;
+    VerticalAlignment = Center;
+
+    Renderer {
+        BackgroundColor = transparent;
+        BorderColor = #3C3C3C;
+        Borders = (0, 0, 0, 0);
+        Font = "FFFFORWA.TTF";
+        TextColor = black;
+        TextStyle = Bold;
+        TextureBackground = None;
+
+        Scrollbar {
+            ArrowBackgroundColor = #F5F5F5;
+            ArrowBackgroundColorHover = white;
+            ArrowColor = #3C3C3C;
+            ArrowColorHover = black;
+            TextureArrowDown = None;
+            TextureArrowDownHover = None;
+            TextureArrowUp = None;
+            TextureArrowUpHover = None;
+            TextureThumb = None;
+            TextureThumbHover = None;
+            TextureTrack = None;
+            TextureTrackHover = None;
+            ThumbColor = #DCDCDC;
+            ThumbColorHover = #E6E6E6;
+            TrackColor = #F5F5F5;
+        }
+    }
+}
+
+Group.musicGroup {
+    Position = (330, 330);
+    Size = (380, 70);
+
+    Renderer {
+    }
+
+    Label.musicLabel {
+        Position = (1, 4);
+        Size = (98, 47);
+        Text = MUSIC;
+        TextSize = 16;
+        VerticalAlignment = Center;
+
+        Renderer {
+            BackgroundColor = transparent;
+            BorderColor = #3C3C3C;
+            Borders = (0, 0, 0, 0);
+            Font = "FFFFORWA.TTF";
+            TextColor = #3C3C3C;
+            TextureBackground = None;
+
+            Scrollbar {
+                ArrowBackgroundColor = #F5F5F5;
+                ArrowBackgroundColorHover = white;
+                ArrowColor = #3C3C3C;
+                ArrowColorHover = black;
+                TextureArrowDown = None;
+                TextureArrowDownHover = None;
+                TextureArrowUp = None;
+                TextureArrowUpHover = None;
+                TextureThumb = None;
+                TextureThumbHover = None;
+                TextureTrack = None;
+                TextureTrackHover = None;
+                ThumbColor = #DCDCDC;
+                ThumbColorHover = #E6E6E6;
+                TrackColor = #F5F5F5;
+            }
+        }
+    }
+
+    Slider.musicSlider {
+        ChangeValueOnScroll = true;
+        InvertedDirection = false;
+        Maximum = 10;
+        Minimum = 0;
+        Position = (115, 17.5);
+        Size = (250, 26);
+        Step = 1;
+        Value = 0;
+
+        Renderer {
+            BorderColor = #3C3C3C;
+            BorderColorHover = black;
+            Borders = (1, 1, 1, 1);
+            TextureThumb = None;
+            TextureThumbHover = None;
+            TextureTrack = None;
+            TextureTrackHover = None;
+            ThumbColor = #F5F5F5;
+            ThumbColorHover = white;
+            TrackColor = #F5F5F5;
+            TrackColorHover = white;
+        }
+    }
+}
+
+Group.soundGroup {
+    Position = (330, 250);
+    Size = (380, 70);
+
+    Renderer {
+    }
+
+    Label.soundLabel {
+        Position = (1, 4);
+        Size = (78, 47);
+        Text = SOUND;
+        TextSize = 16;
+        VerticalAlignment = Center;
+
+        Renderer {
+            BackgroundColor = transparent;
+            BorderColor = #3C3C3C;
+            Borders = (0, 0, 0, 0);
+            Font = "FFFFORWA.TTF";
+            TextColor = #3C3C3C;
+            TextureBackground = None;
+
+            Scrollbar {
+                ArrowBackgroundColor = #F5F5F5;
+                ArrowBackgroundColorHover = white;
+                ArrowColor = #3C3C3C;
+                ArrowColorHover = black;
+                TextureArrowDown = None;
+                TextureArrowDownHover = None;
+                TextureArrowUp = None;
+                TextureArrowUpHover = None;
+                TextureThumb = None;
+                TextureThumbHover = None;
+                TextureTrack = None;
+                TextureTrackHover = None;
+                ThumbColor = #DCDCDC;
+                ThumbColorHover = #E6E6E6;
+                TrackColor = #F5F5F5;
+            }
+        }
+    }
+
+    Slider.soundSlider {
+        ChangeValueOnScroll = true;
+        InvertedDirection = false;
+        Maximum = 10;
+        Minimum = 0;
+        Position = (115, 17.5);
+        Size = (250, 26);
+        Step = 1;
+        Value = 0;
+
+        Renderer {
+            BorderColor = #3C3C3C;
+            BorderColorHover = black;
+            Borders = (1, 1, 1, 1);
+            TextureThumb = None;
+            TextureThumbHover = None;
+            TextureTrack = None;
+            TextureTrackHover = None;
+            ThumbColor = #F5F5F5;
+            ThumbColorHover = white;
+            TrackColor = #F5F5F5;
+            TrackColorHover = white;
+        }
+    }
+}

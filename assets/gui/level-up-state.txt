@@ -1,0 +1,51 @@
+Panel.Panel1 {
+    Size = (1024, 768);
+
+    Renderer {
+        BackgroundColor = black;
+        BorderColor = black;
+        Opacity = 0.4;
+        TextureBackground = None;
+    }
+}
+
+Label.levelLabel {
+    AutoSize = true;
+    HorizontalAlignment = Center;
+    Position = (270, 280);
+    ScrollbarPolicy = Never;
+    Size = (500.2, 129);
+    Text = "LEVEL 1";
+    TextSize = 60;
+    VerticalAlignment = Center;
+
+    Renderer {
+        BackgroundColor = transparent;
+        BorderColor = #3C3C3C;
+        Borders = (0, 0, 0, 0);
+        Font = "FFFFORWA.TTF";
+        TextColor = white;
+        TextOutlineColor = black;
+        TextOutlineThickness = 2;
+        TextStyle = Bold;
+        TextureBackground = None;
+
+        Scrollbar {
+            ArrowBackgroundColor = #F5F5F5;
+            ArrowBackgroundColorHover = white;
+            ArrowColor = #3C3C3C;
+            ArrowColorHover = black;
+            TextureArrowDown = None;
+            TextureArrowDownHover = None;
+            TextureArrowUp = None;
+            TextureArrowUpHover = None;
+            TextureThumb = None;
+            TextureThumbHover = None;
+            TextureTrack = None;
+            TextureTrackHover = None;
+            ThumbColor = #DCDCDC;
+            ThumbColorHover = #E6E6E6;
+            TrackColor = #F5F5F5;
+        }
+    }
+}

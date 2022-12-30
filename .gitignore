@@ -1,1 +1,4 @@
 build/
+.vs/
+.vscode/
+openal32.dll
