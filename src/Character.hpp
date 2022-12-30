@@ -42,4 +42,5 @@ class Character : public Entity {
     bool mIsMoving;
     bool mShowExplosion;
     bool mPlayedExplosionSound;
+    Direction lastDirection;
 };
