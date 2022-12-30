@@ -18,7 +18,7 @@ class Character : public Entity {
     };
 
    public:
-    Character(unsigned type);
+    Character();
     virtual unsigned int getCategory() const override;
     virtual sf::FloatRect getBoundingRect() const override;
     virtual bool isMarkedForRemoval() const override;
@@ -42,5 +42,5 @@ class Character : public Entity {
     bool mIsMoving;
     bool mShowExplosion;
     bool mPlayedExplosionSound;
-    unsigned mType;
+    Direction lastDirection;
 };

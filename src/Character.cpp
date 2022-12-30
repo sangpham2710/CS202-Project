@@ -9,18 +9,18 @@
 #include "SoundNode.hpp"
 #include "TexturesSingleton.hpp"
 #include "Utility.hpp"
+#include "SettingsSingleton.hpp"
 
 namespace {
 const std::vector<CharacterData> Table = initializeCharacterData();
 }
 
-Character::Character(unsigned type)
+Character::Character()
     : mIsMoving(false),
       mShowExplosion(true),
-      mType(type),
       mPlayedExplosionSound(false) {
     mAnimation.setTexture(TexturesSingleton::getInstance().getTextures().get(
-        Table[mType * (unsigned)Character::Direction::TypeCount +
+        Table[SettingsSingleton::getInstance().getCharacterType() * (unsigned)Character::Direction::TypeCount +
               (unsigned)Character::Direction::CharacterUp]
             .texture));
     mAnimation.setFrameSize(sf::Vector2i(64, 64));
@@ -34,6 +34,7 @@ Character::Character(unsigned type)
     mExplosion.setNumFrames(16);
     mExplosion.setDuration(sf::seconds(1));
     centerOrigin(mExplosion);
+    lastDirection = Direction::CharacterUp;
 }
 
 unsigned int Character::getCategory() const {
@@ -86,6 +87,12 @@ void Character::updateCurrent(sf::Time dt, CommandQueue& commands) {
                         Constants::BLOCK_SIZE / 2);
         mAnimation.restart();
     }
+
+    mAnimation.setTexture(TexturesSingleton::getInstance().getTextures().get(
+        Table[SettingsSingleton::getInstance().getCharacterType() * (unsigned)Character::Direction::TypeCount +
+        (unsigned)lastDirection]
+        .texture));
+
     Entity::updateCurrent(dt, commands);
 }
 
@@ -108,10 +115,8 @@ void Character::moveUp() {
     float velocityY = -Constants::BLOCK_SIZE;
     this->setVelocity(velocityX / Constants::MOVE_ANIMATION_DURATION,
                       velocityY / Constants::MOVE_ANIMATION_DURATION);
-    mAnimation.setTexture(TexturesSingleton::getInstance().getTextures().get(
-        Table[mType * (unsigned)Character::Direction::TypeCount +
-              (unsigned)Character::Direction::CharacterUp]
-            .texture));
+
+    lastDirection = Direction::CharacterUp;
 }
 
 void Character::moveDown() {
@@ -122,10 +127,7 @@ void Character::moveDown() {
     this->setVelocity(velocityX / Constants::MOVE_ANIMATION_DURATION,
                       velocityY / Constants::MOVE_ANIMATION_DURATION);
 
-    mAnimation.setTexture(TexturesSingleton::getInstance().getTextures().get(
-        Table[mType * (unsigned)Character::Direction::TypeCount +
-              (unsigned)Character::Direction::CharacterDown]
-            .texture));
+    lastDirection = Direction::CharacterDown;
 }
 
 void Character::moveLeft() {
@@ -135,10 +137,8 @@ void Character::moveLeft() {
     float velocityY = 0.0f;
     this->setVelocity(velocityX / Constants::MOVE_ANIMATION_DURATION,
                       velocityY / Constants::MOVE_ANIMATION_DURATION);
-    mAnimation.setTexture(TexturesSingleton::getInstance().getTextures().get(
-        Table[mType * (unsigned)Character::Direction::TypeCount +
-              (unsigned)Character::Direction::CharacterLeft]
-            .texture));
+
+    lastDirection = Direction::CharacterLeft;
 }
 
 void Character::moveRight() {
@@ -148,10 +148,8 @@ void Character::moveRight() {
     float velocityY = 0.0f;
     this->setVelocity(velocityX / Constants::MOVE_ANIMATION_DURATION,
                       velocityY / Constants::MOVE_ANIMATION_DURATION);
-    mAnimation.setTexture(TexturesSingleton::getInstance().getTextures().get(
-        Table[mType * (unsigned)Character::Direction::TypeCount +
-              (unsigned)Character::Direction::CharacterRight]
-            .texture));
+
+    lastDirection = Direction::CharacterRight;
 }
 
 void Character::playLocalSound(CommandQueue& commands, SoundEffect::ID effect) {
