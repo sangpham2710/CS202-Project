@@ -37,8 +37,24 @@ LoadGameState::LoadGameState(StateStack& stack, Context context)
         mCommandQueue.push(command);
     };
 
+    auto playButtonClickSound = [&] {
+        Command command;
+        command.category = Category::SoundEffect;
+        command.action =
+            derivedAction<SoundNode>([&](SoundNode& node, sf::Time) {
+            node.playSound(SoundEffect::ButtonClick,
+                { 0.5 * Constants::SCREEN_WIDTH,
+                 0.5 * Constants::SCREEN_HEIGHT });
+                });
+        mCommandQueue.push(command);
+    };
+
     loadButton->onMouseEnter(playButtonHoverSound);
+    loadButton->onPress(playButtonClickSound);
+
     backButton->onMouseEnter(playButtonHoverSound);
+    backButton->onPress(playButtonClickSound);
+
 
     alignCenter(loadGameLabel, window);
     alignCenter(inputLabel, window);
