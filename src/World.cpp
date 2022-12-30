@@ -27,7 +27,9 @@ World::World(sf::RenderWindow& window, FontHolder& fonts, SoundPlayer& sounds)
           Constants::BLOCK_SIZE * 8 + Constants::BLOCK_SIZE / 2,
           Constants::LANE_HEIGHT * 11 + Constants::LANE_HEIGHT / 2.f),
       mViewPosition(mWorldView.getSize().x / 2.f, mWorldView.getSize().y / 2.f),
-      mPlayerCharacter(nullptr) {
+      mPlayerCharacter(nullptr),
+      mLevelManager(),
+      mCommandQueue() {
     buildScene();
     mWorldView.setCenter(mViewPosition);
 }
@@ -41,6 +43,10 @@ void World::update(sf::Time dt) {
     mSceneGraph.removeWrecks();
     mSceneGraph.update(dt, mCommandQueue);
     adaptPlayerPosition();
+    if (SettingsSingleton::getInstance().getIsLevelSaving()) {
+        mLevelManager.saveLevel();
+        SettingsSingleton::getInstance().setIsLevelSaving(false);
+    }
 }
 
 void World::draw() {
@@ -142,8 +148,15 @@ void World::buildScene() {
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
     mLevelManager.setLevelNode(mSceneLayers[LevelLayer]);
-    mLevelManager.generateLevel(
-        SettingsSingleton::getInstance().getCurrentLevelNumber());
+
+    if (SettingsSingleton::getInstance().getIsLevelLoaded()) {
+        mLevelManager.loadLevel(
+            SettingsSingleton::getInstance().getLoadingLevelFilename());
+        SettingsSingleton::getInstance().setIsLevelLoaded(false);
+    } else {
+        mLevelManager.generateLevel(
+            SettingsSingleton::getInstance().getCurrentLevelNumber());
+    }
 
     std::unique_ptr<Character> character(
         new Character(SettingsSingleton::getInstance().getCharacterType()));

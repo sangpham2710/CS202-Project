@@ -1,39 +1,42 @@
 #include "ChooseCharacterState.hpp"
 
-#include <iostream>
-
+#include "Constants.hpp"
+#include "SoundNode.hpp"
 #include "Utility.hpp"
+
 ChooseCharacterState::ChooseCharacterState(StateStack& stack, Context context)
-    : State(stack, context) {
+    : State(stack, context), mSceneGraph(), mCommandQueue() {
     sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/choose-character-state.txt");
 
-    auto characterLabel = gui->get<tgui::Label>("characterLabel");
-    auto character1 = gui->get<tgui::Button>("character1");
-    auto character2 = gui->get<tgui::Button>("character2");
-    auto character3 = gui->get<tgui::Button>("character3");
-    auto character4 = gui->get<tgui::Button>("character4");
-    auto character5 = gui->get<tgui::Button>("character5");
-    auto backButton = gui->get<tgui::Button>("backButton");
+#define characterLabel gui->get<tgui::Label>("characterLabel")
+#define character1 gui->get<tgui::Button>("character1")
+#define character2 gui->get<tgui::Button>("character2")
+#define character3 gui->get<tgui::Button>("character3")
+#define character4 gui->get<tgui::Button>("character4")
+#define character5 gui->get<tgui::Button>("character5")
+#define backButton gui->get<tgui::Button>("backButton")
 
     alignCenter(characterLabel, window);
     alignCenter(backButton, window);
-    alignCenter(character2, window);
 
-    character2->setPosition(character2->getPosition().x - 20,
-                            character2->getPosition().y);
-    character1->setPosition(character2->getPosition().x - 250,
-                            character2->getPosition().y);
-    character3->setPosition(character2->getPosition().x + 250,
-                            character2->getPosition().y);
+    std::unique_ptr<SoundNode> soundNode(new SoundNode(*getContext().sounds));
+    mSceneGraph.attachChild(std::move(soundNode));
 
-    alignCenter(character4, window);
-    alignCenter(character5, window);
+    auto playButtonHoverSound = [&] {
+        Command command;
+        command.category = Category::SoundEffect;
+        command.action =
+            derivedAction<SoundNode>([&](SoundNode& node, sf::Time) {
+                node.playSound(SoundEffect::ButtonHover,
+                               {0.5 * Constants::SCREEN_WIDTH,
+                                0.5 * Constants::SCREEN_HEIGHT});
+            });
+        mCommandQueue.push(command);
+    };
 
-    character4->setPosition(character4->getPosition().x - 150,
-                            character4->getPosition().y);
-    character5->setPosition(character5->getPosition().x + 110,
-                            character5->getPosition().y);
+    backButton->onMouseEnter(playButtonHoverSound);
+
 
     backButton->onPress([&] { requestStackPop(); });
 
@@ -89,6 +92,14 @@ ChooseCharacterState::ChooseCharacterState(StateStack& stack, Context context)
             character5->getRenderer()->setBorderColor(color);
         } break;
     }
+
+#undef characterLabel
+#undef character1
+#undef character2
+#undef character3
+#undef character4
+#undef character5
+#undef backButton
 }
 
 void ChooseCharacterState::draw() {
@@ -96,6 +107,9 @@ void ChooseCharacterState::draw() {
 }
 
 bool ChooseCharacterState::update(sf::Time dt) {
+    while (!mCommandQueue.isEmpty()) {
+        mSceneGraph.onCommand(mCommandQueue.pop(), dt);
+    }
     return true;
 }
 

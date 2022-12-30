@@ -16,7 +16,7 @@ class LevelManager {
     void setLevelNode(SceneNode* levelNode);
 
     void generateLevel(int levelNumber);
-    void saveLevel(const std::string& filename) const;
+    void saveLevel() const;
     void loadLevel(const std::string& filename);
     void prepareLevel(int levelNumber);
     float calcLevelObstacleSpeed(int levelNumber) const;

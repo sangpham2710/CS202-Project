@@ -9,9 +9,47 @@ Panel.Panel1 {
 }
 
 Button.playButton {
-    Position = (410, 270);
+    Position = (410, 280);
     Size = (200, 60);
     Text = PLAY;
+    TextSize = 20;
+
+    Renderer {
+        BackgroundColor = #7750FF;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = None;
+        BorderColor = None;
+        BorderColorDisabled = None;
+        BorderColorDown = None;
+        BorderColorDownFocused = None;
+        BorderColorDownHover = None;
+        BorderColorFocused = None;
+        BorderColorHover = None;
+        Borders = (0, 0, 0, 0);
+        Font = "FFFFORWA.TTF";
+        TextColor = white;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = #FEDEBF;
+        TextColorDownFocused = None;
+        TextColorDownHover = None;
+        TextColorFocused = None;
+        TextColorHover = None;
+        TextStyle = Bold;
+        Texture = "./buttons/blue-button-state-1.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = None;
+        TextureDownFocused = "./buttons/orange-button-state-3.png" Smooth;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "./buttons/orange-button-state-1.png" Smooth;
+    }
+}
+
+Button.loadButton {
+    Position = (410, 360);
+    Size = (200, 60);
+    Text = "LOAD GAME";
     TextSize = 20;
 
     Renderer {
@@ -49,11 +87,11 @@ Button.playButton {
 Label.menuLabel {
     AutoSize = true;
     HorizontalAlignment = Center;
-    Position = (200, 80);
+    Position = (70, 20);
     ScrollbarPolicy = Never;
-    Size = (670.2, 129);
+    Size = (883, 170);
     Text = "CROSSING ROAD";
-    TextSize = 60;
+    TextSize = 80;
     VerticalAlignment = Center;
 
     Renderer {
@@ -88,7 +126,7 @@ Label.menuLabel {
 }
 
 Button.settingsButton {
-    Position = (410, 360);
+    Position = (410, 440);
     Size = (200, 60);
     Text = SETTINGS;
     TextSize = 20;
@@ -126,7 +164,7 @@ Button.settingsButton {
 }
 
 Button.exitButton {
-    Position = (410, 450);
+    Position = (410, 520);
     Size = (200, 60);
     Text = EXIT;
     TextSize = 20;

@@ -1,7 +1,5 @@
 #include "TitleState.hpp"
 
-#include <iostream>
-
 #include "Utility.hpp"
 
 TitleState::TitleState(StateStack& stack, Context context)
@@ -9,8 +7,9 @@ TitleState::TitleState(StateStack& stack, Context context)
     sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/title-state.txt");
 
-    auto titlelabel = gui->get<tgui::Label>("titleLabel");
-    alignCenter(titlelabel, window);
+#define titleLabel gui->get<tgui::Label>("titleLabel")
+    alignCenter(titleLabel, window);
+#undef titleLabel
 }
 
 void TitleState::draw() {
@@ -24,24 +23,25 @@ void TitleState::draw() {
 }
 
 bool TitleState::update(sf::Time dt) {
-    auto titlelabel = gui->get<tgui::Label>("titleLabel");
-    float currentOpacity = titlelabel->getInheritedOpacity();
+#define titleLabel gui->get<tgui::Label>("titleLabel")
+    float currentOpacity = titleLabel->getInheritedOpacity();
     if (isIncreasing) {
         currentOpacity += (float)dt.asSeconds();
-        titlelabel->setInheritedOpacity(currentOpacity);
+        titleLabel->setInheritedOpacity(currentOpacity);
         if (currentOpacity > 1) {
             isIncreasing = false;
-            titlelabel->setInheritedOpacity(1.0);
+            titleLabel->setInheritedOpacity(1.0);
         }
     } else {
         currentOpacity -= (float)dt.asSeconds();
-        titlelabel->setInheritedOpacity(currentOpacity);
+        titleLabel->setInheritedOpacity(currentOpacity);
         if (currentOpacity < 0) {
             isIncreasing = true;
-            titlelabel->setInheritedOpacity(0.0);
+            titleLabel->setInheritedOpacity(0.0);
         }
     }
     return true;
+#undef titleLabel
 }
 
 bool TitleState::handleEvent(const sf::Event& event) {

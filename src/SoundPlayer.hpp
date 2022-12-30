@@ -20,9 +20,10 @@ class SoundPlayer : private sf::NonCopyable {
     void removeStoppedSounds();
     void setListenerPosition(sf::Vector2f position);
     sf::Vector2f getListenerPosition() const;
-
+    void setVolume(float volume);
 
    private:
     SoundBufferHolder mSoundBuffers;
     std::list<sf::Sound> mSounds;
+    float mVolume;
 };
