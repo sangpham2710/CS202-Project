@@ -9,18 +9,18 @@
 #include "SoundNode.hpp"
 #include "TexturesSingleton.hpp"
 #include "Utility.hpp"
+#include "SettingsSingleton.hpp"
 
 namespace {
 const std::vector<CharacterData> Table = initializeCharacterData();
 }
 
-Character::Character(unsigned type)
+Character::Character()
     : mIsMoving(false),
       mShowExplosion(true),
-      mType(type),
       mPlayedExplosionSound(false) {
     mAnimation.setTexture(TexturesSingleton::getInstance().getTextures().get(
-        Table[mType * (unsigned)Character::Direction::TypeCount +
+        Table[SettingsSingleton::getInstance().getCharacterType() * (unsigned)Character::Direction::TypeCount +
               (unsigned)Character::Direction::CharacterUp]
             .texture));
     mAnimation.setFrameSize(sf::Vector2i(64, 64));
@@ -109,7 +109,7 @@ void Character::moveUp() {
     this->setVelocity(velocityX / Constants::MOVE_ANIMATION_DURATION,
                       velocityY / Constants::MOVE_ANIMATION_DURATION);
     mAnimation.setTexture(TexturesSingleton::getInstance().getTextures().get(
-        Table[mType * (unsigned)Character::Direction::TypeCount +
+        Table[SettingsSingleton::getInstance().getCharacterType() * (unsigned)Character::Direction::TypeCount +
               (unsigned)Character::Direction::CharacterUp]
             .texture));
 }
@@ -123,7 +123,7 @@ void Character::moveDown() {
                       velocityY / Constants::MOVE_ANIMATION_DURATION);
 
     mAnimation.setTexture(TexturesSingleton::getInstance().getTextures().get(
-        Table[mType * (unsigned)Character::Direction::TypeCount +
+        Table[SettingsSingleton::getInstance().getCharacterType() * (unsigned)Character::Direction::TypeCount +
               (unsigned)Character::Direction::CharacterDown]
             .texture));
 }
@@ -136,7 +136,7 @@ void Character::moveLeft() {
     this->setVelocity(velocityX / Constants::MOVE_ANIMATION_DURATION,
                       velocityY / Constants::MOVE_ANIMATION_DURATION);
     mAnimation.setTexture(TexturesSingleton::getInstance().getTextures().get(
-        Table[mType * (unsigned)Character::Direction::TypeCount +
+        Table[SettingsSingleton::getInstance().getCharacterType() * (unsigned)Character::Direction::TypeCount +
               (unsigned)Character::Direction::CharacterLeft]
             .texture));
 }
@@ -149,7 +149,7 @@ void Character::moveRight() {
     this->setVelocity(velocityX / Constants::MOVE_ANIMATION_DURATION,
                       velocityY / Constants::MOVE_ANIMATION_DURATION);
     mAnimation.setTexture(TexturesSingleton::getInstance().getTextures().get(
-        Table[mType * (unsigned)Character::Direction::TypeCount +
+        Table[SettingsSingleton::getInstance().getCharacterType() * (unsigned)Character::Direction::TypeCount +
               (unsigned)Character::Direction::CharacterRight]
             .texture));
 }

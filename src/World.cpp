@@ -159,7 +159,7 @@ void World::buildScene() {
     }
 
     std::unique_ptr<Character> character(
-        new Character(SettingsSingleton::getInstance().getCharacterType()));
+        new Character());
     character->setPosition(mSpawnPosition);
     mPlayerCharacter = character.get();
     mSceneLayers[CharacterLayer]->attachChild(std::move(character));
