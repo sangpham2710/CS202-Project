@@ -98,7 +98,7 @@ TexturesSingleton::TexturesSingleton() : mTextures() {
                    "./assets/textures/vehicles/yellow-car-left.png");
     mTextures.load(Textures::YellowCarRight,
                    "./assets/textures/vehicles/yellow-car-right.png");
-    mTextures.load(Textures::Grass, "./assets/textures/lanes/grass-2.png");
+    mTextures.load(Textures::Grass, "./assets/textures/lanes/dirt-path.png");
     mTextures.load(Textures::Railway, "./assets/textures/lanes/railway.png");
     mTextures.load(Textures::WaterSingle,
                    "./assets/textures/objects/water-single.png");
