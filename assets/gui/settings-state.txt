@@ -23,6 +23,17 @@ Panel.Panel1 {
         BorderColor = black;
         TextureBackground = "background/test-3.png" Smooth;
     }
+
+    Panel.Panel2 {
+        Position = (310, 220);
+        Size = (410, 410);
+
+        Renderer {
+            BackgroundColor = white;
+            BorderColor = black;
+            TextureBackground = "background buttons/box-8.png" Smooth;
+        }
+    }
 }
 
 Button.characterButton {

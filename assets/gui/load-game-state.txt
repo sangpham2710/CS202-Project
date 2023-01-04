@@ -6,6 +6,17 @@ Panel.Panel1 {
         BorderColor = black;
         TextureBackground = "background/test-3.png" Smooth;
     }
+
+    Panel.Panel2 {
+        Position = (200, 300);
+        Size = (720, 190);
+
+        Renderer {
+            BackgroundColor = white;
+            BorderColor = black;
+            TextureBackground = "background buttons/box-8.png" Smooth;
+        }
+    }
 }
 
 Label.loadGameLabel {

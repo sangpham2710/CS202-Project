@@ -6,6 +6,17 @@ Panel.Panel1 {
         BorderColor = black;
         TextureBackground = "./background/menu-state.png" Smooth;
     }
+
+    Panel.Panel2 {
+        Position = (380, 250);
+        Size = (250, 350);
+
+        Renderer {
+            BackgroundColor = white;
+            BorderColor = black;
+            TextureBackground = "background buttons/box-9.png" Smooth;
+        }
+    }
 }
 
 Button.playButton {
