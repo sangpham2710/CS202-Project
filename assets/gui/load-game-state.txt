@@ -4,7 +4,7 @@ Panel.Panel1 {
     Renderer {
         BackgroundColor = white;
         BorderColor = black;
-        TextureBackground = None;
+        TextureBackground = "background/test-3.png" Smooth;
     }
 }
 
