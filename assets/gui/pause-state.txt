@@ -10,8 +10,8 @@ Panel.Panel1 {
     }
 
     Panel.buttonPanel {
-        Position = (360, 250);
-        Size = (300, 360);
+        Position = (370, 250);
+        Size = (280, 360);
 
         Renderer {
             BackgroundColor = white;
