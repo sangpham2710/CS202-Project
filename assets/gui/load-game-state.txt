@@ -7,9 +7,9 @@ Panel.Panel1 {
         TextureBackground = "background/test-3.png" Smooth;
     }
 
-    Panel.Panel2 {
-        Position = (200, 300);
-        Size = (720, 190);
+    Panel.buttonPanel {
+        Position = (300, 300);
+        Size = (500, 190);
 
         Renderer {
             BackgroundColor = white;

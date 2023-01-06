@@ -4,7 +4,7 @@ Panel.characterPanel {
     Renderer {
         BackgroundColor = white;
         BorderColor = black;
-        TextureBackground = "background/test-2.jpg" Smooth;
+        TextureBackground = "background/test-4.jpg" Smooth;
     }
 
     Button.character1 {

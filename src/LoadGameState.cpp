@@ -21,6 +21,7 @@ LoadGameState::LoadGameState(StateStack& stack, Context context)
 #define loadButton gui->get<tgui::Button>("loadButton")
 #define chooseButton gui->get<tgui::Button>("chooseButton")
 #define backButton gui->get<tgui::Button>("backButton")
+#define buttonPanel gui->get<tgui::Panel>("buttonPanel")
 
     std::unique_ptr<SoundNode> soundNode(new SoundNode(*getContext().sounds));
     mSceneGraph.attachChild(std::move(soundNode));
@@ -40,6 +41,7 @@ LoadGameState::LoadGameState(StateStack& stack, Context context)
     loadButton->onMouseEnter(playButtonHoverSound);
     backButton->onMouseEnter(playButtonHoverSound);
 
+    alignCenter(buttonPanel, window);
     alignCenter(loadGameLabel, window);
     alignCenter(inputLabel, window);
     alignCenter(inputBox, window);

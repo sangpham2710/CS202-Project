@@ -24,8 +24,8 @@ Panel.Panel1 {
         TextureBackground = "background/test-3.png" Smooth;
     }
 
-    Panel.Panel2 {
-        Position = (310, 220);
+    Panel.buttonPanel {
+        Position = (310, 210);
         Size = (410, 410);
 
         Renderer {
