@@ -6,11 +6,25 @@ Panel.Panel1 {
         BorderColor = black;
         Opacity = 0.4;
         TextureBackground = None;
+        TransparentTexture = false;
+    }
+
+    Panel.buttonPanel {
+        Position = (370, 250);
+        Size = (280, 360);
+
+        Renderer {
+            BackgroundColor = white;
+            BorderColor = black;
+            Opacity = 0.7;
+            TextureBackground = "background buttons/box-10.png" Smooth;
+            TransparentTexture = false;
+        }
     }
 }
 
 Button.continueButton {
-    Position = (410, 270);
+    Position = (410, 280);
     Size = (200, 60);
     Text = CONTINUE;
     TextSize = 20;
@@ -50,7 +64,7 @@ Button.continueButton {
 Button.saveButton {
     Position = (410, 360);
     Size = (200, 60);
-    Text = SAVE GAME;
+    Text = "SAVE GAME";
     TextSize = 20;
 
     Renderer {
@@ -165,7 +179,7 @@ Button.settingsButton {
 }
 
 Button.backToMenuButton {
-    Position = (410,520);
+    Position = (410, 520);
     Size = (200, 60);
     Text = MENU;
     TextSize = 20;

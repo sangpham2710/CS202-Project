@@ -16,6 +16,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 #define loadButton gui->get<tgui::Button>("loadButton")
 #define settingsButton gui->get<tgui::Button>("settingsButton")
 #define exitButton gui->get<tgui::Button>("exitButton")
+#define menuPanel gui->get<tgui::Panel>("menuPanel")
 
     auto playButtonHoverSound = [&] {
         getContext().sounds->play(SoundEffect::ButtonHover);

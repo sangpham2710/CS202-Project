@@ -4,7 +4,19 @@ Panel.Panel1 {
     Renderer {
         BackgroundColor = white;
         BorderColor = black;
-        TextureBackground = "./background/menu-state.png" Smooth;
+        TextureBackground = "background/test-1.jpg" Smooth;
+    }
+
+    Panel.menuPanel {
+        Position = (380, 250);
+        Size = (260, 350);
+
+        Renderer {
+            BackgroundColor = white;
+            BorderColor = black;
+            Opacity = 0.7;
+            TextureBackground = "background buttons/box-8.png" Smooth;
+        }
     }
 }
 

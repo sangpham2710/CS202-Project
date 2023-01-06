@@ -16,11 +16,11 @@ LoadGameState::LoadGameState(StateStack& stack, Context context)
 #define loadGameLabel gui->get<tgui::Label>("loadGameLabel")
 #define inputLabel gui->get<tgui::Label>("inputLabel")
 #define inputBox gui->get<tgui::EditBox>("inputBox")
-#define statusLabel gui->get<tgui::Label>("statusLabel")
 #define loadGroup gui->get<tgui::Group>("loadGroup")
 #define loadButton gui->get<tgui::Button>("loadButton")
 #define chooseButton gui->get<tgui::Button>("chooseButton")
 #define backButton gui->get<tgui::Button>("backButton")
+#define buttonPanel gui->get<tgui::Panel>("buttonPanel")
 
     auto playButtonHoverSound = [&] {
         getContext().sounds->play(SoundEffect::ButtonHover);
@@ -29,13 +29,13 @@ LoadGameState::LoadGameState(StateStack& stack, Context context)
     loadButton->onMouseEnter(playButtonHoverSound);
     backButton->onMouseEnter(playButtonHoverSound);
 
+    alignCenter(buttonPanel, window);
     alignCenter(loadGameLabel, window);
     alignCenter(inputLabel, window);
     alignCenter(inputBox, window);
     alignCenter(loadGroup, window);
     alignCenter(backButton, window);
 
-    statusLabel->setInheritedOpacity(0.0);
     loadButton->onPress([&] {
         getContext().sounds->play(SoundEffect::ButtonClick);
         requestStackPop();
@@ -75,7 +75,6 @@ LoadGameState::LoadGameState(StateStack& stack, Context context)
 #undef loadGameLabel
 #undef inputLabel
 #undef inputBox
-#undef statusLabel
 #undef loadButton
 #undef chooseButton
 #undef backButton

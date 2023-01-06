@@ -4,7 +4,19 @@ Panel.Panel1 {
     Renderer {
         BackgroundColor = white;
         BorderColor = black;
-        TextureBackground = None;
+        TextureBackground = "background/test-3.png" Smooth;
+    }
+
+    Panel.buttonPanel {
+        Position = (300, 300);
+        Size = (500, 200);
+
+        Renderer {
+            BackgroundColor = white;
+            BorderColor = black;
+            Opacity = 0.7;
+            TextureBackground = "background buttons/box-8.png" Smooth;
+        }
     }
 }
 
@@ -86,7 +98,7 @@ Button.backButton {
 }
 
 EditBox.inputBox {
-    Position = (330, 360);
+    Position = (340, 370);
     Size = (430, 30.75);
     TextSize = 13;
 
@@ -114,10 +126,11 @@ EditBox.inputBox {
 }
 
 Label.inputLabel {
-    Position = (471, 314);
-    Size = (158, 37);
+    AutoSize = true;
+    Position = (441, 314);
+    Size = (227.4, 39);
     Text = "INPUT GAME PATH";
-    TextSize = 12;
+    TextSize = 18;
     VerticalAlignment = Center;
 
     Renderer {
@@ -125,42 +138,7 @@ Label.inputLabel {
         BorderColor = #3C3C3C;
         Borders = (0, 0, 0, 0);
         Font = "FFFFORWA.TTF";
-        TextColor = #3C3C3C;
-        TextureBackground = None;
-
-        Scrollbar {
-            ArrowBackgroundColor = #F5F5F5;
-            ArrowBackgroundColorHover = white;
-            ArrowColor = #3C3C3C;
-            ArrowColorHover = black;
-            TextureArrowDown = None;
-            TextureArrowDownHover = None;
-            TextureArrowUp = None;
-            TextureArrowUpHover = None;
-            TextureThumb = None;
-            TextureThumbHover = None;
-            TextureTrack = None;
-            TextureTrackHover = None;
-            ThumbColor = #DCDCDC;
-            ThumbColorHover = #E6E6E6;
-            TrackColor = #F5F5F5;
-        }
-    }
-}
-
-Label.statusLabel {
-    AutoSize = true;
-    Position = (770, 360);
-    Size = (141.4, 23);
-    Text = "Path does not exist !";
-    TextSize = 10;
-
-    Renderer {
-        BackgroundColor = transparent;
-        BorderColor = #3C3C3C;
-        Borders = (0, 0, 0, 0);
-        Font = "FFFFORWA.TTF";
-        TextColor = #FF1615;
+        TextColor = black;
         TextureBackground = None;
 
         Scrollbar {

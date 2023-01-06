@@ -15,22 +15,30 @@ PauseState::PauseState(StateStack& stack, Context context)
 #define saveButton gui->get<tgui::Button>("saveButton")
 #define settingsButton gui->get<tgui::Button>("settingsButton")
 #define backToMenuButton gui->get<tgui::Button>("backToMenuButton")
+#define buttonPanel gui->get<tgui::Panel>("buttonPanel")
 
-    alignCenter(pauseLabel, window);
-    alignCenter(continueButton, window);
-    alignCenter(saveButton, window);
-    alignCenter(settingsButton, window);
-    alignCenter(backToMenuButton, window);
+  alignCenter(buttonPanel, window);
+  alignCenter(pauseLabel, window);
+  alignCenter(continueButton, window);
+  alignCenter(saveButton, window);
+  alignCenter(settingsButton, window);
+  alignCenter(backToMenuButton, window);
 
     auto playButtonHoverSound = [&] {
         getContext().sounds->play(SoundEffect::ButtonHover);
     };
 
-    continueButton->onMouseEnter(playButtonHoverSound);
-    saveButton->onMouseEnter(playButtonHoverSound);
-    settingsButton->onMouseEnter(playButtonHoverSound);
-    backToMenuButton->onMouseEnter(playButtonHoverSound);
+  continueButton->onMouseEnter(playButtonHoverSound);
+  saveButton->onMouseEnter(playButtonHoverSound);
+  settingsButton->onMouseEnter(playButtonHoverSound);
+  backToMenuButton->onMouseEnter(playButtonHoverSound);
 
+  continueButton->onPress([&] { requestStackPop(); });
+  saveButton->onPress([&] {
+    SettingsSingleton::getInstance().setIsLevelSaving(true);
+    requestStackPop();
+  });
+  settingsButton->onPress([&] { requestStackPush(States::Settings); });
 
     continueButton->onPress([&] {
         getContext().sounds->play(SoundEffect::ButtonClick);
@@ -59,15 +67,13 @@ PauseState::PauseState(StateStack& stack, Context context)
 #undef backToMenuButton
 }
 
-void PauseState::draw() {
-    gui->draw();
-}
+void PauseState::draw() { gui->draw(); }
 
 bool PauseState::update(sf::Time dt) {
     return false;
 }
 
 bool PauseState::handleEvent(const sf::Event& event) {
-    gui->handleEvent(event);
-    return false;
+  gui->handleEvent(event);
+  return false;
 }

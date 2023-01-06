@@ -1,10 +1,39 @@
+Renderer.1 {
+}
+
+Renderer.2 {
+    BorderColor = #3C3C3C;
+    BorderColorHover = black;
+    Borders = (1, 1, 1, 1);
+    TextureThumb = None;
+    TextureThumbHover = None;
+    TextureTrack = None;
+    TextureTrackHover = None;
+    ThumbColor = #F5F5F5;
+    ThumbColorHover = white;
+    TrackColor = #F5F5F5;
+    TrackColorHover = white;
+}
+
 Panel.Panel1 {
     Size = (1024, 768);
 
     Renderer {
         BackgroundColor = white;
         BorderColor = black;
-        TextureBackground = None;
+        TextureBackground = "background/test-3.png" Smooth;
+    }
+
+    Panel.buttonPanel {
+        Position = (310, 220);
+        Size = (410, 400);
+
+        Renderer {
+            BackgroundColor = white;
+            BorderColor = black;
+            Opacity = 0.7;
+            TextureBackground = "background buttons/box-8.png" Smooth;
+        }
     }
 }
 
@@ -87,11 +116,11 @@ Button.backButton {
 Label.settingsLabel {
     AutoSize = true;
     HorizontalAlignment = Center;
-    Position = (380, 130);
+    Position = (320, 40);
     ScrollbarPolicy = Never;
-    Size = (279, 85);
+    Size = (416.2, 129);
     Text = SETTINGS;
-    TextSize = 40;
+    TextSize = 60;
     VerticalAlignment = Center;
 
     Renderer {
@@ -125,10 +154,8 @@ Label.settingsLabel {
 
 Group.musicGroup {
     Position = (330, 330);
+    Renderer = &1;
     Size = (380, 70);
-
-    Renderer {
-    }
 
     Label.musicLabel {
         Position = (1, 4);
@@ -171,32 +198,17 @@ Group.musicGroup {
         Maximum = 10;
         Minimum = 0;
         Position = (115, 17.5);
+        Renderer = &2;
         Size = (250, 26);
         Step = 1;
         Value = 0;
-
-        Renderer {
-            BorderColor = #3C3C3C;
-            BorderColorHover = black;
-            Borders = (1, 1, 1, 1);
-            TextureThumb = None;
-            TextureThumbHover = None;
-            TextureTrack = None;
-            TextureTrackHover = None;
-            ThumbColor = #F5F5F5;
-            ThumbColorHover = white;
-            TrackColor = #F5F5F5;
-            TrackColorHover = white;
-        }
     }
 }
 
 Group.soundGroup {
     Position = (330, 250);
+    Renderer = &1;
     Size = (380, 70);
-
-    Renderer {
-    }
 
     Label.soundLabel {
         Position = (1, 4);
@@ -239,22 +251,9 @@ Group.soundGroup {
         Maximum = 10;
         Minimum = 0;
         Position = (115, 17.5);
+        Renderer = &2;
         Size = (250, 26);
         Step = 1;
         Value = 0;
-
-        Renderer {
-            BorderColor = #3C3C3C;
-            BorderColorHover = black;
-            Borders = (1, 1, 1, 1);
-            TextureThumb = None;
-            TextureThumbHover = None;
-            TextureTrack = None;
-            TextureTrackHover = None;
-            ThumbColor = #F5F5F5;
-            ThumbColorHover = white;
-            TrackColor = #F5F5F5;
-            TrackColorHover = white;
-        }
     }
 }
