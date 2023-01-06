@@ -7,10 +7,9 @@
 #include "Utility.hpp"
 
 MenuState::MenuState(StateStack& stack, Context context)
-    : State(stack, context), mSceneGraph(), mCommandQueue() {
+    : State(stack, context) {
     sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/menu-state.txt");
-
 
 #define menuLabel gui->get<tgui::Label>("menuLabel")
 #define playButton gui->get<tgui::Button>("playButton")
@@ -18,19 +17,8 @@ MenuState::MenuState(StateStack& stack, Context context)
 #define settingsButton gui->get<tgui::Button>("settingsButton")
 #define exitButton gui->get<tgui::Button>("exitButton")
 
-    std::unique_ptr<SoundNode> soundNode(new SoundNode(*getContext().sounds));
-    mSceneGraph.attachChild(std::move(soundNode));
-
     auto playButtonHoverSound = [&] {
-        Command command;
-        command.category = Category::SoundEffect;
-        command.action =
-            derivedAction<SoundNode>([&](SoundNode& node, sf::Time) {
-                node.playSound(SoundEffect::ButtonHover,
-                               {0.5 * Constants::SCREEN_WIDTH,
-                                0.5 * Constants::SCREEN_HEIGHT});
-            });
-        mCommandQueue.push(command);
+        getContext().sounds->play(SoundEffect::ButtonHover);
     };
 
     playButton->onMouseEnter(playButtonHoverSound);
@@ -41,6 +29,7 @@ MenuState::MenuState(StateStack& stack, Context context)
     alignCenter(menuLabel, window);
 
     playButton->onPress([&] {
+        getContext().sounds->play(SoundEffect::ButtonClick);
         requestStackPop();
         SettingsSingleton::getInstance().setIsLevelLoaded(false);
         SettingsSingleton::getInstance().setCurrentLevelNumber(1);
@@ -49,14 +38,24 @@ MenuState::MenuState(StateStack& stack, Context context)
     });
     alignCenter(playButton, window);
 
-    loadButton->onPress([&] { requestStackPush(States::LoadGame); });
+    loadButton->onPress([&] {
+        getContext().sounds->play(SoundEffect::ButtonClick);
+        requestStackPush(States::LoadGame);
+    });
 
     alignCenter(loadButton, window);
 
-    settingsButton->onPress([&] { requestStackPush(States::Settings); });
+    settingsButton->onPress([&] {
+        getContext().sounds->play(SoundEffect::ButtonClick);
+        requestStackPush(States::Settings);
+    });
+
     alignCenter(settingsButton, window);
 
-    exitButton->onPress([&] { requestStackPop(); });
+    exitButton->onPress([&] {
+        getContext().sounds->play(SoundEffect::ButtonClick);
+        requestStackPop();
+    });
     alignCenter(exitButton, window);
 
     context.music->play(Music::MenuTheme);
@@ -73,9 +72,6 @@ void MenuState::draw() {
 }
 
 bool MenuState::update(sf::Time dt) {
-    while (!mCommandQueue.isEmpty()) {
-        mSceneGraph.onCommand(mCommandQueue.pop(), dt);
-    }
     return true;
 }
 

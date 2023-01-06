@@ -17,8 +17,4 @@ class SettingsState : public State {
     virtual void draw() override;
     virtual bool update(sf::Time dt) override;
     virtual bool handleEvent(const sf::Event& event) override;
-
-   private:
-    SceneNode mSceneGraph;
-    CommandQueue mCommandQueue;
 };

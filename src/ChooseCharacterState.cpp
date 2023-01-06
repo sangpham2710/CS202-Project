@@ -5,7 +5,7 @@
 #include "Utility.hpp"
 
 ChooseCharacterState::ChooseCharacterState(StateStack& stack, Context context)
-    : State(stack, context), mSceneGraph(), mCommandQueue() {
+    : State(stack, context) {
     sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/choose-character-state.txt");
 
@@ -20,47 +20,44 @@ ChooseCharacterState::ChooseCharacterState(StateStack& stack, Context context)
     alignCenter(characterLabel, window);
     alignCenter(backButton, window);
 
-    std::unique_ptr<SoundNode> soundNode(new SoundNode(*getContext().sounds));
-    mSceneGraph.attachChild(std::move(soundNode));
-
     auto playButtonHoverSound = [&] {
-        Command command;
-        command.category = Category::SoundEffect;
-        command.action =
-            derivedAction<SoundNode>([&](SoundNode& node, sf::Time) {
-                node.playSound(SoundEffect::ButtonHover,
-                               {0.5 * Constants::SCREEN_WIDTH,
-                                0.5 * Constants::SCREEN_HEIGHT});
-            });
-        mCommandQueue.push(command);
+        getContext().sounds->play(SoundEffect::ButtonHover);
     };
 
     backButton->onMouseEnter(playButtonHoverSound);
 
 
-    backButton->onPress([&] { requestStackPop(); });
+    backButton->onPress([&] {
+        getContext().sounds->play(SoundEffect::ButtonClick);
+        requestStackPop();
+    });
 
     character1->onPress([&] {
+        getContext().sounds->play(SoundEffect::ButtonClick);
         requestStackPop();
         SettingsSingleton::getInstance().setCharacterType(0);
         requestStackPush(States::ChooseCharacter);
     });
     character2->onPress([&] {
+        getContext().sounds->play(SoundEffect::ButtonClick);
         requestStackPop();
         SettingsSingleton::getInstance().setCharacterType(1);
         requestStackPush(States::ChooseCharacter);
     });
     character3->onPress([&] {
+        getContext().sounds->play(SoundEffect::ButtonClick);
         requestStackPop();
         SettingsSingleton::getInstance().setCharacterType(2);
         requestStackPush(States::ChooseCharacter);
     });
     character4->onPress([&] {
+        getContext().sounds->play(SoundEffect::ButtonClick);
         requestStackPop();
         SettingsSingleton::getInstance().setCharacterType(3);
         requestStackPush(States::ChooseCharacter);
     });
     character5->onPress([&] {
+        getContext().sounds->play(SoundEffect::ButtonClick);
         requestStackPop();
         SettingsSingleton::getInstance().setCharacterType(4);
         requestStackPush(States::ChooseCharacter);
@@ -107,9 +104,6 @@ void ChooseCharacterState::draw() {
 }
 
 bool ChooseCharacterState::update(sf::Time dt) {
-    while (!mCommandQueue.isEmpty()) {
-        mSceneGraph.onCommand(mCommandQueue.pop(), dt);
-    }
     return true;
 }
 

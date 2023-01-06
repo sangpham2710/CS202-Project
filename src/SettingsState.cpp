@@ -6,7 +6,7 @@
 #include "Utility.hpp"
 
 SettingsState::SettingsState(StateStack& stack, Context context)
-    : State(stack, context), mSceneGraph(), mCommandQueue() {
+    : State(stack, context) {
     sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/settings-state.txt");
 
@@ -19,35 +19,29 @@ SettingsState::SettingsState(StateStack& stack, Context context)
 #define musicGroup gui->get<tgui::Group>("musicGroup")
 #define characterButton gui->get<tgui::Button>("characterButton")
 #define backButton gui->get<tgui::Button>("backButton")
-    
+
     alignCenter(settingsLabel, window);
     alignCenter(soundGroup, window);
     alignCenter(musicGroup, window);
     alignCenter(characterButton, window);
     alignCenter(backButton, window);
 
-    std::unique_ptr<SoundNode> soundNode(new SoundNode(*getContext().sounds));
-    mSceneGraph.attachChild(std::move(soundNode));
-
     auto playButtonHoverSound = [&] {
-        Command command;
-        command.category = Category::SoundEffect;
-        command.action =
-            derivedAction<SoundNode>([&](SoundNode& node, sf::Time) {
-                node.playSound(SoundEffect::ButtonHover,
-                               {0.5 * Constants::SCREEN_WIDTH,
-                                0.5 * Constants::SCREEN_HEIGHT});
-            });
-        mCommandQueue.push(command);
+        getContext().sounds->play(SoundEffect::ButtonHover);
     };
 
     characterButton->onMouseEnter(playButtonHoverSound);
     backButton->onMouseEnter(playButtonHoverSound);
 
-    characterButton->onPress(
-        [&] { requestStackPush(States::ChooseCharacter); });
+    characterButton->onPress([&] {
+        getContext().sounds->play(SoundEffect::ButtonHover);
+        requestStackPush(States::ChooseCharacter);
+    });
 
-    backButton->onPress([&] { requestStackPop(); });
+    backButton->onPress([&] {
+        getContext().sounds->play(SoundEffect::ButtonHover);
+        requestStackPop();
+    });
 
     soundSlider->setMinimum(0);
     soundSlider->setMaximum(100);
@@ -82,9 +76,6 @@ void SettingsState::draw() {
 }
 
 bool SettingsState::update(sf::Time dt) {
-    while (!mCommandQueue.isEmpty()) {
-        mSceneGraph.onCommand(mCommandQueue.pop(), dt);
-    }
     return true;
 }
 

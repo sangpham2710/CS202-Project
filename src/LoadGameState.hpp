@@ -9,14 +9,10 @@
 #include "State.hpp"
 
 class LoadGameState : public State {
-public:
+   public:
     LoadGameState(StateStack& stack, Context context);
 
     virtual void draw() override;
     virtual bool update(sf::Time dt) override;
     virtual bool handleEvent(const sf::Event& event) override;
-
-private:
-    SceneNode mSceneGraph;
-    CommandQueue mCommandQueue;
 };

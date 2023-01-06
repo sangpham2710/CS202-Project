@@ -6,7 +6,7 @@
 #include "Utility.hpp"
 
 PauseState::PauseState(StateStack& stack, Context context)
-    : State(stack, context), mSceneGraph(), mCommandQueue() {
+    : State(stack, context) {
     sf::RenderWindow& window = *getContext().window;
     gui->loadWidgetsFromFile("./assets/gui/pause-state.txt");
 
@@ -22,19 +22,8 @@ PauseState::PauseState(StateStack& stack, Context context)
     alignCenter(settingsButton, window);
     alignCenter(backToMenuButton, window);
 
-    std::unique_ptr<SoundNode> soundNode(new SoundNode(*getContext().sounds));
-    mSceneGraph.attachChild(std::move(soundNode));
-
     auto playButtonHoverSound = [&] {
-        Command command;
-        command.category = Category::SoundEffect;
-        command.action =
-            derivedAction<SoundNode>([&](SoundNode& node, sf::Time) {
-                node.playSound(SoundEffect::ButtonHover,
-                               {0.5 * Constants::SCREEN_WIDTH,
-                                0.5 * Constants::SCREEN_HEIGHT});
-            });
-        mCommandQueue.push(command);
+        getContext().sounds->play(SoundEffect::ButtonHover);
     };
 
     continueButton->onMouseEnter(playButtonHoverSound);
@@ -43,14 +32,22 @@ PauseState::PauseState(StateStack& stack, Context context)
     backToMenuButton->onMouseEnter(playButtonHoverSound);
 
 
-    continueButton->onPress([&] { requestStackPop(); });
+    continueButton->onPress([&] {
+        getContext().sounds->play(SoundEffect::ButtonClick);
+        requestStackPop();
+    });
     saveButton->onPress([&] {
+        getContext().sounds->play(SoundEffect::ButtonClick);
         SettingsSingleton::getInstance().setIsLevelSaving(true);
         requestStackPop();
     });
-    settingsButton->onPress([&] { requestStackPush(States::Settings); });
+    settingsButton->onPress([&] {
+        getContext().sounds->play(SoundEffect::ButtonClick);
+        requestStackPush(States::Settings);
+    });
 
     backToMenuButton->onPress([&] {
+        getContext().sounds->play(SoundEffect::ButtonClick);
         requestStateClear();
         requestStackPush(States::Menu);
     });
@@ -67,9 +64,6 @@ void PauseState::draw() {
 }
 
 bool PauseState::update(sf::Time dt) {
-    while (!mCommandQueue.isEmpty()) {
-        mSceneGraph.onCommand(mCommandQueue.pop(), dt);
-    }
     return false;
 }
 

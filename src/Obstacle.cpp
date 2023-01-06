@@ -1,5 +1,6 @@
 #include "Obstacle.hpp"
 
+#include "Constants.hpp"
 #include "DataTables.hpp"
 #include "ResourceHolder.hpp"
 #include "TexturesSingleton.hpp"
@@ -21,7 +22,12 @@ Obstacle::Obstacle(Type type, Direction direction) : mType(type) {
 }
 
 sf::FloatRect Obstacle::getBoundingRect() const {
-    return getWorldTransform().transformRect(mSprite.getGlobalBounds());
+    auto rect = getWorldTransform().transformRect(mSprite.getGlobalBounds());
+    rect.left += Constants::OBSTACLE_HITBOX_HEIGHT_OFFSET / 2;
+    rect.top += Constants::OBSTACLE_HITBOX_WIDTH_OFFSET / 2;
+    rect.width -= Constants::OBSTACLE_HITBOX_HEIGHT_OFFSET;
+    rect.height -= Constants::OBSTACLE_HITBOX_WIDTH_OFFSET;
+    return rect;
 }
 
 void Obstacle::setTextureWrecked() {

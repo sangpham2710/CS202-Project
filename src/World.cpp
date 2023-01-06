@@ -158,8 +158,7 @@ void World::buildScene() {
             SettingsSingleton::getInstance().getCurrentLevelNumber());
     }
 
-    std::unique_ptr<Character> character(
-        new Character());
+    std::unique_ptr<Character> character(new Character());
     character->setPosition(mSpawnPosition);
     mPlayerCharacter = character.get();
     mSceneLayers[CharacterLayer]->attachChild(std::move(character));
