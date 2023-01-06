@@ -17,9 +17,12 @@ MenuState::MenuState(StateStack& stack, Context context)
 #define loadButton gui->get<tgui::Button>("loadButton")
 #define settingsButton gui->get<tgui::Button>("settingsButton")
 #define exitButton gui->get<tgui::Button>("exitButton")
+#define menuPanel gui->get<tgui::Panel>("menuPanel")
 
     std::unique_ptr<SoundNode> soundNode(new SoundNode(*getContext().sounds));
     mSceneGraph.attachChild(std::move(soundNode));
+
+    alignCenter(menuPanel, window);
 
     auto playButtonHoverSound = [&] {
         Command command;

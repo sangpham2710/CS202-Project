@@ -7,8 +7,8 @@ Panel.Panel1 {
         TextureBackground = "./background/menu-state.png" Smooth;
     }
 
-    Panel.Panel2 {
-        Position = (380, 250);
+    Panel.menuPanel {
+        Position = (580, 250);
         Size = (250, 350);
 
         Renderer {
