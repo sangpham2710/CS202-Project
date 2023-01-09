@@ -26,7 +26,6 @@ ChooseCharacterState::ChooseCharacterState(StateStack& stack, Context context)
 
     backButton->onMouseEnter(playButtonHoverSound);
 
-
     backButton->onPress([&] {
         getContext().sounds->play(SoundEffect::ButtonClick);
         requestStackPop();
