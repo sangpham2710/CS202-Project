@@ -24,7 +24,7 @@ SoundPlayer::SoundPlayer()
     mSoundBuffers.load(SoundEffect::ButtonClick,
                        "./assets/sounds/button-click.wav");
     mSoundBuffers.load(SoundEffect::ButtonHover,
-                       "./assets/sounds/button-click.wav");
+                       "./assets/sounds/button-hover.wav");
 
     // Listener points towards the screen (default in SFML)
     sf::Listener::setDirection(0.f, 0.f, -1.f);

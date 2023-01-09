@@ -36,12 +36,12 @@ SettingsState::SettingsState(StateStack& stack, Context context)
     backButton->onMouseEnter(playButtonHoverSound);
 
     characterButton->onPress([&] {
-        getContext().sounds->play(SoundEffect::ButtonHover);
+        getContext().sounds->play(SoundEffect::ButtonClick);
         requestStackPush(States::ChooseCharacter);
     });
 
     backButton->onPress([&] {
-        getContext().sounds->play(SoundEffect::ButtonHover);
+        getContext().sounds->play(SoundEffect::ButtonClick);
         requestStackPop();
     });
 

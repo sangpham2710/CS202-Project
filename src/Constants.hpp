@@ -18,4 +18,5 @@ class Constants {
     static constexpr float RED_LIGHT_DURATION = 3;
     static constexpr float YELLOW_LIGHT_DURATION = 3;
     static constexpr float GREEN_LIGHT_DURATION = 7;
+    static constexpr float OBSTACLE_GAP = 32;
 };

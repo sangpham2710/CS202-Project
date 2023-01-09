@@ -183,7 +183,7 @@ void Lane::generateMovingObstacles(sf::Time dt) {
             float end = lastObstacle->getPosition().x +
                         lastObstacle->getBoundingRect().width;
 
-            if (end > Constants::SCREEN_WIDTH) return;
+            if (end + Constants::OBSTACLE_GAP > Constants::SCREEN_WIDTH) return;
         }
 
         obstacle->setPosition(Constants::SCREEN_WIDTH, mSprite.getPosition().y);
@@ -196,7 +196,7 @@ void Lane::generateMovingObstacles(sf::Time dt) {
 
         if (lastObstacle) {
             float start = lastObstacle->getPosition().x;
-            if (start < 0) return;
+            if (start - Constants::OBSTACLE_GAP < 0) return;
         }
 
         obstacle->setPosition(-obstacle->getBoundingRect().width,
